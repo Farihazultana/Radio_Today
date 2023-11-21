@@ -145,7 +145,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="serif"
         android:text="Forget Password?"
-        android:textColor="@color/orange"
+        android:textColor="@color/red"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/passwordInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
@@ -244,7 +244,7 @@
         android:layout_marginEnd="80dp"
         android:fontFamily="serif"
         android:text="Register"
-        android:textColor="#FFA393"
+        android:textColor="@color/red"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="@+id/btn_loginWithFB"
