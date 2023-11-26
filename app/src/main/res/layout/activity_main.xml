@@ -26,6 +26,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:itemIconSize="20dp"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
