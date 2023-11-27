@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract.Profile
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityMainBinding
 import com.example.radiotoday.ui.fragments.AudioFragment
 import com.example.radiotoday.ui.fragments.HomeFragment
 import com.example.radiotoday.ui.fragments.NewsFragment
 import com.example.radiotoday.ui.fragments.SettingsFragment
+import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +32,11 @@ class MainActivity : AppCompatActivity() {
                 else -> {}
             }
             true
+        }
+
+        binding.cvMiniPlayer.setOnClickListener {
+            val songsFragment = SongsFragment()
+            songsFragment.show(supportFragmentManager,songsFragment.tag)
         }
     }
 
