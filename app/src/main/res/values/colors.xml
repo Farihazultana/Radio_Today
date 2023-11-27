@@ -8,5 +8,5 @@
     <color name="red">#ff0000</color>
     <color name="green">#8BF18F</color>
     <color name="facebookBlue">#3a5ba2</color>
-    <color name="transparent">#661C1C28</color>
+    <color name="color_transparent">#661C1C28</color>
 </resources>

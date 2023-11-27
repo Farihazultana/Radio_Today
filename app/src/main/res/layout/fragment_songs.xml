@@ -12,18 +12,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/iv_playerDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_down"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/player_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_playerDown" />
 
 
         <SeekBar
@@ -33,13 +44,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_Title1"
+            app:layout_constraintBottom_toTopOf="@+id/tv_Song"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
-            android:id="@+id/tv_Title1"
+            android:id="@+id/tv_Song"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -50,13 +61,13 @@
             app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
         <TextView
-            android:id="@+id/tv_Title2"
+            android:id="@+id/tv_Singer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title 2"
-            app:layout_constraintEnd_toEndOf="@+id/tv_Title1"
-            app:layout_constraintStart_toStartOf="@+id/tv_Title1"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Title1" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_Song"
+            app:layout_constraintStart_toStartOf="@+id/tv_Song"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Song" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -66,9 +77,9 @@
             android:layout_marginEnd="8dp"
             android:orientation="horizontal"
             android:weightSum="3"
-            app:layout_constraintEnd_toEndOf="@+id/tv_Title2"
-            app:layout_constraintStart_toStartOf="@+id/tv_Title2"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Title2">
+            app:layout_constraintEnd_toEndOf="@+id/tv_Singer"
+            app:layout_constraintStart_toStartOf="@+id/tv_Singer"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Singer">
 
             <ImageView
                 android:id="@+id/iv_playPrev"

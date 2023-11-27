@@ -2,11 +2,12 @@ package com.example.radiotoday.ui.fragments
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.example.radiotoday.R
+import com.example.radiotoday.databinding.FragmentSongsBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -14,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SongsFragment : BottomSheetDialogFragment() {
 
+    lateinit var binding: FragmentSongsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,8 +25,29 @@ class SongsFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_songs, container, false)
+        binding = FragmentSongsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.viewTreeObserver.addOnPreDrawListener {
+            val parent = view.parent as View
+            val params = parent.layoutParams as CoordinatorLayout.LayoutParams
+            val behavior = params.behavior
+
+            if (behavior is BottomSheetBehavior<*>) {
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                behavior.skipCollapsed = true
+                behavior.isDraggable = false
+            }
+
+            true
+        }
+
+        binding.ivPlayerDown.setOnClickListener { dismiss() }
+
     }
 
     override fun onStart() {
@@ -34,10 +57,7 @@ class SongsFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return BottomSheetDialog(requireContext(), theme).apply {
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            behavior.peekHeight = ViewGroup.LayoutParams.MATCH_PARENT
-        }
+        return BottomSheetDialog(requireContext(), theme)
     }
 
 }
