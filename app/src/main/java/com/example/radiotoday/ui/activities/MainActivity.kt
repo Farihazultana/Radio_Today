@@ -3,6 +3,7 @@ package com.example.radiotoday.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract.Profile
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.radiotoday.R
@@ -24,11 +25,26 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(HomeFragment())
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.home -> replaceFragment(HomeFragment())
-                R.id.audio -> replaceFragment(AudioFragment())
-                R.id.video -> replaceFragment(VideoFragment())
-                R.id.news -> replaceFragment(NewsFragment())
-                R.id.settings -> replaceFragment(SettingsFragment())
+                R.id.home -> {
+                    binding.cvMiniPlayer.visibility = View.VISIBLE
+                    replaceFragment(HomeFragment())
+                }
+                R.id.audio -> {
+                    binding.cvMiniPlayer.visibility = View.VISIBLE
+                    replaceFragment(AudioFragment())
+                }
+                R.id.video -> {
+                    binding.cvMiniPlayer.visibility = View.VISIBLE
+                    replaceFragment(VideoFragment())
+                }
+                R.id.news -> {
+                    binding.cvMiniPlayer.visibility = View.VISIBLE
+                    replaceFragment(NewsFragment())
+                }
+                R.id.settings -> {
+                    binding.cvMiniPlayer.visibility = View.GONE
+                    replaceFragment(SettingsFragment())
+                }
                 else -> {}
             }
             true
