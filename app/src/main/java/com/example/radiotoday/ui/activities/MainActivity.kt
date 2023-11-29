@@ -14,7 +14,9 @@ import com.example.radiotoday.ui.fragments.NewsFragment
 import com.example.radiotoday.ui.fragments.SettingsFragment
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
