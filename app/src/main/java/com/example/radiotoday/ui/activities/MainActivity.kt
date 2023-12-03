@@ -28,23 +28,23 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home -> {
-                    binding.cvMiniPlayer.visibility = View.VISIBLE
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
                     replaceFragment(HomeFragment())
                 }
                 R.id.audio -> {
-                    binding.cvMiniPlayer.visibility = View.VISIBLE
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
                     replaceFragment(AudioFragment())
                 }
                 R.id.video -> {
-                    binding.cvMiniPlayer.visibility = View.VISIBLE
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
                     replaceFragment(VideoFragment())
                 }
                 R.id.news -> {
-                    binding.cvMiniPlayer.visibility = View.VISIBLE
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
                     replaceFragment(NewsFragment())
                 }
                 R.id.settings -> {
-                    binding.cvMiniPlayer.visibility = View.GONE
+                    binding.layoutMiniPlayer.visibility = View.GONE
                     replaceFragment(SettingsFragment())
                 }
                 else -> {}
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        binding.cvMiniPlayer.setOnClickListener {
+        binding.layoutMiniPlayer.setOnClickListener {
             val songsFragment = SongsFragment()
             songsFragment.show(supportFragmentManager,songsFragment.tag)
         }
