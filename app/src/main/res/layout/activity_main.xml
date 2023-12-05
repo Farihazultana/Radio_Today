@@ -9,6 +9,19 @@
     tools:context=".ui.activities.MainActivity">
 
 
+    <ImageView
+        android:id="@+id/iv_PlayerBG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/album_cover"
+        android:scaleType="fitXY"
+        android:alpha="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"

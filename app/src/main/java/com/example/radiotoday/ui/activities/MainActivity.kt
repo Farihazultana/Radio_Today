@@ -1,26 +1,30 @@
 package com.example.radiotoday.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract.Profile
 import android.util.Log
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.RequestOptions.bitmapTransform
+import com.bumptech.glide.request.target.Target
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityMainBinding
 import com.example.radiotoday.ui.fragments.AudioFragment
 import com.example.radiotoday.ui.fragments.HomeFragment
 import com.example.radiotoday.ui.fragments.NewsFragment
 import com.example.radiotoday.ui.fragments.SettingsFragment
-import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
+import com.example.radiotoday.utils.BitmapTransformation
+import com.example.radiotoday.utils.BlurTransformation
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private var currentState: Int = R.id.start
+    private var currentState: Int = com.example.radiotoday.R.id.start
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +96,13 @@ class MainActivity : AppCompatActivity() {
         binding.ivDown.setOnClickListener {
             binding.motionLayout.transitionToStart()
         }
+
+        Glide.with(this)
+            .load(R.drawable.album_cover)
+            .apply(bitmapTransform(BlurTransformation(25, 3)))
+            .placeholder(R.drawable.ic_launcher_background)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(binding.ivPlayerBG)
     }
 
     private fun replaceFragment(fragment : Fragment){
