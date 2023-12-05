@@ -9,5 +9,7 @@ import retrofit2.http.POST
 interface ApiServices {
     @FormUrlEncoded
     @POST("bangladhol_json_app_home.php")
-    suspend fun postHomeData(): Response<HomeResponse>
+    suspend fun postHomeData(
+        @Field("userId") userId: String,
+    ): Response<HomeResponse>
 }

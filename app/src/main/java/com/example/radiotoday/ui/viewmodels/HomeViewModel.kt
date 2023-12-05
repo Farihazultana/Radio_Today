@@ -18,10 +18,10 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     private val _homeData = MutableLiveData<ResultType<HomeResponse>>(ResultType.Loading)
     val homeData: LiveData<ResultType<HomeResponse>> = _homeData
 
-    fun fetchHomeData(){
+    fun fetchHomeData(userId: String){
         viewModelScope.launch {
             try {
-                val result = homeRepository.getHomeData()
+                val result = homeRepository.getHomeData(userId)
                 _homeData.value = result
             }catch (e: Exception){
                 _homeData.value = ResultType.Error(e)

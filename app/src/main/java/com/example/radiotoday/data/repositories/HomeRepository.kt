@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 class HomeRepository @Inject constructor(private val apiServices: ApiServices){
 
-    suspend fun getHomeData() : ResultType<HomeResponse>{
+    suspend fun getHomeData(userId: String) : ResultType<HomeResponse>{
         try {
-            val response = apiServices.postHomeData()
+            val response = apiServices.postHomeData(userId)
             if (response.isSuccessful){
                 val data = response.body()
                 if (data != null){
