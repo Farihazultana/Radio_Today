@@ -3,15 +3,20 @@ package com.example.radiotoday.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract.Profile
+import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityMainBinding
 import com.example.radiotoday.ui.fragments.AudioFragment
 import com.example.radiotoday.ui.fragments.HomeFragment
 import com.example.radiotoday.ui.fragments.NewsFragment
 import com.example.radiotoday.ui.fragments.SettingsFragment
+import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,14 +27,34 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(HomeFragment())
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.home -> replaceFragment(HomeFragment())
-                R.id.audio -> replaceFragment(AudioFragment())
-                R.id.video -> replaceFragment(VideoFragment())
-                R.id.news -> replaceFragment(NewsFragment())
-                R.id.settings -> replaceFragment(SettingsFragment())
+                R.id.home -> {
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
+                    replaceFragment(HomeFragment())
+                }
+                R.id.audio -> {
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
+                    replaceFragment(AudioFragment())
+                }
+                R.id.video -> {
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
+                    replaceFragment(VideoFragment())
+                }
+                R.id.news -> {
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
+                    replaceFragment(NewsFragment())
+                }
+                R.id.settings -> {
+                    binding.layoutMiniPlayer.visibility = View.GONE
+                    replaceFragment(SettingsFragment())
+                }
                 else -> {}
             }
             true
+        }
+
+        binding.layoutMiniPlayer.setOnClickListener {
+            val songsFragment = SongsFragment()
+            songsFragment.show(supportFragmentManager,songsFragment.tag)
         }
     }
 

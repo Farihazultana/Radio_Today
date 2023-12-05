@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/color_transparent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_playerPoster"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/player_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_RadioStationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:text="Radio Station Name"
+        android:textSize="12dp"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_timePlayedAgo"
+        app:layout_constraintEnd_toStartOf="@+id/iv_menuMore"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_timePlayedAgo"
+        app:layout_constraintTop_toTopOf="@+id/tv_timePlayedAgo" />
+
+    <TextView
+        android:id="@+id/tv_timePlayedAgo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:text="2 hours ago"
+        android:textSize="12dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_duration"
+        app:layout_constraintStart_toEndOf="@+id/tv_duration"
+        app:layout_constraintTop_toTopOf="@+id/tv_duration"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:text="239m"
+        android:textSize="12dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tagNew"
+        app:layout_constraintEnd_toStartOf="@+id/tv_timePlayedAgo"
+        app:layout_constraintStart_toEndOf="@+id/tv_tagNew"
+        app:layout_constraintTop_toTopOf="@+id/tv_tagNew" />
+
+    <TextView
+        android:id="@+id/tv_PlayingContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="1dp"
+        android:text="Song Name"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/tv_duration"
+        app:layout_constraintEnd_toStartOf="@+id/iv_menuMore"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_playerPoster"
+        app:layout_constraintTop_toTopOf="@+id/iv_playerPoster" />
+
+    <TextView
+        android:id="@+id/tv_tagNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New"
+        android:textSize="12dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_duration"
+        app:layout_constraintStart_toStartOf="@+id/tv_PlayingContent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_PlayingContent" />
+
+    <ImageView
+        android:id="@+id/iv_menuMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_playerPoster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_playerPoster"
+        app:layout_constraintTop_toTopOf="@+id/iv_playerPoster"
+        app:srcCompat="@drawable/ic_more_menu" />
+</androidx.constraintlayout.widget.ConstraintLayout>
