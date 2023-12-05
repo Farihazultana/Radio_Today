@@ -91,7 +91,7 @@
         android:id="@+id/main_container"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:background="#10000000"
+        android:background="@color/color_transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -255,10 +255,19 @@
         android:layout_marginEnd="8dp"
         android:alpha="1"
         android:orientation="horizontal"
-        android:weightSum="3"
+        android:weightSum="5"
+        android:elevation="5dp"
         app:layout_constraintEnd_toEndOf="@+id/tv_Singer"
         app:layout_constraintStart_toStartOf="@+id/tv_Singer"
         app:layout_constraintTop_toBottomOf="@+id/seekBar">
+
+        <ImageView
+            android:id="@+id/iv_shuffle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_shuffle" />
 
         <ImageView
             android:id="@+id/iv_playPrev"
@@ -274,6 +283,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:elevation="12dp"
             android:src="@drawable/ic_play" />
 
         <ImageView
@@ -283,6 +293,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:src="@drawable/ic_pause"
+            android:elevation="12dp"
             android:visibility="gone" />
 
         <ImageView
@@ -292,6 +303,14 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:src="@drawable/ic_next" />
+
+        <ImageView
+            android:id="@+id/iv_loop"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_loop" />
 
     </LinearLayout>
 
