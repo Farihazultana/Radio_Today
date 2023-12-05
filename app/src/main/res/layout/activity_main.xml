@@ -79,7 +79,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_container"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="350dp"
         android:background="#10000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -162,7 +162,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="1"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/seekBar"
         app:layout_constraintStart_toStartOf="@+id/seekBar"
         android:text="0:00"/>
@@ -174,7 +174,7 @@
         android:layout_marginEnd="16dp"
         android:alpha="1"
         android:text="0:00"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/seekBar_Start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -189,7 +189,7 @@
         android:alpha="1"
         android:text="Title 1"
         android:textSize="32sp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/main_container"
         app:layout_constraintTop_toBottomOf="@+id/main_container" />
 
@@ -199,7 +199,7 @@
         android:layout_height="wrap_content"
         android:alpha="1"
         android:text="Title 2"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/tv_Song"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_Song"
@@ -287,10 +287,10 @@
     <View
         android:id="@+id/view_lower"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:background="@drawable/gradient_bg"
         android:alpha="1"
-        app:layout_constraintTop_toBottomOf="@+id/iv_MainImageView"
+        app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

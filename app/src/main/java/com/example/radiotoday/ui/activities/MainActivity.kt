@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.RequestOptions.bitmapTransform
@@ -103,6 +104,12 @@ class MainActivity : AppCompatActivity() {
             .placeholder(R.drawable.ic_launcher_background)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.ivPlayerBG)
+
+        Glide.with(this)
+            .load(R.drawable.album_cover)
+            .placeholder(R.drawable.ic_launcher_background)
+            .transform(RoundedCorners(16))
+            .into(binding.ivMainImageView)
     }
 
     private fun replaceFragment(fragment : Fragment){
