@@ -1,16 +1,20 @@
 package com.example.radiotoday.ui.adapters
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.audio.Content
 
-class AudioPlaylistAdapter(private val cardClickListener : CardClickListener):
+class AudioPlaylistAdapter(private val context: Context, private val cardClickListener : CardClickListener):
     RecyclerView.Adapter<AudioPlaylistAdapter.AudioPlaylistViewHolder>() {
 
     var audioPlaylistData : ArrayList<Content> = ArrayList()
@@ -44,6 +48,11 @@ class AudioPlaylistAdapter(private val cardClickListener : CardClickListener):
         val playlistItem = audioPlaylistData[position]
         Log.i("TAG", "onBindViewHolder: $playlistItem")
 
+        Glide.with(context)
+            .load(playlistItem.image_location)
+            .placeholder(R.drawable.player_logo)
+            .error(R.drawable.no_img)
+            .into(holder.posterImage)
         holder.title.text = playlistItem.albumname
         holder.duration.text = playlistItem.duration
         holder.stationName.text = playlistItem.artistname

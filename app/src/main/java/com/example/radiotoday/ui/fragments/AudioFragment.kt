@@ -40,7 +40,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         binding = FragmentAudioBinding.inflate(layoutInflater,container,false)
 
 
-        audioAdapter = AudioPlaylistAdapter(this)
+        audioAdapter = AudioPlaylistAdapter(requireContext(), this)
         binding.rvPlaylist.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvPlaylist.adapter = audioAdapter
 
@@ -85,6 +85,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
 
         if (position >= 0 && position < audioAdapter.itemCount) {
             val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         } else {
             Log.e("AudioFragment", "Invalid position: $position")
