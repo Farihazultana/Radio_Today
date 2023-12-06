@@ -1,36 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/activity_main_scene"
-    android:id="@+id/motionLayout"
     tools:context=".ui.activities.MainActivity">
 
 
-    <ImageView
-        android:id="@+id/iv_PlayerBG"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/album_cover"
-        android:scaleType="fitXY"
-        android:alpha="1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <View
-        android:id="@+id/view_lower"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient_bg"
-        android:alpha="1"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 
     <FrameLayout
@@ -46,7 +23,7 @@
 
     </FrameLayout>
 
-    <!--<androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_MiniPlayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,14 +39,13 @@
             layout="@layout/mini_player_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </androidx.constraintlayout.widget.ConstraintLayout>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:alpha="0"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,240 +57,14 @@
         android:id="@+id/rvHor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/layout_MiniPlayer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout_play" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_container"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@color/color_transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/iv_MainImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/album_cover"
-        app:layout_constraintBottom_toBottomOf="@+id/main_container"
-        app:layout_constraintEnd_toEndOf="@id/main_container"
-        app:layout_constraintStart_toStartOf="@+id/main_container"
-        app:layout_constraintTop_toTopOf="@+id/main_container" />
-
-    <ImageView
-        android:id="@+id/iv_Close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:alpha="0"
-        app:layout_constraintBottom_toBottomOf="@+id/main_container"
-        app:layout_constraintEnd_toEndOf="@+id/main_container"
-        app:layout_constraintTop_toTopOf="@+id/main_container"
-        app:srcCompat="@android:drawable/ic_delete" />
-
-    <ImageView
-        android:id="@+id/iv_Play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        android:src="@drawable/ic_play"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_Close"
-        app:layout_constraintEnd_toStartOf="@+id/iv_Close"
-        app:layout_constraintTop_toTopOf="@+id/iv_Close" />
-
-    <ImageView
-        android:id="@+id/iv_Down"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:alpha="1"
-        android:src="@drawable/ic_down"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_Close"
-        app:layout_constraintEnd_toStartOf="@+id/iv_Close"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/main_container"
-        app:layout_constraintTop_toTopOf="@+id/main_container"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_Title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="12dp"
-        android:alpha="0"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="Textview"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_Play"
-        app:layout_constraintEnd_toStartOf="@+id/iv_Play"
-        app:layout_constraintStart_toEndOf="@+id/iv_MainImageView"
-        app:layout_constraintTop_toTopOf="@+id/iv_Play" />
-
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:alpha="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Singer"/>
-
-    <TextView
-        android:id="@+id/seekBar_Start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="1"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
-        app:layout_constraintStart_toStartOf="@+id/seekBar"
-        android:text="0:00"/>
-
-    <TextView
-        android:id="@+id/seekbar_End"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:alpha="1"
-        android:text="0:00"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar_Start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/seekBar_Start"
-        app:layout_constraintTop_toTopOf="@+id/seekBar_Start" />
-
-    <TextView
-        android:id="@+id/tv_Song"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:alpha="1"
-        android:text="Title 1"
-        android:textSize="32sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/main_container"
-        app:layout_constraintTop_toBottomOf="@+id/main_container" />
-
-    <TextView
-        android:id="@+id/tv_Singer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="1"
-        android:text="Title 2"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/tv_Song"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_Song"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Song" />
-
-
-    <ImageView
-        android:id="@+id/iv_Favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:alpha="1"
-        android:src="@drawable/ic_favorite"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_Song"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_Song"
-        app:layout_constraintTop_toTopOf="@+id/tv_Song" />
-
-    <ImageView
-        android:id="@+id/iv_NonFavorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:alpha="1"
-        android:src="@drawable/ic_non_favorite"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_Song"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_Song"
-        app:layout_constraintTop_toTopOf="@+id/tv_Song" />
+        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
 
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout_play"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:alpha="1"
-        android:orientation="horizontal"
-        android:weightSum="5"
-        android:elevation="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_Singer"
-        app:layout_constraintStart_toStartOf="@+id/tv_Singer"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar">
-
-        <ImageView
-            android:id="@+id/iv_shuffle"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:src="@drawable/ic_shuffle" />
-
-        <ImageView
-            android:id="@+id/iv_playPrev"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:src="@drawable/ic_previous" />
-
-        <ImageView
-            android:id="@+id/iv_play"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:elevation="12dp"
-            android:src="@drawable/ic_play" />
-
-        <ImageView
-            android:id="@+id/iv_pause"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:src="@drawable/ic_pause"
-            android:elevation="12dp"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/iv_playNext"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:src="@drawable/ic_next" />
-
-        <ImageView
-            android:id="@+id/iv_loop"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:src="@drawable/ic_loop" />
-
-    </LinearLayout>
 
 
-
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
