@@ -2,6 +2,7 @@ package com.example.radiotoday.ui.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
@@ -37,23 +38,23 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home -> {
-                    //binding.layoutMiniPlayer.visibility = View.VISIBLE
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
                     replaceFragment(HomeFragment())
                 }
                 R.id.audio -> {
-                    //binding.layoutMiniPlayer.visibility = View.VISIBLE
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
                     replaceFragment(AudioFragment())
                 }
                 R.id.video -> {
-                    //binding.layoutMiniPlayer.visibility = View.VISIBLE
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
                     replaceFragment(VideoFragment())
                 }
                 R.id.news -> {
-                    //binding.layoutMiniPlayer.visibility = View.VISIBLE
+                    binding.layoutMiniPlayer.visibility = View.VISIBLE
                     replaceFragment(NewsFragment())
                 }
                 R.id.settings -> {
-                    //binding.layoutMiniPlayer.visibility = View.GONE
+                    binding.layoutMiniPlayer.visibility = View.GONE
                     replaceFragment(SettingsFragment())
                 }
                 else -> {}
