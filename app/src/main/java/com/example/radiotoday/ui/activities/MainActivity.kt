@@ -17,6 +17,7 @@ import com.example.radiotoday.ui.fragments.AudioFragment
 import com.example.radiotoday.ui.fragments.HomeFragment
 import com.example.radiotoday.ui.fragments.NewsFragment
 import com.example.radiotoday.ui.fragments.SettingsFragment
+import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
 import com.example.radiotoday.utils.BitmapTransformation
 import com.example.radiotoday.utils.BlurTransformation
@@ -60,12 +61,12 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        /*binding.layoutMiniPlayer.setOnClickListener {
+        binding.layoutMiniPlayer.setOnClickListener {
             val songsFragment = SongsFragment()
             songsFragment.show(supportFragmentManager,songsFragment.tag)
-        }*/
+        }
 
-        binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
+        /*binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(motionLayout: MotionLayout, i: Int, i1: Int) {
                 Log.i("MotionLayout", "Started: $i")
                 currentState = motionLayout.currentState
@@ -109,7 +110,7 @@ class MainActivity : AppCompatActivity() {
             .load(R.drawable.album_cover)
             .placeholder(R.drawable.ic_launcher_background)
             .transform(RoundedCorners(16))
-            .into(binding.ivMainImageView)
+            .into(binding.ivMainImageView)*/
     }
 
     private fun replaceFragment(fragment : Fragment){
@@ -122,14 +123,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
+    /*override fun onBackPressed() {
 
-        if (currentState == R.id.end){
+        *//*if (currentState == R.id.end){
             binding.motionLayout.transitionToStart()
         } else {
             super.onBackPressed()
-        }
+        }*//*
 
 
-    }
+    }*/
 }

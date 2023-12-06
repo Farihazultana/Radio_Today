@@ -274,20 +274,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             motion:layout_constraintTop_toBottomOf="@+id/tv_Singer"
             android:alpha="0"
             motion:layout_constraintStart_toStartOf="@+id/tv_Singer"
             android:layout_marginTop="64dp" />
-        <Constraint
-            android:id="@+id/linearLayout_play"
-            motion:layout_constraintEnd_toEndOf="@+id/tv_Singer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            motion:layout_constraintTop_toBottomOf="@+id/tv_Singer"
-            android:alpha="0"
-            motion:layout_constraintStart_toStartOf="@+id/tv_Singer"
-            android:layout_marginTop="32dp" />
+
         <Constraint
             android:id="@+id/frameLayout"
             motion:layout_constraintEnd_toEndOf="parent"
