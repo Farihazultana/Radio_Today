@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.audio.PlaylistContent
 import com.example.radiotoday.data.models.home.Content
 
 class ChildHomeAdapter (private var contentViewType: String, private var contentData: List<Content>) :

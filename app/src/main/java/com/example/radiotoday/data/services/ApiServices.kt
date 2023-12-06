@@ -1,5 +1,6 @@
 package com.example.radiotoday.data.services
 
+import com.example.radiotoday.data.models.audio.AudioResponse
 import com.example.radiotoday.data.models.home.HomeResponse
 import retrofit2.Response
 import retrofit2.http.Field
@@ -12,4 +13,10 @@ interface ApiServices {
     suspend fun postHomeData(
         @Field("userId") userId: String,
     ): Response<HomeResponse>
+
+    @FormUrlEncoded
+    @POST("bangladhol_json_app.php")
+    suspend fun postAudioPlaylistData(
+        @Field("userId") userId: String
+    ): Response<AudioResponse>
 }

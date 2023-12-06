@@ -8,21 +8,56 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radiotoday.R
+import com.example.radiotoday.databinding.FragmentAudioBinding
+import com.example.radiotoday.ui.adapters.AudioPlaylistAdapter
+import com.example.radiotoday.ui.viewmodels.AudioViewModel
+import com.example.radiotoday.utils.ResultType
+import dagger.hilt.android.AndroidEntryPoint
 
-class AudioFragment : Fragment() {
+@AndroidEntryPoint
+class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
+    private lateinit var binding: FragmentAudioBinding
+    private lateinit var audioAdapter: AudioPlaylistAdapter
+    private val audioViewModel by viewModels<AudioViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_audio, container, false)
+        binding = FragmentAudioBinding.inflate(layoutInflater,container,false)
+
+
+        audioAdapter = AudioPlaylistAdapter(this)
+        binding.rvPlaylist.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvPlaylist.adapter = audioAdapter
+
+        audioViewModel.fetchAudioPlaylistData("")
+        audioViewModel.audioPlaylistData.observe(requireActivity()){
+            when(it){
+                is ResultType.Loading -> {
+
+                }
+                is ResultType.Success -> {
+                    val playlistData = it.data
+                    audioAdapter.audioPlaylistData = playlistData.contents
+                    audioAdapter.notifyDataSetChanged()
+                }
+
+                else -> {}
+            }
+        }
+
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -40,6 +75,10 @@ class AudioFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCardClickListener(position: Int) {
+
     }
 
 }
