@@ -1,6 +1,8 @@
 package com.example.radiotoday.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.FragmentAudioBinding
+import com.example.radiotoday.ui.activities.LoginActivity
 import com.example.radiotoday.ui.adapters.AudioPlaylistAdapter
 import com.example.radiotoday.ui.viewmodels.AudioViewModel
 import com.example.radiotoday.utils.ResultType
@@ -78,7 +81,16 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
     }
 
     override fun onCardClickListener(position: Int) {
+        Log.d("AudioFragment", "Clicked on position: $position")
 
+        if (position >= 0 && position < audioAdapter.itemCount) {
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent)
+        } else {
+            Log.e("AudioFragment", "Invalid position: $position")
+        }
+
+        audioAdapter.notifyDataSetChanged()
     }
 
 }

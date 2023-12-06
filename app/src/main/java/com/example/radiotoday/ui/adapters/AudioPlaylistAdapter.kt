@@ -28,7 +28,13 @@ class AudioPlaylistAdapter(private val cardClickListener : CardClickListener):
     ): AudioPlaylistAdapter.AudioPlaylistViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_playlist, parent, false)
 
-        return AudioPlaylistViewHolder(itemView)
+        val viewHolder = AudioPlaylistViewHolder(itemView)
+
+        itemView.setOnClickListener {
+            cardClickListener.onCardClickListener(viewHolder.adapterPosition)
+        }
+
+        return viewHolder
     }
 
     override fun onBindViewHolder(
