@@ -80,7 +80,7 @@ class ChildHomeAdapter (private var contentViewType: String, private var content
 
             holder.image?.let {
                 Glide.with(it.context).load(currentItem.image_location)
-                    .placeholder(R.drawable.ic_launcher_background).into(holder.image)
+                    .placeholder(R.drawable.no_img).into(holder.image)
             }
         }
     }
