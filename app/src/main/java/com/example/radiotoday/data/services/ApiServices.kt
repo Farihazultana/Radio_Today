@@ -2,6 +2,7 @@ package com.example.radiotoday.data.services
 
 import com.example.radiotoday.data.models.audio.AudioResponse
 import com.example.radiotoday.data.models.home.HomeResponse
+import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -19,4 +20,12 @@ interface ApiServices {
     suspend fun postAudioPlaylistData(
         @Field("userId") userId: String
     ): Response<AudioResponse>
+
+    @FormUrlEncoded
+    @POST("bangladhol_json_album.php")
+    suspend fun postSeeAllData(
+        @Field("ct") ct: String,
+        @Field("type") type: String,
+        @Field("page") page: String,
+    ): Response<SeeAllResponse>
 }

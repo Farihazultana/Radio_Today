@@ -20,7 +20,7 @@ class ChildHomeAdapter (private var contentViewType: String, private var content
         val image:ImageView? = itemView.findViewById(R.id.iv_ChildContent)
         val title: TextView? = itemView.findViewById(R.id.title_textView)
         val premiumTag : TextView? = itemView.findViewById(R.id.premiumTextView)
-        val descriptionText: TextView? = itemView.findViewById(R.id.descriptionTextView)
+        val descriptionText: TextView? = itemView.findViewById(R.id.tvDescription)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)

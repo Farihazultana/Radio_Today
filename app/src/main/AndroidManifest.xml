@@ -16,9 +16,13 @@
         android:theme="@style/Theme.RadioToday"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.SeeAllActivity"
+            android:exported="false"
+            android:screenOrientation="sensorPortrait"/>
+        <activity
             android:name=".ui.activities.SplashActivity"
             android:exported="true"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,8 +36,7 @@
         <activity
             android:name=".ui.activities.LoginActivity"
             android:exported="true"
-            android:screenOrientation="sensorPortrait">
-        </activity>
+            android:screenOrientation="sensorPortrait"></activity>
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="false"

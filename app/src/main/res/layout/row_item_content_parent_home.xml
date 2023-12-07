@@ -25,6 +25,7 @@
         android:fontFamily="sans-serif"
         android:text="See All"
         android:textSize="10sp"
+        android:textColor="@color/dark_red"
         app:layout_constraintBottom_toTopOf="@+id/rvHorizontal_Home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
