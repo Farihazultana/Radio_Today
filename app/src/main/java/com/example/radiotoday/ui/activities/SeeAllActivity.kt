@@ -2,6 +2,7 @@ package com.example.radiotoday.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,6 +35,9 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         binding = ActivitySeeAllBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolBarBackIconSubscribe.setOnClickListener {
+            onBackPressed()
+        }
 
         catName = intent.getStringExtra("catname").toString()
         contentType = intent.getStringExtra("contenttype").toString()
@@ -79,10 +83,11 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         seeAllViewModel.seeAllData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-
+                    binding.pbSeeAll.visibility = View.VISIBLE
                 }
 
                 is ResultType.Success -> {
+                    binding.pbSeeAll.visibility = View.GONE
                     val playlistData = it.data
 
                     if(currentPage == 1){
