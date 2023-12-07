@@ -3,6 +3,7 @@ package com.example.radiotoday.data.services
 import com.example.radiotoday.data.models.audio.AudioResponse
 import com.example.radiotoday.data.models.home.HomeResponse
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
+import com.example.radiotoday.data.models.seeMore.SeeMoreResponse
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -28,4 +29,10 @@ interface ApiServices {
         @Field("type") type: String,
         @Field("page") page: String,
     ): Response<SeeAllResponse>
+
+    @FormUrlEncoded
+    @POST("bangladhol_json_album_single.php")
+    suspend fun postSeeMoreData(
+        @Field("albumcode") albumcode: String,
+    ): Response<SeeMoreResponse>
 }

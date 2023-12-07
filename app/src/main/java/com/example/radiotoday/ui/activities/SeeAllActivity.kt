@@ -1,7 +1,9 @@
 package com.example.radiotoday.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -15,6 +17,7 @@ import com.example.radiotoday.ui.adapters.AudioPlaylistAdapter
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
 import com.example.radiotoday.ui.viewmodels.SeeAllViewModel
 import com.example.radiotoday.utils.ResultType
+import com.example.radiotoday.utils.SharedPreferencesUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +33,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
     private var isLoading = false
     private var isLastpage = false
     private var currentPage = 1
+    lateinit var albumCode: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySeeAllBinding.inflate(layoutInflater)
@@ -93,6 +97,11 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
                     if(currentPage == 1){
                         if (contentType == "2") {
                             seeAllAdapter.seeAllPlaylistData = playlistData.contents
+                            for (i in playlistData.contents){
+                                albumCode = i.albumcode
+                                SharedPreferencesUtil.saveData(this,"ALBUM_CODE",albumCode)
+                            }
+
                         } else {
                             Toast.makeText(this, "Coming Soon!", Toast.LENGTH_SHORT).show()
                         }
@@ -117,6 +126,16 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
     }
 
     override fun onItemClickListener(position: Int) {
+
+        if (position >= 0 && position < seeAllAdapter.itemCount) {
+            val intent = Intent(this, SeeMoreActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        } else {
+            Log.e("AudioFragment", "Invalid position: $position")
+        }
+
+        seeAllAdapter.notifyDataSetChanged()
 
     }
 }
