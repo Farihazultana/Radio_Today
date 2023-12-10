@@ -1,5 +1,6 @@
 package com.example.radiotoday.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radiotoday.data.models.home.Content
 import com.example.radiotoday.databinding.FragmentHomeBinding
+import com.example.radiotoday.ui.activities.SeeMoreActivity
 import com.example.radiotoday.ui.adapters.ParentHomeAdapter
 import com.example.radiotoday.ui.viewmodels.HomeViewModel
 import com.example.radiotoday.utils.ResultType
@@ -56,7 +58,10 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
     }
 
     override fun onItemClickListener(position: Int, currentItem: Content) {
-        Toast.makeText(requireActivity(), currentItem.catname, Toast.LENGTH_SHORT).show()
+        val intent = Intent(activity, SeeMoreActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.putExtra("ALBUM_CODE", currentItem.albumcode)
+        startActivity(intent)
     }
 
 }
