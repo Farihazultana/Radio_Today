@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/dark_red"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_red"
     tools:context=".ui.activities.SeeMoreActivity">
 
     <ImageView
@@ -65,43 +64,47 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnPlay"
-        android:layout_width="wrap_content"
+        android:layout_width="182dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/border_bg"
         android:drawableStart="@drawable/ic_play"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
+        android:paddingStart="16dp"
         android:text=" Play Playlist"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/btnShuffle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnShuffle"
+        app:layout_constraintEnd_toStartOf="@+id/btnShuffle"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnShuffle" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnShuffle"
-        android:layout_width="wrap_content"
+        android:layout_width="182dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/border_bg"
         android:drawableStart="@drawable/ic_shuffle"
-        android:paddingStart="30dp"
+        android:paddingStart="16dp"
         android:paddingEnd="30dp"
         android:text=" Shuffle"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/tvSubTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnPlay"
         app:layout_constraintTop_toBottomOf="@+id/tvSubTitle" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_Playlist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        tools:listitem="@layout/item_playlist"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

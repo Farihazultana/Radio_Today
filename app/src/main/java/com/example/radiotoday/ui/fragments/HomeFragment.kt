@@ -1,6 +1,7 @@
 package com.example.radiotoday.ui.fragments
 
 import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,10 +29,11 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
 
         parentHomeAdapter = ParentHomeAdapter(requireContext(), this)
@@ -47,7 +49,7 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
                 is ResultType.Success -> {
                     val homeData = it.data
                     parentHomeAdapter.homeData = homeData
-                    parentHomeAdapter.notifyDataSetChanged()
+                    this.parentHomeAdapter.notifyDataSetChanged()
                 }
 
                 else -> {}
