@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.radiotoday.R
+import com.example.radiotoday.data.models.home.Content
 import com.example.radiotoday.data.models.home.HomeResponseItem
 import com.example.radiotoday.ui.activities.SeeAllActivity
 
-class ParentHomeAdapter(private val listener: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ParentHomeAdapter(private val context: Context, private val listener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildHomeAdapter.ItemClickListener{
 
     var homeData : List<HomeResponseItem> = ArrayList()
+
 
     private val TYPE_BANNER = 0
     private val TYPE_CONTENT = 1
@@ -76,7 +78,7 @@ class ParentHomeAdapter(private val listener: Context) : RecyclerView.Adapter<Re
             }
             is ContentViewHolder -> {
                 holder.rvHor.visibility = View.VISIBLE
-                holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contents, )
+                holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contents, this)
                 holder.rvHor.layoutManager = LinearLayoutManager(holder.rvHor.context,
                     LinearLayoutManager.HORIZONTAL,false)
                 holder.title.text = currentItem.catname
@@ -102,5 +104,14 @@ class ParentHomeAdapter(private val listener: Context) : RecyclerView.Adapter<Re
 
             }
         }
+    }
+
+    override fun onItemClickListener(position: Int, currentItem: Content) {
+        listener.onItemClickListener(position, currentItem)
+    }
+
+    interface ItemClickListener {
+        fun onItemClickListener(position: Int, currentItem: Content)
+
     }
 }

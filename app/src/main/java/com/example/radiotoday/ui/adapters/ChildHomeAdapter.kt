@@ -13,7 +13,7 @@ import com.example.radiotoday.data.models.home.Content
 class ChildHomeAdapter(
     private var contentViewType: String,
     private var contentData: List<Content>,
-    private val listener: ItemClickListener,
+    private val listener: ItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

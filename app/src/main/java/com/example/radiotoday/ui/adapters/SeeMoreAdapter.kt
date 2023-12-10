@@ -31,9 +31,6 @@ class SeeMoreAdapter(private val context: Context, private val cardClickListener
 
         val viewHolder = SeeMorePlaylistViewHolder(itemView)
 
-        itemView.setOnClickListener {
-            cardClickListener.onCardClickListener(viewHolder.adapterPosition)
-        }
 
         return viewHolder
     }
@@ -50,6 +47,11 @@ class SeeMoreAdapter(private val context: Context, private val cardClickListener
         holder.duration.text = playlistItem.release
         holder.stationName.text = playlistItem.artistname
         holder.playedAgoTime.text = "0.00"
+
+        holder.itemView.setOnClickListener {
+            cardClickListener.onCardClickListener(position, playlistItem)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -57,6 +59,6 @@ class SeeMoreAdapter(private val context: Context, private val cardClickListener
     }
 
     interface CardClickListener {
-        fun onCardClickListener(position: Int)
+        fun onCardClickListener(position: Int, playlistItem: Similarartist)
     }
 }
