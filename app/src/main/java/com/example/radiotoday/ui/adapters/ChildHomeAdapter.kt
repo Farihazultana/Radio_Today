@@ -10,7 +10,11 @@ import com.bumptech.glide.Glide
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.home.Content
 
-class ChildHomeAdapter (private var contentViewType: String, private var contentData: List<Content>) :
+class ChildHomeAdapter(
+    private var contentViewType: String,
+    private var contentData: List<Content>,
+    private val listener: ItemClickListener,
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val TYPE_CONTENT = 1
@@ -81,7 +85,16 @@ class ChildHomeAdapter (private var contentViewType: String, private var content
                 Glide.with(it.context).load(currentItem.image_location)
                     .placeholder(R.drawable.no_img).into(holder.image)
             }
+
+            holder.itemView.setOnClickListener {
+                listener.onItemClickListener(position, currentItem)
+            }
         }
+    }
+
+    interface ItemClickListener {
+        fun onItemClickListener(position: Int, currentItem: Content)
+
     }
 
 }

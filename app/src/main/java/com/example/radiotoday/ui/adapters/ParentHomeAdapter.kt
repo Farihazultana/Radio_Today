@@ -1,5 +1,6 @@
 package com.example.radiotoday.ui.adapters
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ import com.example.radiotoday.R
 import com.example.radiotoday.data.models.home.HomeResponseItem
 import com.example.radiotoday.ui.activities.SeeAllActivity
 
-class ParentHomeAdapter () : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ParentHomeAdapter(private val listener: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     var homeData : List<HomeResponseItem> = ArrayList()
 
@@ -75,7 +76,7 @@ class ParentHomeAdapter () : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             }
             is ContentViewHolder -> {
                 holder.rvHor.visibility = View.VISIBLE
-                holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contents)
+                holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contents, )
                 holder.rvHor.layoutManager = LinearLayoutManager(holder.rvHor.context,
                     LinearLayoutManager.HORIZONTAL,false)
                 holder.title.text = currentItem.catname
