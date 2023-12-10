@@ -8,17 +8,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.radiotoday.R
 import com.example.radiotoday.data.models.seeAll.Content
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
-import com.example.radiotoday.ui.adapters.AudioPlaylistAdapter
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
 import com.example.radiotoday.ui.viewmodels.SeeAllViewModel
 import com.example.radiotoday.utils.ResultType
-import com.example.radiotoday.utils.SharedPreferencesUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -126,19 +122,12 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         }
     }
 
-    override fun onItemClickListener(position: Int) {
+    override fun onItemClickListener(position: Int, playlistItem: Content) {
 
-        if (position >= 0 && position < playlistData.contents.size) {
-            val intent = Intent(this, SeeMoreActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            val albumCode = playlistData.contents[position].albumcode
-            intent.putExtra("ALBUM_CODE", albumCode)
-            startActivity(intent)
-        } else {
-            Log.e("SeeAllActivity", "Invalid position: $position")
-        }
-
-        seeAllAdapter.notifyDataSetChanged()
+        val intent = Intent(this, SeeMoreActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.putExtra("ALBUM_CODE", playlistItem.albumcode)
+        startActivity(intent)
 
     }
 }

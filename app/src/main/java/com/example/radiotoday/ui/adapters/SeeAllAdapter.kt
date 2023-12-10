@@ -26,10 +26,6 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
 
         val viewHolder = SeeAllViewHolder(itemView)
 
-        itemView.setOnClickListener {
-            listener.onItemClickListener(viewHolder.adapterPosition)
-        }
-
         return viewHolder
     }
 
@@ -44,6 +40,10 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
 
         holder.title.text = playlistItem.albumname
         holder.description.text = playlistItem.artistname
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClickListener(position, playlistItem)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -51,7 +51,7 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
     }
 
     interface ItemClickListener {
-        fun onItemClickListener(position: Int)
+        fun onItemClickListener(position: Int, playlistItem: Content)
 
     }
 }

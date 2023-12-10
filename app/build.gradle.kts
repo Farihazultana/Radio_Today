@@ -75,6 +75,13 @@ dependencies {
 
     //Glide
     implementation ("com.github.bumptech.glide:glide:4.15.1")
+
+    // exo player
+    implementation ("com.google.android.exoplayer:exoplayer:2.16.0")
+    //implementation ("com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14")
+    //implementation ("com.google.android.exoplayer:extension-mediasession:2.16.0")
+    //implementation ("com.google.android.exoplayer:extension-cronet:2.16.0")
+    //implementation ("com.google.android.exoplayer:extension-ima:2.16.0")
 }
 
 kapt {
