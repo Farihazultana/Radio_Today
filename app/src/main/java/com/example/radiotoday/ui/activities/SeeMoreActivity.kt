@@ -30,10 +30,10 @@ class SeeMoreActivity : AppCompatActivity(), SeeMoreAdapter.CardClickListener {
         binding.rvPlaylist.layoutManager = LinearLayoutManager(this)
         binding.rvPlaylist.adapter = seeMoreAdapter
 
-        albumCode = SharedPreferencesUtil.getData(this,"ALBUM_CODE", "").toString()
+        albumCode = intent.getStringExtra("ALBUM_CODE").toString()
         Log.i("albumCode", "albumCode: $albumCode")
 
-        seeMoreViewModel.fetchSeeMorePlaylistData("SNG00240")
+        seeMoreViewModel.fetchSeeMorePlaylistData(albumCode)
         seeMoreViewModel.seeMorePlaylistData.observe(this){
             when(it){
                 is ResultType.Loading -> {
