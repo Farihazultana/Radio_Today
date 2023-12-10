@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
-        android:id="@+id/tv_Podcasts"
+        android:id="@+id/ivTitlePoster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -35,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Podcasts" />
+        app:layout_constraintTop_toBottomOf="@+id/ivTitlePoster" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

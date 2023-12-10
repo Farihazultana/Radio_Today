@@ -128,6 +128,9 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         val intent = Intent(this, SeeMoreActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra("ALBUM_CODE", playlistItem.albumcode)
+        intent.putExtra("TITLE_IMG", playlistItem.image_location)
+        intent.putExtra("TITLE", playlistItem.albumname)
+        intent.putExtra("SUBTITLE", playlistItem.artistname)
         startActivity(intent)
 
     }

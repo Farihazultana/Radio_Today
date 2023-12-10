@@ -79,8 +79,7 @@ class ParentHomeAdapter(private val context: Context, private val listener: Item
             is ContentViewHolder -> {
                 holder.rvHor.visibility = View.VISIBLE
                 holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contents, this)
-                holder.rvHor.layoutManager = LinearLayoutManager(holder.rvHor.context,
-                    LinearLayoutManager.HORIZONTAL,false)
+                holder.rvHor.layoutManager = LinearLayoutManager(holder.rvHor.context, LinearLayoutManager.HORIZONTAL,false)
                 holder.title.text = currentItem.catname
 
                 holder.rvHor.adapter = holder.childListAdapter
