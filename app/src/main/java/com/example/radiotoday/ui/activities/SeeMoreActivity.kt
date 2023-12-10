@@ -9,12 +9,14 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.seeMore.Similarartist
 import com.example.radiotoday.databinding.ActivitySeeMoreBinding
 import com.example.radiotoday.ui.adapters.SeeMoreAdapter
 import com.example.radiotoday.ui.viewmodels.SeeMoreViewModel
+import com.example.radiotoday.utils.BlurTransformation
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,6 +42,14 @@ class SeeMoreActivity : AppCompatActivity(), SeeMoreAdapter.CardClickListener {
 
         albumCode = intent.getStringExtra("ALBUM_CODE").toString()
         Log.i("albumCode", "albumCode: $albumCode")
+
+
+        Glide.with(this)
+            .load(R.drawable.album_cover)
+            .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 2)))
+            .placeholder(R.drawable.album_cover)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(binding.ivBlurBG)
         /*titleImg = intent.getStringExtra("TITLE_IMG").toString()
         title = intent.getStringExtra("TITLE").toString()
         subTitle = intent.getStringExtra("SUBTITLE").toString()

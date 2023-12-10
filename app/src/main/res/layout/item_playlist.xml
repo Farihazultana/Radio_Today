@@ -12,6 +12,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:padding="8dp"
         android:src="@drawable/player_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,51 +20,52 @@
 
     <TextView
         android:id="@+id/tv_RadioStationName"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:text="Radio Station Name"
-        android:textSize="12dp"
-        android:maxLength="60"
-        android:textColor="@color/white"
         android:ellipsize="end"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_timePlayedAgo"
-        app:layout_constraintEnd_toStartOf="@+id/iv_menuMore"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_timePlayedAgo"
-        app:layout_constraintTop_toTopOf="@+id/tv_timePlayedAgo" />
+        android:maxLines="1"
+        android:text="Radio Station Name"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_Favorite"
+        app:layout_constraintEnd_toStartOf="@+id/iv_Favorite"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_timePlayedAgo" />
 
     <TextView
         android:id="@+id/tv_timePlayedAgo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
+        android:layout_marginEnd="8dp"
         android:text="2 hours ago"
-        android:textSize="12dp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_duration"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_RadioStationName"
+        app:layout_constraintEnd_toStartOf="@+id/tv_RadioStationName"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_duration"
-        app:layout_constraintTop_toTopOf="@+id/tv_duration"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/tv_RadioStationName" />
 
     <TextView
         android:id="@+id/tv_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
+        android:layout_marginEnd="8dp"
         android:text="239m"
-        android:textSize="12dp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_tagNew"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_timePlayedAgo"
         app:layout_constraintEnd_toStartOf="@+id/tv_timePlayedAgo"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_tagNew"
-        app:layout_constraintTop_toTopOf="@+id/tv_tagNew" />
+        app:layout_constraintTop_toTopOf="@+id/tv_timePlayedAgo" />
 
     <TextView
         android:id="@+id/tv_PlayingContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="1dp"
         android:text="Song Name"
         android:textColor="@color/white"
@@ -80,16 +82,45 @@
         android:id="@+id/tv_tagNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
         android:text="New"
         android:textColor="@color/red"
         android:textSize="12dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_duration"
         app:layout_constraintEnd_toStartOf="@+id/tv_duration"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/tv_PlayingContent"
         app:layout_constraintTop_toBottomOf="@+id/tv_PlayingContent" />
+
+    <ImageView
+        android:id="@+id/iv_Favorite"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_menuMore"
+        app:layout_constraintEnd_toStartOf="@+id/iv_menuMore"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_playerPoster"
+        app:layout_constraintTop_toTopOf="@+id/iv_menuMore"
+        app:srcCompat="@drawable/ic_favorite" />
+
+    <ImageView
+        android:id="@+id/iv_NONFavorite"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        app:tint="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_menuMore"
+        app:layout_constraintEnd_toStartOf="@+id/iv_menuMore"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_playerPoster"
+        app:layout_constraintTop_toTopOf="@+id/iv_menuMore"
+        app:srcCompat="@drawable/ic_non_favorite" />
 
     <ImageView
         android:id="@+id/iv_menuMore"
