@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.FragmentSettingsBinding
+import com.example.radiotoday.ui.activities.ContactActivity
 import com.example.radiotoday.ui.activities.ProfileActivity
 
 class SettingsFragment : Fragment() {
@@ -25,6 +26,15 @@ class SettingsFragment : Fragment() {
 
         binding.cvProfileImg.setOnClickListener {
             val intent = Intent(requireContext(), ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.layoutSetAlarm.setOnClickListener {
+
+        }
+
+        binding.layoutContactUs.setOnClickListener {
+            val intent = Intent(requireContext(), ContactActivity::class.java)
             startActivity(intent)
         }
 
