@@ -64,7 +64,7 @@
             android:id="@+id/tvSubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sub-Title"
+            android:text="Sub -Title"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -89,44 +89,46 @@
             app:layout_constraintVertical_bias="0.16000003" />-->
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPlay"
+            android:id="@+id/btnPlayPlaylist"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/border_bg"
-            android:drawableStart="@drawable/ic_play"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/round_corner_bg"
+            android:backgroundTint="@color/black"
+            android:drawableStart="@drawable/ic_play_playlist"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text=" Play Playlist"
             android:textSize="14sp"
             android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/btnShuffle"
+            app:layout_constraintEnd_toStartOf="@+id/btnShuffle"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnShuffle"
-            app:layout_constraintTop_toBottomOf="@+id/tvSubTitle" />
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnShuffle"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnShuffle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/border_bg"
-            android:drawableStart="@drawable/ic_shuffle"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_corner_bg"
+            android:backgroundTint="@color/black"
+            android:drawableStart="@drawable/ic_shuffle_playlist"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
-            android:text=" Shuffle"
+            android:text="Shuffle"
             android:textSize="14sp"
             android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
-            app:layout_constraintEnd_toStartOf="@+id/btnPlay"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnPlay" />
+            app:layout_constraintStart_toEndOf="@+id/btnPlayPlaylist"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubTitle" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -137,7 +139,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnShuffle"
+            app:layout_constraintTop_toBottomOf="@+id/btnPlayPlaylist"
             app:layout_constraintVertical_bias="1.0"
             tools:listitem="@layout/item_playlist" />
 

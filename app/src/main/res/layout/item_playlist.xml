@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/iv_playerPoster"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -16,7 +16,8 @@
         android:src="@drawable/player_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_RadioStationName"
@@ -27,100 +28,100 @@
         android:text="Radio Station Name"
         android:textColor="@color/white"
         android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_Favorite"
-        app:layout_constraintEnd_toStartOf="@+id/iv_Favorite"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_timePlayedAgo"
+        app:layout_constraintEnd_toStartOf="@+id/iv_menuMore"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_timePlayedAgo" />
+        app:layout_constraintStart_toEndOf="@+id/tv_timePlayedAgo"
+        app:layout_constraintTop_toTopOf="@+id/tv_timePlayedAgo" />
 
     <TextView
         android:id="@+id/tv_timePlayedAgo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="2dp"
         android:text="2 hours ago"
         android:textColor="@color/white"
         android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_RadioStationName"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tagNew"
         app:layout_constraintEnd_toStartOf="@+id/tv_RadioStationName"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_duration"
-        app:layout_constraintTop_toTopOf="@+id/tv_RadioStationName" />
+        app:layout_constraintTop_toTopOf="@+id/tv_duration" />
 
     <TextView
         android:id="@+id/tv_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="2dp"
         android:text="239m"
         android:textColor="@color/white"
         android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_timePlayedAgo"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tagNew"
         app:layout_constraintEnd_toStartOf="@+id/tv_timePlayedAgo"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_tagNew"
-        app:layout_constraintTop_toTopOf="@+id/tv_timePlayedAgo" />
+        app:layout_constraintTop_toTopOf="@+id/tv_tagNew" />
 
     <TextView
         android:id="@+id/tv_PlayingContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="8dp"
         android:text="Song Name"
         android:textColor="@color/white"
         android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_duration"
-        app:layout_constraintEnd_toStartOf="@+id/iv_menuMore"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_playerPoster"
         app:layout_constraintTop_toTopOf="@+id/iv_playerPoster"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_tagNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="2dp"
         android:text="New"
         android:textColor="@color/red"
         android:textSize="12dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_duration"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_duration"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/tv_PlayingContent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_PlayingContent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_PlayingContent"
+        app:layout_constraintVertical_bias="0.060000002" />
 
     <ImageView
         android:id="@+id/iv_Favorite"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"
-        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/iv_menuMore"
         app:layout_constraintEnd_toStartOf="@+id/iv_menuMore"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/iv_playerPoster"
         app:layout_constraintTop_toTopOf="@+id/iv_menuMore"
-        app:srcCompat="@drawable/ic_favorite" />
+        app:srcCompat="@drawable/ic_favorite"
+        app:tint="@color/white" />
 
     <ImageView
         android:id="@+id/iv_NONFavorite"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="16dp"
-        app:tint="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/iv_menuMore"
         app:layout_constraintEnd_toStartOf="@+id/iv_menuMore"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/iv_playerPoster"
         app:layout_constraintTop_toTopOf="@+id/iv_menuMore"
-        app:srcCompat="@drawable/ic_non_favorite" />
+        app:srcCompat="@drawable/ic_non_favorite"
+        app:tint="@color/white" />
 
     <ImageView
         android:id="@+id/iv_menuMore"
@@ -133,4 +134,15 @@
         app:layout_constraintStart_toEndOf="@+id/iv_playerPoster"
         app:layout_constraintTop_toTopOf="@+id/iv_playerPoster"
         app:srcCompat="@drawable/ic_more_menu" />
+
+    <View
+        android:id="@+id/viewRight"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@drawable/horizontal_line"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/iv_menuMore"
+        app:layout_constraintStart_toStartOf="@+id/tv_PlayingContent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_RadioStationName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
