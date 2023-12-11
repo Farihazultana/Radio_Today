@@ -118,7 +118,7 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/round_corner_bg"
             android:backgroundTint="@color/black"
-            android:drawableStart="@drawable/ic_shuffle_playlist"
+            android:drawableStart="@drawable/ic_shuffle_play"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
             android:text="Shuffle"
