@@ -9,6 +9,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityAlarmBinding
@@ -31,26 +33,43 @@ class AlarmActivity : AppCompatActivity() {
         createNotificationChannel()
         calendar = Calendar.getInstance()
 
-        binding.tvSelectedTime.setOnClickListener {
+        binding.layoutStartNumberPicker.setOnClickListener {
 
-            showTimePicker()
-
-        }
-
-        binding.btnSetAlarm.setOnClickListener {
-
-            setAlarm()
+            showTimePicker(binding.tvSelectedStartStreamingHour, binding.tvSelectedStartStreamingMinute, binding.tvSelectedStartStreamingAmPM)
 
         }
 
-        binding.btnCancelAlarm.setOnClickListener {
+        binding.tvSelectedStopStreamingTime.setOnClickListener {
 
-            cancelAlarm()
+            //showTimePicker(binding.tvSelectedStopStreamingHour, binding.tvSelectedStopStreamingMinute, binding.tvSelectedStopStreamingAmPM)
+
+        }
+
+
+        binding.switchStartStreaming.setOnClickListener {
+
+            if(binding.switchStartStreaming.isChecked){
+                setAlarm()
+            }else{
+                cancelAlarm()
+            }
+
+
+        }
+
+        binding.switchStopStreaming.setOnClickListener {
+
+            if(binding.switchStopStreaming.isChecked){
+                cancelAlarm()
+            }else{
+
+            }
+
 
         }
     }
 
-    private fun showTimePicker() {
+    private fun showTimePicker(hour: TextView, min : TextView, amOrPm : TextView) {
         picker = MaterialTimePicker
             .Builder()
             .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -64,17 +83,18 @@ class AlarmActivity : AppCompatActivity() {
         picker.addOnPositiveButtonClickListener {
 
             if (picker.hour >= 12) {
-                binding.tvSelectedTime.text =
-                    String.format("%02d", picker.hour - 12) + ":" + String.format(
-                        "%02d",
-                        picker.minute
-                    ) + "PM"
+                hour.text =String.format("%02d", picker.hour - 12)
+
+                min.text = String.format(
+                    "%02d",
+                    picker.minute
+                )
+                amOrPm.text = "PM"
+
             } else {
-                binding.tvSelectedTime.text =
-                    String.format("%02d", picker.hour) + ":" + String.format(
-                        "%02d",
-                        picker.minute
-                    ) + "AM"
+                hour.text = String.format("%02d", picker.hour)
+                min.text = String.format("%02d", picker.minute)
+                amOrPm.text = "AM"
             }
 
             //calendar = Calendar.getInstance()
