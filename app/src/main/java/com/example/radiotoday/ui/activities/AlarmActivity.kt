@@ -31,7 +31,7 @@ class AlarmActivity : AppCompatActivity() {
         createNotificationChannel()
         calendar = Calendar.getInstance()
 
-        binding.ivAddAlarmButton.setOnClickListener {
+        binding.tvSelectedTime.setOnClickListener {
 
             showTimePicker()
 
