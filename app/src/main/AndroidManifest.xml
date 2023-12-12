@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
     <application
         android:name=".RadioTodayApplication"
         android:allowBackup="true"
@@ -16,13 +20,16 @@
         android:theme="@style/Theme.RadioToday"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.ContactActivity"
-            android:screenOrientation="sensorPortrait"
+            android:name=".ui.activities.AlarmActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activities.ContactActivity"
+            android:exported="false"
+            android:screenOrientation="sensorPortrait" />
+        <activity
             android:name=".ui.activities.SeeMoreActivity"
-            android:screenOrientation="sensorPortrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".ui.activities.SeeAllActivity"
             android:exported="false"
@@ -49,6 +56,8 @@
             android:name=".ui.activities.MainActivity"
             android:exported="false"
             android:screenOrientation="sensorPortrait" />
+
+        <receiver android:name=".utils.AlarmReceiver" />
     </application>
 
 </manifest>

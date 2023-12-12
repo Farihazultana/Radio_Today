@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.FragmentSettingsBinding
+import com.example.radiotoday.ui.activities.AlarmActivity
 import com.example.radiotoday.ui.activities.ContactActivity
 import com.example.radiotoday.ui.activities.ProfileActivity
 
@@ -30,7 +31,8 @@ class SettingsFragment : Fragment() {
         }
 
         binding.layoutSetAlarm.setOnClickListener {
-
+            val intent = Intent(requireContext(), AlarmActivity::class.java)
+            startActivity(intent)
         }
 
         binding.layoutContactUs.setOnClickListener {
