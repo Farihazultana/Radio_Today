@@ -12,7 +12,7 @@ class ContactActivity : AppCompatActivity() {
         binding = ActivityContactBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.ivBack.setOnClickListener {
+        binding.toolBarBackIcon.setOnClickListener {
             onBackPressed()
         }
 

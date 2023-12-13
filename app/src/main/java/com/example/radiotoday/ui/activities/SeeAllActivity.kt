@@ -38,7 +38,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         binding = ActivitySeeAllBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.toolBarBackIconSubscribe.setOnClickListener {
+        binding.toolBarBackIcon.setOnClickListener {
             onBackPressed()
         }
 
@@ -109,7 +109,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
                     }
 
 
-                    binding.tvSeeAllTitle.text = catName
+                    binding.tvToolBarTitle.text = catName
 
                     isLoading = false
                     //checking last page

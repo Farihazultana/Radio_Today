@@ -30,7 +30,7 @@ class AlarmActivity : AppCompatActivity() {
         binding = ActivityAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.toolBarBackIconSubscribe.setOnClickListener {
+        binding.toolBarBackIcon.setOnClickListener {
             onBackPressed()
         }
 

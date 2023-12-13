@@ -23,29 +23,29 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/toolBar_back_icon_Subscribe"
+                android:id="@+id/toolBar_back_Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_SeeAllTitle"
+                app:layout_constraintEnd_toStartOf="@+id/tv_ToolBarTitle"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_SeeAllTitle"
+                android:id="@+id/tv_ToolBarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/toolBar_back_icon_Subscribe"
-                app:layout_constraintStart_toEndOf="@+id/toolBar_back_icon_Subscribe"
-                app:layout_constraintTop_toTopOf="@+id/toolBar_back_icon_Subscribe" />
+                app:layout_constraintBottom_toBottomOf="@+id/toolBar_back_Icon"
+                app:layout_constraintStart_toEndOf="@+id/toolBar_back_Icon"
+                app:layout_constraintTop_toTopOf="@+id/toolBar_back_Icon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
