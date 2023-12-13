@@ -42,7 +42,7 @@
         android:drawablePadding="4dp"
         android:maxLength="100"
         android:text="Description text"
-        android:textColor="@color/green"
+        android:textColor="@color/dark_red"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
