@@ -30,6 +30,10 @@ class AlarmActivity : AppCompatActivity() {
         binding = ActivityAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolBarBackIconSubscribe.setOnClickListener {
+            onBackPressed()
+        }
+
         createNotificationChannel()
         calendar = Calendar.getInstance()
 
@@ -39,9 +43,9 @@ class AlarmActivity : AppCompatActivity() {
 
         }
 
-        binding.tvSelectedStopStreamingTime.setOnClickListener {
+        binding.layoutStopNumberPicker.setOnClickListener {
 
-            //showTimePicker(binding.tvSelectedStopStreamingHour, binding.tvSelectedStopStreamingMinute, binding.tvSelectedStopStreamingAmPM)
+            showTimePicker(binding.tvSelectedStopStreamingHour, binding.tvSelectedStopStreamingMin, binding.tvSelectedStopStreamingAmPm)
 
         }
 
