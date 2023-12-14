@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -11,6 +12,11 @@ import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityLoginBinding
 import com.example.radiotoday.utils.AppUtils.LogInStatus
 import com.example.radiotoday.utils.SharedPreferencesUtil
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
+import com.google.android.gms.common.api.ApiException
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -19,6 +25,11 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var enteredPhone: String
     private lateinit var enteredPassword: String
     private var phoneText: String? = null
+
+    private val _requestCodeSignIn = 1000
+    private var gso: GoogleSignInOptions? = null
+    private var gsc: GoogleSignInClient? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -42,6 +53,10 @@ class LoginActivity : AppCompatActivity() {
                 ).show()
             }
 
+        }
+
+        binding.btnLoginWithGoogle.setOnClickListener {
+            googleLogIn()
         }
 
 
@@ -88,6 +103,113 @@ class LoginActivity : AppCompatActivity() {
                 ).show()
 
             }
+        }
+    }
+
+    private fun googleLogIn() {
+        // Initialize GoogleSignInOptions
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.web_client_id)) // Use your web client ID
+            .requestEmail()
+            .build()
+
+        // Initialize GoogleSignInClient
+        gsc = GoogleSignIn.getClient(this, gso!!)
+
+        // gsc to get the sign-in intent
+        val signInIntent = gsc!!.signInIntent
+        startActivityForResult(signInIntent, _requestCodeSignIn)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            _requestCodeSignIn -> {
+                if (resultCode == RESULT_OK) {
+                    // User successfully signed in
+                    val task = gsc!!.silentSignIn()
+                    task.addOnCompleteListener { task ->
+                        try {
+                            if (task.isSuccessful) {
+                                // Successful sign-in
+                                updateViewWithAccount()
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    "Google Sign-In Successful!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                finish()
+                            } else {
+                                val exception = task.exception
+                                if (exception is ApiException) {
+                                    when (exception.statusCode) {
+                                        GoogleSignInStatusCodes.SIGN_IN_CANCELLED -> {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "Google Sign-In was canceled by the user",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                        GoogleSignInStatusCodes.SIGN_IN_FAILED -> {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "Google Sign-In failed. Please try again later.",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                        else -> {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "Google Sign-In encountered an error. Please try again later.",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (apiException: ApiException) {
+                            Log.e("GoogleSignIn", "Error during Google Sign-In: ${apiException.statusCode}", apiException)
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "An error occurred during Google Sign-In. Please try again.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Google Sign-In failed. Please try again later.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
+
+    private fun updateViewWithAccount() {
+        val acct = GoogleSignIn.getLastSignedInAccount(this)
+        if (acct != null) {
+            val displayName = acct.displayName
+            val personEmail = acct.email
+            val firstname = acct.givenName
+            val lastname = acct.familyName
+            val imageUri = acct.photoUrl
+            val userID = acct.id
+
+            //val loginData = SocialLoginData(personEmail.toString(), firstname.toString(), lastname.toString(), imageUri.toString(), displayName.toString())
+
+            Log.i("SignIn", "onActivityResult: $displayName $personEmail, $userID, $firstname, $lastname, $imageUri")
+
+            //SharedPreferencesUtil.saveData(this@LoginActivity, UsernameInputKey, userID ?: "")
+
+            //SharedPreferencesUtil.saveSocialLogInData(this, loginData)
+
+            //SocialmediaLoginUtil().fetchSocialLogInData(this, "google", userID!!, firstname!!, lastname!!, personEmail!!, imageUri.toString())
+
+
         }
     }
 

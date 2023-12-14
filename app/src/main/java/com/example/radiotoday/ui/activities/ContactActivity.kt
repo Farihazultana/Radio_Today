@@ -20,7 +20,7 @@ class ContactActivity : AppCompatActivity() {
 
         binding.layoutContactNumber.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
-            intent.setData(Uri.parse("tel:0195495301"))
+            intent.data = Uri.parse("tel:0195495301")
             startActivity(intent)
         }
 
