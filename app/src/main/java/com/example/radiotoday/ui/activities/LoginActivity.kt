@@ -10,17 +10,28 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityLoginBinding
+import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.AppUtils.LogInStatus
 import com.example.radiotoday.utils.SharedPreferencesUtil
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.FacebookSdk
+import com.facebook.GraphRequest
+import com.facebook.appevents.AppEventsLogger
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
+import org.json.JSONException
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var dialog: Dialog
+
 
     private lateinit var enteredPhone: String
     private lateinit var enteredPassword: String
@@ -29,6 +40,8 @@ class LoginActivity : AppCompatActivity() {
     private val _requestCodeSignIn = 1000
     private var gso: GoogleSignInOptions? = null
     private var gsc: GoogleSignInClient? = null
+
+    private val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +72,13 @@ class LoginActivity : AppCompatActivity() {
             googleLogIn()
         }
 
+        FacebookSdk.sdkInitialize(applicationContext)
+        AppEventsLogger.activateApp(application)
+        binding.btnLoginWithFB.setOnClickListener {
+            facebookLoginIntegration()
+            LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile"))
+        }
+
 
 
         binding.tvRegister.setOnClickListener {
@@ -72,8 +92,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         binding.tvForget.setOnClickListener {
-            setDialog()
-            dialog.show()
+            AppUtils.setDialog(this, R.layout.dialog_forget_password)
         }
 
     }
@@ -119,6 +138,69 @@ class LoginActivity : AppCompatActivity() {
         // gsc to get the sign-in intent
         val signInIntent = gsc!!.signInIntent
         startActivityForResult(signInIntent, _requestCodeSignIn)
+    }
+
+    private fun facebookLoginIntegration() {
+        // Facebook login callback
+        LoginManager.getInstance().registerCallback(callbackManager, object :
+            FacebookCallback<LoginResult> {
+            override fun onCancel() {
+                Log.i("FacebookProfile", "onCancel: ")
+            }
+
+            override fun onError(error: FacebookException) {
+                Log.i("FacebookProfile", "onError: $error")
+            }
+
+            override fun onSuccess(result: LoginResult) {
+                // Handle successful login
+                // After successful login, retrieve the user's profile information
+                Log.i("FacebookProfile", "onSuccess: ")
+                val accessToken = AccessToken.getCurrentAccessToken()
+                if (accessToken != null && !accessToken.isExpired) {
+                    // Request the user's profile information
+                    val request = GraphRequest.newMeRequest(accessToken) { obj, response ->
+                        Log.i("FacebookProfile", "onSuccess: $response")
+                        if (response?.error == null) {
+                            try {
+                                val id = obj?.getString("id").toString()
+                                //val email = obj?.getString("email")
+                                val fullname = obj?.getString("name").toString()
+                                //val birthday = obj?.getString("birthday")
+
+                                // Access the profile picture URL
+                                val pictureObj = obj?.getJSONObject("picture")
+                                val pictureData = pictureObj?.getJSONObject("data")
+                                val profileImage = pictureData?.getString("url").toString()
+
+                                // Log the profile information
+                                Log.d("FacebookProfile", "ID: $id, Name: $fullname, Email: , Image URL: $profileImage")
+
+                                /*SharedPreferencesUtil.saveData(this@LoginActivity, UsernameInputKey, id ?: "")
+                                *//*SharedPreferencesUtil.saveData(this@LoginActivity, AppUtils.FBSignIN_Fullname, fullname ?: "")
+                                SharedPreferencesUtil.saveData(this@LoginActivity, AppUtils.FBSignIn_ImgUri, profileImage ?: "")*//*
+
+                                val loginData = SocialLoginData("", "", "", profileImage, fullname)
+                                SharedPreferencesUtil.saveSocialLogInData(this@LoginActivity, loginData)
+
+                                SocialmediaLoginUtil().fetchSocialLogInData(this@LoginActivity, "facebook",id,fullname, "","", profileImage )*/
+
+                            }catch (e : JSONException){
+                                Log.e("FacebookProfile", "onSuccess: $e")
+                            }
+
+                        }else {
+                            Log.e("FacebookProfile", "Error in GraphRequest: ${response.error}")
+                        }
+                    }
+                    val parameters = Bundle()
+                    parameters.putString("fields", "id,name,email,picture.type(large)")
+                    request.parameters = parameters
+                    request.executeAsync()
+
+                }
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -186,6 +268,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+
+        //facebook
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 
@@ -213,15 +298,4 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun setDialog() {
-        dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_forget_password)
-        dialog.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialog.setCancelable(true)
-        dialog.window!!.attributes!!.windowAnimations = R.style.animation
-
-    }
 }

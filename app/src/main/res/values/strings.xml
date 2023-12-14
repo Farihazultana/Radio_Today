@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Radio Today</string>
+
+
     <string name="web_client_id">800910493538-rn1umlg1clrmdgo9505kt6aee3hp4eb2.apps.googleusercontent.com</string>
+
+    <string name="facebook_app_id">1499396174238223</string>
+    <string name="fb_login_protocol_scheme">1499396174238223</string>
+    <string name="facebook_client_token">ef6d541483f76ddba4071ccc0fd5287f</string>
 </resources>

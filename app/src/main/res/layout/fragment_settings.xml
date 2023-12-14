@@ -493,8 +493,6 @@
             android:layout_height="35dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="87dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_RateApp">
@@ -527,6 +525,47 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_Version"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_Version" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_Log"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="92dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_Version">
+
+            <ImageView
+                android:id="@+id/iv_Log"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_logout"
+                app:layout_constraintBottom_toTopOf="@+id/iv_arrow_right_Log"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_Log"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Logout"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_Log"
+                app:layout_constraintStart_toEndOf="@+id/iv_Log"
+                app:layout_constraintTop_toTopOf="@+id/iv_Log" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_right_Log"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_Log" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
