@@ -6,23 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.HomeFragment">
 
-    <androidx.cardview.widget.CardView
+    <!--<androidx.cardview.widget.CardView
         android:id="@+id/cvBackground"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:elevation="6dp"
-        app:layout_constraintEnd_toEndOf="@+id/cvBackground"
-        app:layout_constraintStart_toStartOf="@+id/cvBackground"
-        app:layout_constraintTop_toTopOf="@+id/cvBackground">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView4"
@@ -95,12 +95,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:elevation="6dp"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/cvBackground"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/cvBackground"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutHeader"
         app:layout_constraintVertical_bias="0.0" />
 
