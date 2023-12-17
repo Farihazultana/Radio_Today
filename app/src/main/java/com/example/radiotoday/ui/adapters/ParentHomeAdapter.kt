@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +32,7 @@ class ParentHomeAdapter(private val context: Context, private val listener: Item
         lateinit var childListAdapter: ChildHomeAdapter
         val rvHor: RecyclerView = itemView.findViewById(R.id.rvHorizontal_Home)
         val title: TextView = itemView.findViewById(R.id.tv_Title)
-        val seeAll: TextView = itemView.findViewById(R.id.seeAll)
+        val seeAll: ImageView = itemView.findViewById(R.id.seeAll)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -78,7 +79,7 @@ class ParentHomeAdapter(private val context: Context, private val listener: Item
             }
             is ContentViewHolder -> {
                 holder.rvHor.visibility = View.VISIBLE
-                holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contents, this)
+                holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contenttype, currentItem.contents, this)
                 holder.rvHor.layoutManager = LinearLayoutManager(holder.rvHor.context, LinearLayoutManager.HORIZONTAL,false)
                 holder.title.text = currentItem.catname
 

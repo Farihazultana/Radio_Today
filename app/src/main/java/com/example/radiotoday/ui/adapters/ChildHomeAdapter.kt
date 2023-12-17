@@ -12,6 +12,7 @@ import com.example.radiotoday.data.models.home.Content
 
 class ChildHomeAdapter(
     private var contentViewType: String,
+    private var contentType : String,
     private var contentData: List<Content>,
     private val listener: ItemClickListener
 ) :
@@ -19,6 +20,8 @@ class ChildHomeAdapter(
 
     val TYPE_CONTENT = 1
     val TYPE_CONTINUE_WATCHING = 3
+    val Type_Artist = 33
+
 
     inner class ContentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val image:ImageView? = itemView.findViewById(R.id.iv_ChildContent)
@@ -35,6 +38,10 @@ class ChildHomeAdapter(
                 val itemView = inflater.inflate(R.layout.col_item_content_child_home, parent, false)
                 ContentViewHolder(itemView)
             }
+            Type_Artist -> {
+                val itemView = inflater.inflate(R.layout.col_item_artist_child_home,parent, false)
+                ContentViewHolder(itemView)
+            }
 
             else -> throw IllegalArgumentException("Invalid view type")
         }
@@ -47,7 +54,10 @@ class ChildHomeAdapter(
     override fun getItemViewType(position: Int): Int {
         return if (contentViewType == "2"){
             TYPE_CONTINUE_WATCHING
-        }else{
+        } else if (contentType == "3"){
+            Type_Artist
+        }
+        else{
             TYPE_CONTENT
         }
     }
@@ -56,7 +66,8 @@ class ChildHomeAdapter(
         val currentItem = contentData[position]
 
         if (holder is ContentViewHolder) {
-            holder.title?.text = currentItem.name
+            holder.title?.text = currentItem.albumname
+            holder.descriptionText?.text = currentItem.artistname
 
             currentItem.contentid
             /*if (currentItem.contenttype == "playlist") {
