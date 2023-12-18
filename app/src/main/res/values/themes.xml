@@ -30,6 +30,29 @@
         <item name="cornerSizeBottomLeft">16dp</item>
     </style>
 
+    <style name="CustomBottomNavMenuStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_bottom_nav_menu_corners</item>
+
+    </style>
+
+
+    <style name="CustomBottomNavMenuStyle.Inactive">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="CustomBottomNavMenuStyle.Active">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay_bottom_nav_menu_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
     <style name="animation">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>

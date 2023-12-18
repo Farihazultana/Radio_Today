@@ -1,10 +1,15 @@
 package com.example.radiotoday.ui.activities
 
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -22,6 +27,7 @@ import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
 import com.example.radiotoday.utils.BitmapTransformation
 import com.example.radiotoday.utils.BlurTransformation
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -35,32 +41,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         replaceFragment(HomeFragment())
+        binding.bottomNavigationView.itemIconTintList=null
         binding.bottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.home -> {
-                    binding.layoutMiniPlayer.visibility = View.VISIBLE
-                    replaceFragment(HomeFragment())
-                }
-                R.id.audio -> {
-                    binding.layoutMiniPlayer.visibility = View.VISIBLE
-                    replaceFragment(AudioFragment())
-                }
-                R.id.video -> {
-                    binding.layoutMiniPlayer.visibility = View.VISIBLE
-                    replaceFragment(VideoFragment())
-                }
-                R.id.news -> {
-                    binding.layoutMiniPlayer.visibility = View.VISIBLE
-                    replaceFragment(NewsFragment())
-                }
-                R.id.settings -> {
-                    binding.layoutMiniPlayer.visibility = View.GONE
-                    replaceFragment(SettingsFragment())
-                }
-                else -> {}
-            }
+            handleNavigation(it)
             true
         }
+
 
         binding.layoutMiniPlayer.setOnClickListener {
             val songsFragment = SongsFragment()
@@ -113,6 +99,39 @@ class MainActivity : AppCompatActivity() {
             .transform(RoundedCorners(16))
             .into(binding.ivMainImageView)*/
     }
+
+    private fun handleNavigation(it: MenuItem) {
+        when (it.itemId) {
+            R.id.home -> {
+                binding.layoutMiniPlayer.visibility = View.VISIBLE
+                replaceFragment(HomeFragment())
+
+            }
+
+            R.id.audio -> {
+                binding.layoutMiniPlayer.visibility = View.VISIBLE
+                replaceFragment(AudioFragment())
+            }
+
+            R.id.video -> {
+                binding.layoutMiniPlayer.visibility = View.VISIBLE
+                replaceFragment(VideoFragment())
+            }
+
+            R.id.news -> {
+                binding.layoutMiniPlayer.visibility = View.VISIBLE
+                replaceFragment(NewsFragment())
+            }
+
+            R.id.settings -> {
+                binding.layoutMiniPlayer.visibility = View.GONE
+                replaceFragment(SettingsFragment())
+            }
+
+            else -> {}
+        }
+    }
+
 
     private fun replaceFragment(fragment : Fragment){
 

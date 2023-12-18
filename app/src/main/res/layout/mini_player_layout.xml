@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:background="@drawable/border_bg"
-        android:backgroundTint="@color/color_transparent"
+        android:backgroundTint="#0C0C0C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -47,7 +47,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="Song name"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_albumName"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout"
@@ -59,7 +61,10 @@
                 android:id="@+id/tv_albumName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="8dp"
                 android:text="Album name"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/cv_SingerImage"
                 app:layout_constraintEnd_toEndOf="@+id/tv_songName"
@@ -90,6 +95,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="start"
                     android:layout_weight="1"
+                    app:tint="@color/white"
                     android:src="@drawable/ic_previous" />
 
                 <ImageView
@@ -98,6 +104,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    app:tint="@color/white"
                     android:src="@drawable/ic_play" />
 
                 <ImageView
@@ -115,6 +122,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="end"
                     android:layout_weight="1"
+                    app:tint="@color/white"
                     android:src="@drawable/ic_next" />
 
             </LinearLayout>

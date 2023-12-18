@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
@@ -16,7 +17,7 @@ import com.example.radiotoday.data.models.home.Content
 import com.example.radiotoday.data.models.home.HomeResponseItem
 import com.example.radiotoday.ui.activities.SeeAllActivity
 
-class ParentHomeAdapter(private val context: Context, private val listener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildHomeAdapter.ItemClickListener{
+class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildHomeAdapter.ItemClickListener{
 
     var homeData : List<HomeResponseItem> = ArrayList()
 
@@ -32,7 +33,7 @@ class ParentHomeAdapter(private val context: Context, private val listener: Item
         lateinit var childListAdapter: ChildHomeAdapter
         val rvHor: RecyclerView = itemView.findViewById(R.id.rvHorizontal_Home)
         val title: TextView = itemView.findViewById(R.id.tv_Title)
-        val seeAll: ImageView = itemView.findViewById(R.id.seeAll)
+        val seeAll: TextView = itemView.findViewById(R.id.seeAll)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -68,7 +69,7 @@ class ParentHomeAdapter(private val context: Context, private val listener: Item
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentItem = homeData[position]
-        var imageList:ArrayList<SlideModel> = ArrayList()
+        val imageList:ArrayList<SlideModel> = ArrayList()
 
         when (holder){
             is BannerViewHolder -> {
@@ -79,8 +80,13 @@ class ParentHomeAdapter(private val context: Context, private val listener: Item
             }
             is ContentViewHolder -> {
                 holder.rvHor.visibility = View.VISIBLE
-                holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contenttype, currentItem.contents, this)
-                holder.rvHor.layoutManager = LinearLayoutManager(holder.rvHor.context, LinearLayoutManager.HORIZONTAL,false)
+                holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contenttype, currentItem.catname, currentItem.contents, this)
+                if(currentItem.contenttype == "1"){
+                    holder.rvHor.layoutManager = GridLayoutManager(holder.rvHor.context,3, LinearLayoutManager.HORIZONTAL,false)
+                }else{
+                    holder.rvHor.layoutManager = LinearLayoutManager(holder.rvHor.context, LinearLayoutManager.HORIZONTAL,false)
+                }
+
                 holder.title.text = currentItem.catname
 
                 holder.rvHor.adapter = holder.childListAdapter

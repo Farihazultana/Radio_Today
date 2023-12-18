@@ -13,6 +13,7 @@ import com.example.radiotoday.data.models.home.Content
 class ChildHomeAdapter(
     private var contentViewType: String,
     private var contentType : String,
+    private var catName : String,
     private var contentData: List<Content>,
     private val listener: ItemClickListener
 ) :
@@ -21,6 +22,8 @@ class ChildHomeAdapter(
     val TYPE_CONTENT = 1
     val TYPE_CONTINUE_WATCHING = 3
     val Type_Artist = 33
+    val TYPE_NEWRELEASE = 11
+    val TYPE_BROADCAST = 22
 
 
     inner class ContentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -38,8 +41,16 @@ class ChildHomeAdapter(
                 val itemView = inflater.inflate(R.layout.col_item_content_child_home, parent, false)
                 ContentViewHolder(itemView)
             }
+            TYPE_NEWRELEASE -> {
+                val itemView = inflater.inflate(R.layout.col_item_previous_show_child_home,parent, false)
+                ContentViewHolder(itemView)
+            }
             Type_Artist -> {
                 val itemView = inflater.inflate(R.layout.col_item_artist_child_home,parent, false)
+                ContentViewHolder(itemView)
+            }
+            TYPE_BROADCAST -> {
+                val itemView = inflater.inflate(R.layout.col_item_broadcast_child_home,parent, false)
                 ContentViewHolder(itemView)
             }
 
@@ -54,8 +65,13 @@ class ChildHomeAdapter(
     override fun getItemViewType(position: Int): Int {
         return if (contentViewType == "2"){
             TYPE_CONTINUE_WATCHING
-        } else if (contentType == "3"){
+        }else if (contentType == "1"){
+            TYPE_NEWRELEASE
+        }
+        else if (contentType == "3"){
             Type_Artist
+        }else if (catName == "Band"){
+            TYPE_BROADCAST
         }
         else{
             TYPE_CONTENT

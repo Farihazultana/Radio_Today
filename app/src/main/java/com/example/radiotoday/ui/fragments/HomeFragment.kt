@@ -36,7 +36,7 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
 
-        parentHomeAdapter = ParentHomeAdapter(requireContext(), this)
+        parentHomeAdapter = ParentHomeAdapter(this)
         binding.rvVerticalHome.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvVerticalHome.adapter = parentHomeAdapter
 
