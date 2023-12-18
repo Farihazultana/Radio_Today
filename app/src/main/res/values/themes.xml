@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.RadioToday" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/red</item>
+         <item name="colorPrimary">#212121</item>
     </style>
 
     <style name="Theme.RadioToday" parent="Base.Theme.RadioToday" />

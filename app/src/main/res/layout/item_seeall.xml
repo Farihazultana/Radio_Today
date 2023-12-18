@@ -29,7 +29,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="Title text"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivSeeAlPoster" />
@@ -42,7 +42,7 @@
         android:drawablePadding="4dp"
         android:maxLength="100"
         android:text="Description text"
-        android:textColor="@color/dark_red"
+        android:textColor="@color/white"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
