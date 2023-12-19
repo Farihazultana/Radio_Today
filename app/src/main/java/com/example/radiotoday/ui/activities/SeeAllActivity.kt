@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.radiotoday.data.models.seeAll.Content
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
@@ -25,7 +26,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
     private lateinit var binding: ActivitySeeAllBinding
     private lateinit var seeAllAdapter: SeeAllAdapter
     private val seeAllViewModel by viewModels<SeeAllViewModel>()
-    private var layoutManager = GridLayoutManager(this, 2)
+    private lateinit var layoutManager: GridLayoutManager
     lateinit var catName: String
     lateinit var contentType: String
 
@@ -47,7 +48,12 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
 
         seeAllAdapter = SeeAllAdapter(this, this, catName)
-        binding.rvSeeAll.layoutManager = layoutManager
+        if (catName == "Band"){
+            binding.rvSeeAll.layoutManager = CustomGridLayoutManager(2)
+        }else{
+            binding.rvSeeAll.layoutManager = CustomGridLayoutManager(3)
+        }
+
         binding.rvSeeAll.adapter = seeAllAdapter
 
 
@@ -76,6 +82,11 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
             })
         }
 
+    }
+
+    private fun CustomGridLayoutManager(span : Int): GridLayoutManager {
+        layoutManager = GridLayoutManager(this, span)
+        return layoutManager
     }
 
     private fun loadSeeAllData() {
