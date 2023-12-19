@@ -48,7 +48,7 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
                 SeeAllViewHolder(itemView)
             }
             TYPE_BROADCAST -> {
-                val itemView = inflater.inflate(R.layout.col_item_broadcast_child_home,parent, false)
+                val itemView = inflater.inflate(R.layout.col_item_prodcast_child_home,parent, false)
                 BroadcastViewHolder(itemView)
             }
 

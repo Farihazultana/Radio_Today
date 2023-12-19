@@ -24,7 +24,7 @@ class ChildHomeAdapter(
     val TYPE_CONTINUE_WATCHING = 3
     val Type_ARTIST = 33
     val TYPE_NEWRELEASE = 11
-    val TYPE_BROADCAST = 22
+    val TYPE_PODCAST = 22
 
 
     inner class ContentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -50,8 +50,8 @@ class ChildHomeAdapter(
                 val itemView = inflater.inflate(R.layout.col_item_artist_child_home,parent, false)
                 ContentViewHolder(itemView)
             }
-            TYPE_BROADCAST -> {
-                val itemView = inflater.inflate(R.layout.col_item_broadcast_child_home,parent, false)
+            TYPE_PODCAST -> {
+                val itemView = inflater.inflate(R.layout.col_item_prodcast_child_home,parent, false)
                 ContentViewHolder(itemView)
             }
 
@@ -72,7 +72,7 @@ class ChildHomeAdapter(
         else if (contentType == "3"){
             Type_ARTIST
         }else if (catName == "Band"){
-            TYPE_BROADCAST
+            TYPE_PODCAST
         }
         else{
             TYPE_CONTENT
