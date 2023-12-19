@@ -46,7 +46,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         contentType = intent.getStringExtra("contenttype").toString()
 
 
-        seeAllAdapter = SeeAllAdapter(this, this)
+        seeAllAdapter = SeeAllAdapter(this, this, catName)
         binding.rvSeeAll.layoutManager = layoutManager
         binding.rvSeeAll.adapter = seeAllAdapter
 

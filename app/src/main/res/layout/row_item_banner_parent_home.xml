@@ -5,7 +5,7 @@
     style="@style/CustomCardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="210dp"
-    android:backgroundTint="#212121"
+    android:backgroundTint="#030303"
     app:strokeWidth="0dp">
 
 

@@ -21,7 +21,7 @@ class ChildHomeAdapter(
 
     val TYPE_CONTENT = 1
     val TYPE_CONTINUE_WATCHING = 3
-    val Type_Artist = 33
+    val Type_ARTIST = 33
     val TYPE_NEWRELEASE = 11
     val TYPE_BROADCAST = 22
 
@@ -45,7 +45,7 @@ class ChildHomeAdapter(
                 val itemView = inflater.inflate(R.layout.col_item_previous_show_child_home,parent, false)
                 ContentViewHolder(itemView)
             }
-            Type_Artist -> {
+            Type_ARTIST -> {
                 val itemView = inflater.inflate(R.layout.col_item_artist_child_home,parent, false)
                 ContentViewHolder(itemView)
             }
@@ -69,7 +69,7 @@ class ChildHomeAdapter(
             TYPE_NEWRELEASE
         }
         else if (contentType == "3"){
-            Type_Artist
+            Type_ARTIST
         }else if (catName == "Band"){
             TYPE_BROADCAST
         }
