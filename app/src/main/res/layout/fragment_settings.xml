@@ -56,7 +56,7 @@
                 android:id="@+id/iv_Music"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_music"
+                android:src="@drawable/ic_song"
                 app:layout_constraintBottom_toTopOf="@+id/iv_arrow_right"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

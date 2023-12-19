@@ -1,5 +1,6 @@
 package com.example.radiotoday.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -82,31 +83,23 @@ class ChildHomeAdapter(
         val currentItem = contentData[position]
 
         if (holder is ContentViewHolder) {
-            holder.title?.text = currentItem.albumname
-            holder.descriptionText?.text = currentItem.artistname
 
-            currentItem.contentid
-            /*if (currentItem.contenttype == "playlist") {
-                val drawableStart = R.drawable.ic_listicon
-                holder.descriptionText?.setCompoundDrawablesWithIntrinsicBounds(
+            if (currentItem.catcode == "popmodern"){
+                Log.i("Folk", "onBindViewHolder: ${currentItem.catcode}")
+                val drawableStart = R.drawable.ic_music
+                holder.title?.setCompoundDrawablesWithIntrinsicBounds(
                     drawableStart, 0, 0, 0
                 )
-                holder.descriptionText?.text = "Episodes-${currentItem.epcount}"
-
-
-            } else {
-                val drawableStart = R.drawable.ic_clock
-                holder.descriptionText?.setCompoundDrawablesWithIntrinsicBounds(
-                    drawableStart, 0, 0, 0
+                holder.title?.text = currentItem.albumname
+            }else{
+                //Log.i("Folk", "onBindViewHolder: ${currentItem.catcode}")
+                holder.title?.setCompoundDrawablesWithIntrinsicBounds(
+                    0, 0, 0, 0
                 )
-                holder.descriptionText?.text = currentItem.length2
+                holder.title?.text = currentItem.albumname
             }
 
-            if (currentItem.isfree == "0") {
-                holder.premiumTag?.visibility = View.VISIBLE
-            } else {
-                holder.premiumTag?.visibility = View.GONE
-            }*/
+            holder.descriptionText?.text = currentItem.artistname
 
             holder.image?.let {
                 Glide.with(it.context).load(currentItem.image_location)
