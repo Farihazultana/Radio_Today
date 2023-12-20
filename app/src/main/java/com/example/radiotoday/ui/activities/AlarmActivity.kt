@@ -37,7 +37,7 @@ class AlarmActivity : AppCompatActivity() {
         createNotificationChannel()
         calendar = Calendar.getInstance()
 
-        binding.layoutStartNumberPicker.setOnClickListener {
+       /* binding.layoutStartNumberPicker.setOnClickListener {
 
             showTimePicker(binding.tvSelectedStartStreamingHour, binding.tvSelectedStartStreamingMinute, binding.tvSelectedStartStreamingAmPM)
 
@@ -70,7 +70,7 @@ class AlarmActivity : AppCompatActivity() {
             }
 
 
-        }
+        }*/
     }
 
     private fun showTimePicker(hour: TextView, min : TextView, amOrPm : TextView) {
