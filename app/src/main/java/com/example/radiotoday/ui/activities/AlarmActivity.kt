@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityAlarmBinding
@@ -30,50 +29,95 @@ class AlarmActivity : AppCompatActivity() {
         binding = ActivityAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.toolBarBackIcon.setOnClickListener {
-            onBackPressed()
-        }
-
         createNotificationChannel()
         calendar = Calendar.getInstance()
 
-       /* binding.layoutStartNumberPicker.setOnClickListener {
+        //start streaming
+        binding.numPickerMinStart.minValue = 0
+        binding.numPickerMinStart.maxValue = 59
 
-            showTimePicker(binding.tvSelectedStartStreamingHour, binding.tvSelectedStartStreamingMinute, binding.tvSelectedStartStreamingAmPM)
+        binding.numPickerSecStart.minValue = 0
+        binding.numPickerSecStart.maxValue = 59
+
+        //stop streaming
+        binding.numPickerMinStop.minValue = 0
+        binding.numPickerMinStop.maxValue = 59
+
+        binding.numPickerSecStop.minValue = 0
+        binding.numPickerSecStop.maxValue = 59
+
+        var min = 0
+        var sec = 0
+        var amOrPm = ""
+
+        val str = arrayListOf("AM", "PM")
+
+        //start streaming
+        binding.numPickerDayOrNightStart.minValue = 0
+        binding.numPickerDayOrNightStart.maxValue = str.size-1
+        binding.numPickerDayOrNightStart.displayedValues = str.toTypedArray()
+
+        binding.numPickerSecStart.setOnValueChangedListener { picker, oldVal, newVal ->
+            sec = picker.value
 
         }
 
-        binding.layoutStopNumberPicker.setOnClickListener {
+        binding.numPickerMinStart.setOnValueChangedListener { picker, oldVal, newVal ->
+            min = picker.value
 
-            showTimePicker(binding.tvSelectedStopStreamingHour, binding.tvSelectedStopStreamingMin, binding.tvSelectedStopStreamingAmPm)
+        }
+
+        binding.numPickerDayOrNightStart.setOnValueChangedListener { picker, oldVal, newVal ->
+            val oldVal = picker.value
+            amOrPm = str[oldVal]
 
         }
 
 
         binding.switchStartStreaming.setOnClickListener {
-
-            if(binding.switchStartStreaming.isChecked){
-                setAlarm()
+            if (binding.switchStartStreaming.isChecked){
+                binding.tvSelectedStartStreamingTime.visibility = View.VISIBLE
+                binding.tvSelectedStartStreamingTime.text = "$min : $sec : $amOrPm"
             }else{
-                cancelAlarm()
+                binding.tvSelectedStartStreamingTime.visibility = View.GONE
             }
+        }
 
+
+        //stop streaming
+        binding.numPickerDayOrNightStop.minValue = 0
+        binding.numPickerDayOrNightStop.maxValue = str.size-1
+        binding.numPickerDayOrNightStop.displayedValues = str.toTypedArray()
+
+        binding.numPickerSecStop.setOnValueChangedListener { picker, oldVal, newVal ->
+            sec = picker.value
 
         }
 
+        binding.numPickerMinStop.setOnValueChangedListener { picker, oldVal, newVal ->
+            min = picker.value
+
+        }
+
+        binding.numPickerDayOrNightStop.setOnValueChangedListener { picker, oldVal, newVal ->
+            val oldVal = picker.value
+            amOrPm = str[oldVal]
+
+        }
+
+
         binding.switchStopStreaming.setOnClickListener {
-
-            if(binding.switchStopStreaming.isChecked){
-                cancelAlarm()
+            if (binding.switchStopStreaming.isChecked){
+                binding.tvSelectedStopStreamingTime.visibility = View.VISIBLE
+                binding.tvSelectedStopStreamingTime.text = "$min : $sec : $amOrPm"
             }else{
-
+                binding.tvSelectedStopStreamingTime.visibility = View.GONE
             }
+        }
 
-
-        }*/
     }
 
-    private fun showTimePicker(hour: TextView, min : TextView, amOrPm : TextView) {
+    /*private fun showTimePicker() {
         picker = MaterialTimePicker
             .Builder()
             .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -87,18 +131,17 @@ class AlarmActivity : AppCompatActivity() {
         picker.addOnPositiveButtonClickListener {
 
             if (picker.hour >= 12) {
-                hour.text =String.format("%02d", picker.hour - 12)
-
-                min.text = String.format(
-                    "%02d",
-                    picker.minute
-                )
-                amOrPm.text = "PM"
-
+                binding.*//**//*tvSelectedTime.text =
+                    String.format("%02d", picker.hour - 12) + ":" + String.format(
+                        "%02d",
+                        picker.minute
+                    ) + "PM"
             } else {
-                hour.text = String.format("%02d", picker.hour)
-                min.text = String.format("%02d", picker.minute)
-                amOrPm.text = "AM"
+                binding.tvSelectedTime.text =
+                    String.format("%02d", picker.hour) + ":" + String.format(
+                        "%02d",
+                        picker.minute
+                    ) + "AM"
             }
 
             //calendar = Calendar.getInstance()
@@ -107,7 +150,7 @@ class AlarmActivity : AppCompatActivity() {
             calendar[Calendar.SECOND] = 0
             calendar[Calendar.MILLISECOND] = 0
         }
-    }
+    }*/
 
     private fun setAlarm() {
 
