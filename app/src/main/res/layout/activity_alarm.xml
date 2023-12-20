@@ -6,11 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".ui.activities.AlarmActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -35,6 +36,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="4dp"
                     android:src="@drawable/ic_back"
+                    app:tint="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_ToolBarTitle"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -46,9 +48,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:text="Set Alarm"
                     app:layout_constraintBottom_toBottomOf="@+id/toolBar_back_Icon"
                     app:layout_constraintStart_toEndOf="@+id/toolBar_back_Icon"
                     app:layout_constraintTop_toTopOf="@+id/toolBar_back_Icon" />
@@ -58,248 +61,97 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-
-        <ImageView
-            android:id="@+id/ivAlarmLogo"
-            android:layout_width="189dp"
-            android:layout_height="134dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_clock"
-            app:tint="#EDEBEB"
-            app:layout_constraintBottom_toTopOf="@+id/tvDescription1"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/seeall_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <TextView
-            android:id="@+id/tvDescription1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:text="Turn on the Start Stream alarm to start the radio stream automatically at the selected time. The Stop Stream setting sill stop the radio stream at the selceted time. All alarms set will be activated daily."
-            android:textColor="#777676"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/ivAlarmLogo"
-            app:layout_constraintStart_toStartOf="@+id/ivAlarmLogo"
-            app:layout_constraintTop_toBottomOf="@+id/ivAlarmLogo" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:text="* We are not resposible if you dont wake up. ;)"
-            android:textColor="@color/grey"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/ivAlarmLogo"
-            app:layout_constraintStart_toStartOf="@+id/ivAlarmLogo"
-            app:layout_constraintTop_toBottomOf="@+id/tvDescription1" />
-
-
-        <View
-            android:id="@+id/viewTop"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/horizontal_line"
-            app:layout_constraintEnd_toEndOf="@+id/layoutStartStreaming"
-            app:layout_constraintStart_toStartOf="@+id/layoutStartStreaming"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutStartStreaming"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvAlarmIntro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            app:cardCornerRadius="6dp"
+            android:backgroundTint="#030303"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewTop">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <TextView
-                android:id="@+id/tvStartStreaminHeading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Start Stream At : "
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <LinearLayout
-                android:id="@+id/layoutStart_NumberPicker"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="8dp"
-                android:gravity="start"
-                android:orientation="horizontal"
-                android:weightSum="5"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvStartStreaminHeading"
-                app:layout_constraintVertical_bias="0.0">
-
-                <TextView
-                    android:id="@+id/tvSelectedStartStreamingHour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/alarm_bg"
-                    android:gravity="center"
-                    android:text="00"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"/>
+                android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/ic_colon" />
-
-                <TextView
-                    android:id="@+id/tvSelectedStartStreamingMinute"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/alarm_bg"
-                    android:gravity="center"
-                    android:text="00"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tvSelectedStartStreamingAmPM"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/alarm_bg"
-                    android:gravity="center"
-                    android:text="AM"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switchStartStreaming"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:thumbTint="@color/red"
-                    app:trackTint="@color/navyBlue"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/viewDown"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/horizontal_line"
-            app:layout_constraintEnd_toEndOf="@+id/layoutStartStreaming"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/layoutStartStreaming"
-            app:layout_constraintTop_toBottomOf="@+id/layoutStartStreaming" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutStopStreaming"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/layoutStartStreaming"
-            app:layout_constraintStart_toStartOf="@+id/layoutStartStreaming"
-            app:layout_constraintTop_toBottomOf="@+id/viewDown">
-
-            <TextView
-                android:id="@+id/tvStopStreamingHeading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="Stop Stream At : "
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <LinearLayout
-                android:id="@+id/layout_StopNumberPicker"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="8dp"
-                android:gravity="start"
-                android:orientation="horizontal"
-                android:weightSum="5"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvStopStreamingHeading"
-                app:layout_constraintVertical_bias="0.0">
-
-                <TextView
-                    android:id="@+id/tvSelectedStopStreamingHour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/alarm_bg"
-                    android:gravity="center"
-                    android:text="00"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_alarm_group"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/navyBlue"
-                    android:src="@drawable/ic_colon" />
-
-                <TextView
-                    android:id="@+id/tvSelectedStopStreamingMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/alarm_bg"
-                    android:gravity="center"
-                    android:text="00"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tvSelectedStopStreamingAmPm"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/alarm_bg"
-                    android:gravity="center"
-                    android:text="AM"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switchStopStreaming"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:thumbTint="@color/red"
-                    app:trackTint="@color/navyBlue"
-                    android:layout_weight="1" />
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_alarm_group"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/ivAlarmLogo"
+                    android:layout_width="189dp"
+                    android:layout_height="134dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/ic_alarm_clock_logo"
+                    app:layout_constraintBottom_toTopOf="@+id/tvDescription1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#EDEBEB" />
+
+                <TextView
+                    android:id="@+id/tvDescription1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="Turn on the Start Stream alarm to start the radio stream automatically at the selected time. The Stop Stream setting sill stop the radio stream at the selceted time. All alarms set will be activated daily."
+                    android:textColor="#A6A6A6"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/ivAlarmLogo"
+                    app:layout_constraintStart_toStartOf="@+id/ivAlarmLogo"
+                    app:layout_constraintTop_toBottomOf="@+id/ivAlarmLogo" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="32dp"
+                    android:text="* We are not resposible if you dont wake up. ;)"
+                    android:textColor="#4D4D4D"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/ivAlarmLogo"
+                    app:layout_constraintStart_toStartOf="@+id/ivAlarmLogo"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDescription1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
