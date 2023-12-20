@@ -5,10 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".ui.fragments.SettingsFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/screenBackgroundColor">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_ProfileImg"
@@ -39,6 +41,7 @@
             android:text="Player"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Stream Quality"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_Music"
                 app:layout_constraintStart_toEndOf="@+id/iv_Music"
                 app:layout_constraintTop_toTopOf="@+id/iv_Music" />
@@ -77,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="High"
+                android:textColor="@color/white"
                 android:textAlignment="textEnd"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_Stream"
                 app:layout_constraintEnd_toStartOf="@+id/iv_arrow_right"
@@ -89,6 +94,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_Stream"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_Stream" />
@@ -119,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Languages"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_Flag"
                 app:layout_constraintStart_toEndOf="@+id/iv_Flag"
                 app:layout_constraintTop_toTopOf="@+id/iv_Flag" />
@@ -129,6 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="English"
+                android:textColor="@color/white"
                 android:textAlignment="textEnd"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_Language"
                 app:layout_constraintEnd_toStartOf="@+id/iv_arrow_right_Language"
@@ -141,6 +149,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_Language"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_Language" />
@@ -171,18 +180,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Start player when app starts"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_Player"
                 app:layout_constraintStart_toEndOf="@+id/iv_Player"
                 app:layout_constraintTop_toTopOf="@+id/iv_Player" />
 
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <Switch
                 android:id="@+id/iv_arrow_right_Player"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
-                app:thumbTint="@color/red"
-                app:trackTint="@color/navyBlue"
+                android:checked="true"
+                android:thumb="@drawable/custom_thumb"
+                android:track="@drawable/custom_track"
+                tools:ignore="UseSwitchCompatOrMaterialXml"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_StartPlayer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_StartPlayer" />
@@ -213,6 +225,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Set Alarm"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_Alarm"
                 app:layout_constraintEnd_toStartOf="@+id/iv_arrow_right_SetAlarm"
                 app:layout_constraintStart_toEndOf="@+id/iv_Alarm"
@@ -223,6 +236,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_SetAlarm"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_SetAlarm" />
@@ -255,6 +269,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Notifications"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_Notification"
                 app:layout_constraintStart_toEndOf="@+id/iv_Notification"
                 app:layout_constraintTop_toTopOf="@+id/iv_Notification" />
@@ -265,6 +280,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_Notification"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_Notification" />
@@ -281,6 +297,7 @@
             android:text="Application"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_Notifications" />
 
@@ -309,6 +326,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="About"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_About"
                 app:layout_constraintStart_toEndOf="@+id/iv_About"
                 app:layout_constraintTop_toTopOf="@+id/iv_About" />
@@ -320,6 +338,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_About"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_About" />
@@ -350,6 +369,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Contact Us"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_Contact"
                 app:layout_constraintStart_toEndOf="@+id/iv_Contact"
                 app:layout_constraintTop_toTopOf="@+id/iv_Contact" />
@@ -361,6 +381,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_Contact"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_Contact" />
@@ -392,6 +413,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Privacy Policy"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_Privacy"
                 app:layout_constraintStart_toEndOf="@+id/iv_Privacy"
                 app:layout_constraintTop_toTopOf="@+id/iv_Privacy" />
@@ -402,6 +424,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_Privacy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_Privacy" />
@@ -432,6 +455,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Terms and Conditions"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_Conditions"
                 app:layout_constraintStart_toEndOf="@+id/iv_Conditions"
                 app:layout_constraintTop_toTopOf="@+id/iv_Conditions" />
@@ -442,6 +466,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_Conditions"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_Conditions" />
@@ -472,6 +497,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Rate this app!"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_RateApp"
                 app:layout_constraintStart_toEndOf="@+id/iv_RateApp"
                 app:layout_constraintTop_toTopOf="@+id/iv_RateApp" />
@@ -482,6 +508,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_RateApp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_RateApp" />
@@ -512,6 +539,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Version"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_Version"
                 app:layout_constraintStart_toEndOf="@+id/iv_Version"
                 app:layout_constraintTop_toTopOf="@+id/iv_Version" />
@@ -522,6 +550,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="4.6.9"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_Version"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_Version" />
@@ -554,6 +583,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Logout"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_Log"
                 app:layout_constraintStart_toEndOf="@+id/iv_Log"
                 app:layout_constraintTop_toTopOf="@+id/iv_Log" />
@@ -563,6 +593,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_right"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_Log" />
