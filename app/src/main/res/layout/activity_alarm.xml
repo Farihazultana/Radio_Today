@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,13 +10,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#212121">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/toolbar_background"
+            android:background="#212121"
             android:minHeight="?attr/actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -36,22 +36,22 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="4dp"
                     android:src="@drawable/ic_back"
-                    app:tint="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_ToolBarTitle"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:id="@+id/tv_ToolBarTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:text="Set Alarm"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:text="Set Alarm"
                     app:layout_constraintBottom_toBottomOf="@+id/toolBar_back_Icon"
                     app:layout_constraintStart_toEndOf="@+id/toolBar_back_Icon"
                     app:layout_constraintTop_toTopOf="@+id/toolBar_back_Icon" />
@@ -63,9 +63,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@drawable/seeall_bg"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="1dp"
+            android:background="@drawable/horizontal_line"
+            android:backgroundTint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -77,8 +77,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:cardCornerRadius="6dp"
             android:backgroundTint="#030303"
+            app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -151,13 +151,14 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvStartStreaming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:cardCornerRadius="6dp"
             android:backgroundTint="#030303"
+            app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cvAlarmIntro">
@@ -177,9 +178,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Start Stream At : "
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -204,6 +205,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:orientation="horizontal"
+                    android:weightSum="4"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -214,34 +216,148 @@
                         android:id="@+id/numPickerMin_Start"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp" />
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1.16"
+                        android:theme="@style/AppTheme.Picker" />
 
                     <NumberPicker
                         android:id="@+id/numPickerSec_Start"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp" />
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1.16"
+                        android:theme="@style/AppTheme.Picker" />
 
                     <NumberPicker
                         android:id="@+id/numPickerDayOrNight_Start"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp" />
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1.16"
+                        android:theme="@style/AppTheme.Picker" />
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
+                    <Switch
                         android:id="@+id/switchStartStreaming"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        app:thumbTint="@color/red"
-                        app:trackTint="#7A7A7A" />
+                        android:layout_gravity="start|center"
+                        android:layout_weight="0.5"
+                        android:checked="true"
+                        android:thumb="@drawable/custom_thumb"
+                        android:track="@drawable/custom_track"
+                        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvStopStreaming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#030303"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvStartStreaming">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutStopStreaming"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/viewDown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewTop">
+
+                <TextView
+                    android:id="@+id/tvStopStreamingHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stop Stream At : "
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
+                <TextView
+                    android:id="@+id/tvSelectedStopStreamingTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="00:00 AM"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvStopStreamingHeading"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/tvStopStreamingHeading"
+                    app:layout_constraintTop_toTopOf="@+id/tvStopStreamingHeading" />
+
+                <LinearLayout
+                    android:id="@+id/layout_StopNumberPicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvStopStreamingHeading"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <NumberPicker
+                        android:id="@+id/numPickerMin_Stop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1.16"
+                        android:theme="@style/AppTheme.Picker" />
+
+                    <NumberPicker
+                        android:id="@+id/numPickerSec_Stop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1.16"
+                        android:theme="@style/AppTheme.Picker" />
+
+                    <NumberPicker
+                        android:id="@+id/numPickerDayOrNight_Stop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1.16"
+                        android:theme="@style/AppTheme.Picker" />
+
+                    <Switch
+                        android:id="@+id/switchStopStreaming"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:layout_weight="0.5"
+                        android:checked="true"
+                        android:thumb="@drawable/custom_thumb"
+                        android:track="@drawable/custom_track"
+                        tools:ignore="UseSwitchCompatOrMaterialXml"  />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,7 @@
         <activity
             android:name=".ui.activities.AlarmActivity"
             android:exported="false"
+            android:theme="@style/Alarm.Theme.RadioToday"
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".ui.activities.ContactActivity"

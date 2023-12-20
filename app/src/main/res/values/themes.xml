@@ -7,6 +7,11 @@
 
     <style name="Theme.RadioToday" parent="Base.Theme.RadioToday" />
 
+    <style name="Alarm.Theme.RadioToday" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">#212121</item>
+    </style>
+
     <style name="ToolbarTitleText">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">24sp</item>
@@ -42,6 +47,11 @@
 
     <style name="CustomBottomNavMenuStyle.Active">
         <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:colorControlNormal">#ffffff</item>
     </style>
 
 

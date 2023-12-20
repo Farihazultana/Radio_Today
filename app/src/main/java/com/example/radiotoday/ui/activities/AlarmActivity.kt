@@ -29,6 +29,10 @@ class AlarmActivity : AppCompatActivity() {
         binding = ActivityAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolBarBackIcon.setOnClickListener {
+            onBackPressed()
+        }
+
         createNotificationChannel()
         calendar = Calendar.getInstance()
 
