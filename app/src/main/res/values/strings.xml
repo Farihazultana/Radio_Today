@@ -7,4 +7,13 @@
     <string name="facebook_app_id">1499396174238223</string>
     <string name="fb_login_protocol_scheme">1499396174238223</string>
     <string name="facebook_client_token">ef6d541483f76ddba4071ccc0fd5287f</string>
+    <string name="radioStationNameText">New</string>
+    <string name="timePlayedAgoText">Today</string>
+    <string name="playingContentText">Song Name</string>
+    <string name="title_text">Title text</string>
+    <string name="description_text">Description text</string>
+    <string name="set_alarm_description_1">Turn on the Start Stream alarm to start the radio stream automatically at the selected time. The Stop Stream setting sill stop the radio stream at the selceted time. All alarms set will be activated daily.</string>
+    <string name="set_alarm_description_2">* We are not resposible if you dont wake up. ;)</string>
+    <string name="start_stream_text">Start Stream At :</string>
+    <string name="stop_stream_text">Stop Stream At :</string>
 </resources>

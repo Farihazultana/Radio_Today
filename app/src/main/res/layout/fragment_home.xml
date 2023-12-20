@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#212121"
+    android:background="@color/screenBackgroundColor"
     tools:context=".ui.fragments.HomeFragment">
 
     <!--<androidx.cardview.widget.CardView
@@ -20,7 +20,7 @@
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="#030303"
+        android:background="@color/baseThemeColor"
         android:elevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

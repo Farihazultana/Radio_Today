@@ -2,14 +2,14 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.RadioToday" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">#030303</item>
+         <item name="colorPrimary">@color/baseThemeColor</item>
     </style>
 
     <style name="Theme.RadioToday" parent="Base.Theme.RadioToday" />
 
-    <style name="Alarm.Theme.RadioToday" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Screen.Theme.RadioToday" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimary">@color/screenBackgroundColor</item>
     </style>
 
     <style name="ToolbarTitleText">

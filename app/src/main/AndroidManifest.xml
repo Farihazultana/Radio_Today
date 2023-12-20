@@ -26,7 +26,7 @@
         <activity
             android:name=".ui.activities.AlarmActivity"
             android:exported="false"
-            android:theme="@style/Alarm.Theme.RadioToday"
+            android:theme="@style/Screen.Theme.RadioToday"
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".ui.activities.ContactActivity"
@@ -39,6 +39,7 @@
         <activity
             android:name=".ui.activities.SeeAllActivity"
             android:exported="false"
+            android:theme="@style/Screen.Theme.RadioToday"
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".ui.activities.SplashActivity"

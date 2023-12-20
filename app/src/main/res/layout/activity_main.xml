@@ -44,7 +44,7 @@
         style="@style/CustomBottomNavMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0C0C0C"
+        android:background="@color/baseThemeColor"
         app:itemActiveIndicatorStyle="@color/red"
         app:itemIconSize="20dp"
         app:itemTextAppearanceActive="@style/CustomBottomNavMenuStyle.Active"
