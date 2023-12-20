@@ -49,6 +49,18 @@
                 app:layout_constraintStart_toEndOf="@+id/toolBar_back_Icon"
                 app:layout_constraintTop_toTopOf="@+id/toolBar_back_Icon" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_search"
+                app:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_ToolBarTitle"
+                app:layout_constraintTop_toTopOf="@+id/tv_ToolBarTitle" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

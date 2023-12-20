@@ -16,7 +16,7 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
     var seeAllPlaylistData : ArrayList<Content> = ArrayList()
 
     val TYPE_CONTENT = 1
-    val TYPE_BROADCAST = 22
+    val TYPE_PODCAST = 22
     inner class SeeAllViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         var posterImage: ImageView = itemView.findViewById(R.id.ivSeeAlPoster)
@@ -25,7 +25,7 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
 
     }
 
-    inner class BroadcastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class PodcastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val posterImage: ImageView = itemView.findViewById(R.id.iv_ChildContent)
         val title: TextView = itemView.findViewById(R.id.title_textView)
         val description: TextView = itemView.findViewById(R.id.tvDescription)
@@ -47,9 +47,9 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
                 val itemView = inflater.inflate(R.layout.item_seeall, parent, false)
                 SeeAllViewHolder(itemView)
             }
-            TYPE_BROADCAST -> {
+            TYPE_PODCAST -> {
                 val itemView = inflater.inflate(R.layout.item_seeall_podcast,parent, false)
-                BroadcastViewHolder(itemView)
+                PodcastViewHolder(itemView)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -74,7 +74,7 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
             }
         }
 
-        if(holder is BroadcastViewHolder){
+        if(holder is PodcastViewHolder){
             Glide.with(context)
                 .load(playlistItem.image_location)
                 .placeholder(R.drawable.no_img)
@@ -98,7 +98,7 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
 
     override fun getItemViewType(position: Int): Int {
         return if (catName == "Band"){
-            TYPE_BROADCAST
+            TYPE_PODCAST
         }
         else{
             TYPE_CONTENT
