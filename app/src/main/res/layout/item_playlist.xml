@@ -42,7 +42,7 @@
         android:text="2 hours ago"
         android:textColor="@color/white"
         android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_tagNew"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_AudioDescription"
         app:layout_constraintEnd_toStartOf="@+id/tv_RadioStationName"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_duration"
@@ -56,14 +56,14 @@
         android:text="239m"
         android:textColor="@color/white"
         android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_tagNew"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_AudioDescription"
         app:layout_constraintEnd_toStartOf="@+id/tv_timePlayedAgo"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_tagNew"
-        app:layout_constraintTop_toTopOf="@+id/tv_tagNew" />
+        app:layout_constraintStart_toEndOf="@+id/tv_AudioDescription"
+        app:layout_constraintTop_toTopOf="@+id/tv_AudioDescription" />
 
     <TextView
-        android:id="@+id/tv_PlayingContent"
+        android:id="@+id/tv_AudioTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -80,7 +80,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_tagNew"
+        android:id="@+id/tv_AudioDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
@@ -92,8 +92,8 @@
         app:layout_constraintEnd_toStartOf="@+id/tv_duration"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/tv_PlayingContent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_PlayingContent"
+        app:layout_constraintStart_toStartOf="@+id/tv_AudioTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tv_AudioTitle"
         app:layout_constraintVertical_bias="0.060000002" />
 
     <ImageView
@@ -143,6 +143,6 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_menuMore"
-        app:layout_constraintStart_toStartOf="@+id/tv_PlayingContent"
+        app:layout_constraintStart_toStartOf="@+id/tv_AudioTitle"
         app:layout_constraintTop_toBottomOf="@+id/tv_RadioStationName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

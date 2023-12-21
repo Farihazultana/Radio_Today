@@ -1,7 +1,6 @@
 package com.example.radiotoday.ui.activities
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,19 +11,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.seeMore.Similarartist
+import com.example.radiotoday.data.models.showDetails.SimilarArtist
 import com.example.radiotoday.databinding.ActivitySeeMoreBinding
-import com.example.radiotoday.ui.adapters.SeeMoreAdapter
-import com.example.radiotoday.ui.viewmodels.SeeMoreViewModel
+import com.example.radiotoday.ui.adapters.ShowDetailsAdapter
+import com.example.radiotoday.ui.viewmodels.ShowDetailsViewModel
 import com.example.radiotoday.utils.BlurTransformation
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SeeMoreActivity : AppCompatActivity(), SeeMoreAdapter.CardClickListener {
+class SeeMoreActivity : AppCompatActivity(), ShowDetailsAdapter.CardClickListener {
     private lateinit var binding: ActivitySeeMoreBinding
-    private lateinit var seeMoreAdapter: SeeMoreAdapter
-    private val seeMoreViewModel by viewModels<SeeMoreViewModel> ()
+    private lateinit var seeMoreAdapter: ShowDetailsAdapter
+    private val seeMoreViewModel by viewModels<ShowDetailsViewModel> ()
     private lateinit var albumCode: String
     private lateinit var titleImg: String
     private lateinit var title : String
@@ -36,7 +35,7 @@ class SeeMoreActivity : AppCompatActivity(), SeeMoreAdapter.CardClickListener {
         binding = ActivitySeeMoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        seeMoreAdapter = SeeMoreAdapter(this, this)
+        seeMoreAdapter = ShowDetailsAdapter(this, this)
         binding.rvPlaylist.layoutManager = LinearLayoutManager(this)
         binding.rvPlaylist.adapter = seeMoreAdapter
 
@@ -65,15 +64,15 @@ class SeeMoreActivity : AppCompatActivity(), SeeMoreAdapter.CardClickListener {
         binding.tvTitle.text = title
         binding.tvSubTitle.text = subTitle*/
 
-        seeMoreViewModel.fetchSeeMorePlaylistData(albumCode)
-        seeMoreViewModel.seeMorePlaylistData.observe(this){
+        seeMoreViewModel.fetchShowDetailsPlaylistData(albumCode)
+        seeMoreViewModel.showDetailsPlaylistData.observe(this){
             when(it){
                 is ResultType.Loading -> {
 
                 }
                 is ResultType.Success -> {
                     val playlistData = it.data
-                    seeMoreAdapter.seeMorePlaylistData = playlistData[0].similarartist
+                    seeMoreAdapter.showDetailsPlaylistData = playlistData[0].similarartist
                     this.seeMoreAdapter.notifyDataSetChanged()
 
 
@@ -86,7 +85,7 @@ class SeeMoreActivity : AppCompatActivity(), SeeMoreAdapter.CardClickListener {
         }
     }
 
-    override fun onCardClickListener(position: Int, playlistItem: Similarartist) {
+    override fun onCardClickListener(position: Int, playlistItem: SimilarArtist) {
         Toast.makeText(this, "coming Soon!", Toast.LENGTH_SHORT).show()
     }
 }

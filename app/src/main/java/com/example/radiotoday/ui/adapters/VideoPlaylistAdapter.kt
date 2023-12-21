@@ -12,12 +12,11 @@ import com.bumptech.glide.Glide
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.audio.Content
 
-class AudioPlaylistAdapter(private val context: Context, private val cardClickListener : CardClickListener):
-    RecyclerView.Adapter<AudioPlaylistAdapter.AudioPlaylistViewHolder>() {
+class VideoPlaylistAdapter(private val context: Context, private val cardClickListener : VideoPlaylistAdapter.CardClickListener):
+    RecyclerView.Adapter<VideoPlaylistAdapter.VideoPlaylistViewHolder>()  {
 
-    var audioPlaylistData : ArrayList<Content> = ArrayList()
-
-    inner class AudioPlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    var videoPlaylistData : ArrayList<Content> = ArrayList()
+    inner class VideoPlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val posterImage : ImageView = itemView.findViewById(R.id.iv_playerPoster)
         val title : TextView = itemView.findViewById(R.id.tv_AudioTitle)
         val description : TextView = itemView.findViewById(R.id.tv_AudioDescription)
@@ -25,10 +24,10 @@ class AudioPlaylistAdapter(private val context: Context, private val cardClickLi
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): AudioPlaylistAdapter.AudioPlaylistViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_audio, parent, false)
+    ): VideoPlaylistAdapter.VideoPlaylistViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_video, parent, false)
 
-        val viewHolder = AudioPlaylistViewHolder(itemView)
+        val viewHolder = VideoPlaylistViewHolder(itemView)
 
         itemView.setOnClickListener {
             cardClickListener.onCardClickListener(viewHolder.adapterPosition)
@@ -38,10 +37,10 @@ class AudioPlaylistAdapter(private val context: Context, private val cardClickLi
     }
 
     override fun onBindViewHolder(
-        holder: AudioPlaylistViewHolder,
+        holder: VideoPlaylistAdapter.VideoPlaylistViewHolder,
         position: Int
     ) {
-        val playlistItem = audioPlaylistData[position]
+        val playlistItem = videoPlaylistData[position]
         Log.i("TAG", "onBindViewHolder: $playlistItem")
 
         Glide.with(context)
@@ -54,7 +53,7 @@ class AudioPlaylistAdapter(private val context: Context, private val cardClickLi
     }
 
     override fun getItemCount(): Int {
-        return audioPlaylistData.size
+        return videoPlaylistData.size
     }
 
     interface CardClickListener {

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radiotoday.data.models.home.Content
 import com.example.radiotoday.databinding.FragmentHomeBinding
 import com.example.radiotoday.ui.activities.SeeMoreActivity
+import com.example.radiotoday.ui.activities.ShowDetailsActivity
 import com.example.radiotoday.ui.adapters.ParentHomeAdapter
 import com.example.radiotoday.ui.viewmodels.HomeViewModel
 import com.example.radiotoday.utils.ResultType
@@ -61,7 +62,7 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
     }
 
     override fun onItemClickListener(position: Int, currentItem: Content) {
-        val intent = Intent(activity, SeeMoreActivity::class.java)
+        val intent = Intent(activity, ShowDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra("ALBUM_CODE", currentItem.albumcode)
         startActivity(intent)

@@ -1,12 +1,12 @@
-package com.example.radiotoday.data.models.seeMore
+package com.example.radiotoday.data.models.showDetails
 
-data class SeeMoreResponseItem(
+data class ShowDetailsResponseItem(
     val albumcat: Any?,
     val albumname: Any?,
     val artistname: Any?,
     val image_location: String,
     val labelname: Any?,
     val release: Any?,
-    val similarartist: ArrayList<Similarartist>,
+    val similarartist: ArrayList<SimilarArtist>,
     val songs: Int
 )

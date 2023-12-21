@@ -66,11 +66,11 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/iv_playerPoster"
-        app:layout_constraintStart_toStartOf="@+id/tv_PlayingContent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_PlayingContent" />
+        app:layout_constraintStart_toStartOf="@+id/tv_AudioTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tv_AudioTitle" />
 
     <TextView
-        android:id="@+id/tv_PlayingContent"
+        android:id="@+id/tv_AudioTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -120,6 +120,6 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_menuMore"
-        app:layout_constraintStart_toStartOf="@+id/tv_PlayingContent"
+        app:layout_constraintStart_toStartOf="@+id/tv_AudioTitle"
         app:layout_constraintTop_toBottomOf="@+id/tv_RadioStationName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

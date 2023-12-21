@@ -136,7 +136,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
     override fun onItemClickListener(position: Int, playlistItem: Content) {
 
-        val intent = Intent(this, SeeMoreActivity::class.java)
+        val intent = Intent(this, ShowDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra("ALBUM_CODE", playlistItem.albumcode)
         intent.putExtra("TITLE_IMG", playlistItem.image_location)

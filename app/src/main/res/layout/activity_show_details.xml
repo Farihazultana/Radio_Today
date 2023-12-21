@@ -5,16 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screenBackgroundColor"
-    tools:context=".ui.fragments.AudioFragment">
+    tools:context=".ui.activities.ShowDetailsActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvBannerAudio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,9 +20,9 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/imageView8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:foreground="@drawable/rectangular_border_bg"
                 android:scaleType="fitXY"
                 android:src="@drawable/no_img"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -53,9 +49,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/baseThemeColor"
         app:layout_constraintBottom_toTopOf="@+id/rv_Playlist"
@@ -70,48 +66,66 @@
 
             <TextView
                 android:id="@+id/tvAudioIntroTitle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="Brooklyn Simmons"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tvAudioIntroDescription"
+                app:layout_constraintEnd_toStartOf="@+id/ivMore"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tvArtistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Brooklyn Simmons"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvAudioIntroTitle"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvAudioIntroTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvAudioIntroTitle" />
 
             <TextView
                 android:id="@+id/tvAudioIntroDescription"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="24dp"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:text="Circumstances and owing to the  claims of duty of the obligations of business it"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tvMore"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAudioIntroTitle" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/tvAudioIntroTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvArtistName" />
 
-            <TextView
-                android:id="@+id/tvMore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="More"
-                android:textColor="@color/red"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvAudioIntroDescription"
-                app:layout_constraintEnd_toEndOf="@+id/tvAudioIntroTitle"
-                app:layout_constraintStart_toEndOf="@+id/tvAudioIntroDescription"
-                app:layout_constraintTop_toTopOf="@+id/tvAudioIntroDescription"
-                app:layout_constraintVertical_bias="1.0" />
+            <ImageView
+                android:id="@+id/ivMore"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_dots"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAudioIntroTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tvAudioIntroTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvAudioIntroTitle"
+                app:tint="@color/white" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -123,15 +137,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="150dp"
-        tools:listitem="@layout/item_audio"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvBannerAudio"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/item_show_details" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

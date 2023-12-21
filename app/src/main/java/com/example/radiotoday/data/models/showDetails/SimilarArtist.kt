@@ -1,6 +1,6 @@
-package com.example.radiotoday.data.models.seeMore
+package com.example.radiotoday.data.models.showDetails
 
-data class Similarartist(
+data class SimilarArtist(
     val albumcode: String,
     val albumname: String,
     val artistname: String,

@@ -39,6 +39,9 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
     ): View? {
         binding = FragmentAudioBinding.inflate(layoutInflater,container,false)
 
+        binding.ivBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
 
         audioAdapter = AudioPlaylistAdapter(requireContext(), this)
         binding.rvPlaylist.layoutManager = LinearLayoutManager(requireActivity())
