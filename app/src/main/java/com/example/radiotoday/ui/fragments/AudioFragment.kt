@@ -40,7 +40,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         binding = FragmentAudioBinding.inflate(layoutInflater,container,false)
 
         binding.ivBack.setOnClickListener {
-            requireActivity().onBackPressed()
+
         }
 
         audioAdapter = AudioPlaylistAdapter(requireContext(), this)
