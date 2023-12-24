@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="@color/screenBackgroundColor"
     tools:context=".ui.fragments.AudioFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/screenBackgroundColor">
+        android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvBannerAudio"
@@ -59,16 +59,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
-            android:layout_marginTop="80dp"
             android:layout_marginEnd="52dp"
-            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/baseThemeColor"
             app:cardCornerRadius="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/rv_Playlist"
+            app:layout_constraintBottom_toBottomOf="@+id/cvBannerAudio"
             app:layout_constraintEnd_toEndOf="@+id/cvBannerAudio"
             app:layout_constraintStart_toStartOf="@+id/cvBannerAudio"
-            app:layout_constraintTop_toTopOf="@+id/cvBannerAudio"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toBottomOf="@+id/cvBannerAudio">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -127,16 +124,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_Playlist"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="150dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvBannerAudio"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/cvIntroAudio"
             tools:listitem="@layout/item_audio" />
 
 
