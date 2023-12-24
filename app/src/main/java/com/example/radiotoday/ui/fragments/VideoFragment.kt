@@ -1,6 +1,7 @@
 package com.example.radiotoday.ui.fragments
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -38,6 +39,12 @@ class VideoFragment : Fragment(), VideoPlaylistAdapter.CardClickListener {
         binding.ivBack.setOnClickListener {
             onBackAction.onBackListener()
         }
+
+        binding.tvVideoIntroDescription.setShowingLine(2)
+        binding.tvVideoIntroDescription.addShowMoreText("More")
+        binding.tvVideoIntroDescription.addShowLessText("Less")
+        binding.tvVideoIntroDescription.setShowMoreColor(Color.RED)
+        binding.tvVideoIntroDescription.setShowLessTextColor(Color.RED)
 
         videoAdapter = VideoPlaylistAdapter(requireContext(), this)
         binding.rvPlaylist.layoutManager = LinearLayoutManager(requireActivity())

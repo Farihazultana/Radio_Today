@@ -3,6 +3,7 @@ package com.example.radiotoday.ui.fragments
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
+import android.graphics.Color
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
@@ -53,6 +54,12 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         binding.ivBack.setOnClickListener {
             onBackAction.onBackListener()
         }
+
+        binding.tvAudioIntroDescription.setShowingLine(2)
+        binding.tvAudioIntroDescription.addShowMoreText("More")
+        binding.tvAudioIntroDescription.addShowLessText("Less")
+        binding.tvAudioIntroDescription.setShowMoreColor(Color.RED)
+        binding.tvAudioIntroDescription.setShowLessTextColor(Color.RED)
 
         audioAdapter = AudioPlaylistAdapter(requireContext(), this)
         binding.rvPlaylist.layoutManager = LinearLayoutManager(requireActivity())
