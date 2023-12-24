@@ -114,6 +114,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         fun onBackAction(setBackAction: OnBackAction){
             this.onBackAction = setBackAction
         }
+
     }
 
 }

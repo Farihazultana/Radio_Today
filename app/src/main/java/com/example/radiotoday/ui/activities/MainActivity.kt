@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(), OnBackAction {
         setContentView(binding.root)
 
         AudioFragment.onBackAction(this)
+        VideoFragment.onBackAction(this)
 
         replaceFragment(HomeFragment())
         binding.bottomNavigationView.itemIconTintList=null
@@ -56,51 +57,6 @@ class MainActivity : AppCompatActivity(), OnBackAction {
             songsFragment.show(supportFragmentManager,songsFragment.tag)
         }
 
-        /*binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
-            override fun onTransitionStarted(motionLayout: MotionLayout, i: Int, i1: Int) {
-                Log.i("MotionLayout", "Started: $i")
-                currentState = motionLayout.currentState
-            }
-
-            override fun onTransitionChange(motionLayout: MotionLayout, i: Int, i1: Int, v: Float) {
-
-                Log.i("MotionLayout", "Change: $i")
-            }
-
-            override fun onTransitionCompleted(motionLayout: MotionLayout, i: Int) {
-
-                currentState = motionLayout.currentState
-
-                Log.i("MotionLayout", "Completed: ${motionLayout.currentState}")
-            }
-
-            override fun onTransitionTrigger(
-                motionLayout: MotionLayout,
-                i: Int,
-                b: Boolean,
-                v: Float
-            ) {
-
-                Log.i("MotionLayout", "Trigger: $b")
-            }
-        })
-
-        binding.ivDown.setOnClickListener {
-            binding.motionLayout.transitionToStart()
-        }
-
-        Glide.with(this)
-            .load(R.drawable.album_cover)
-            .apply(bitmapTransform(BlurTransformation(25, 3)))
-            .placeholder(R.drawable.ic_launcher_background)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(binding.ivPlayerBG)
-
-        Glide.with(this)
-            .load(R.drawable.album_cover)
-            .placeholder(R.drawable.ic_launcher_background)
-            .transform(RoundedCorners(16))
-            .into(binding.ivMainImageView)*/
     }
 
     private fun handleNavigation(it: MenuItem) {
@@ -141,6 +97,7 @@ class MainActivity : AppCompatActivity(), OnBackAction {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frameLayout,fragment)
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
 
 
@@ -148,16 +105,7 @@ class MainActivity : AppCompatActivity(), OnBackAction {
 
     override fun onBackListener() {
         replaceFragment(HomeFragment())
+        binding.bottomNavigationView.selectedItemId = R.id.home
     }
 
-    /*override fun onBackPressed() {
-
-        *//*if (currentState == R.id.end){
-            binding.motionLayout.transitionToStart()
-        } else {
-            super.onBackPressed()
-        }*//*
-
-
-    }*/
 }

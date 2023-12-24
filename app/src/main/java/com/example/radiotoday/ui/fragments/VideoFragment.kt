@@ -14,6 +14,7 @@ import com.example.radiotoday.databinding.FragmentVideoBinding
 import com.example.radiotoday.ui.activities.LoginActivity
 import com.example.radiotoday.ui.adapters.VideoPlaylistAdapter
 import com.example.radiotoday.ui.viewmodels.VideoViewModel
+import com.example.radiotoday.utils.OnBackAction
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,7 +36,7 @@ class VideoFragment : Fragment(), VideoPlaylistAdapter.CardClickListener {
         binding = FragmentVideoBinding.inflate(layoutInflater, container, false)
 
         binding.ivBack.setOnClickListener {
-
+            onBackAction.onBackListener()
         }
 
         videoAdapter = VideoPlaylistAdapter(requireContext(), this)
@@ -73,6 +74,15 @@ class VideoFragment : Fragment(), VideoPlaylistAdapter.CardClickListener {
         }
 
         videoAdapter.notifyDataSetChanged()
+    }
+
+    companion object{
+
+        lateinit var onBackAction: OnBackAction
+        fun onBackAction(setBackAction: OnBackAction){
+            this.onBackAction = setBackAction
+        }
+
     }
 
 
