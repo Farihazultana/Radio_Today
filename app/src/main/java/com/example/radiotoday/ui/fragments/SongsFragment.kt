@@ -32,18 +32,51 @@ class SongsFragment : BottomSheetDialogFragment() {
     ): View? {
         binding = FragmentSongsBinding.inflate(inflater, container, false)
 
-        Glide.with(this)
+        /*Glide.with(this)
             .load(R.drawable.album_cover)
             .apply(bitmapTransform(BlurTransformation(25, 3)))
             .placeholder(R.drawable.album_cover)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .into(binding.ivPlayerBG)
+            .into(binding.ivPlayerBG)*/
 
         Glide.with(this)
             .load(R.drawable.album_cover)
             .placeholder(R.drawable.album_cover)
             .transform(RoundedCorners(16))
             .into(binding.imageView)
+
+        binding.ivPlay.setOnClickListener {
+            binding.seekbarLive.visibility = View.VISIBLE
+            binding.seekbarEnd.visibility = View.GONE
+            binding.ivPause.visibility = View.VISIBLE
+            binding.ivPlay.visibility = View.GONE
+            binding.ivPlayNext.visibility = View.GONE
+            binding.ivPlayPrev.visibility = View.GONE
+            binding.ivShuffle.visibility = View.GONE
+            binding.ivLoop.visibility = View.GONE
+        }
+
+        binding.ivPause.setOnClickListener {
+            binding.seekbarLive.visibility = View.GONE
+            binding.seekbarEnd.visibility = View.VISIBLE
+            binding.ivPause.visibility = View.GONE
+            binding.ivPlay.visibility = View.VISIBLE
+            binding.ivPlayNext.visibility = View.VISIBLE
+            binding.ivPlayPrev.visibility = View.VISIBLE
+            binding.ivShuffle.visibility = View.VISIBLE
+            binding.ivLoop.visibility = View.VISIBLE
+        }
+
+        binding.ivFavorite.setOnClickListener {
+            binding.ivFavorite.visibility = View.GONE
+            binding.ivNonFavorite.visibility = View.VISIBLE
+        }
+
+        binding.ivNonFavorite.setOnClickListener {
+            binding.ivFavorite.visibility = View.VISIBLE
+            binding.ivNonFavorite.visibility = View.GONE
+        }
+
         return binding.root
     }
 
