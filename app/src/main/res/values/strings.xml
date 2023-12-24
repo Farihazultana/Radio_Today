@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Radio Today</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="track_selection_title">Select tracks</string>
 
 
     <string name="web_client_id">800910493538-rn1umlg1clrmdgo9505kt6aee3hp4eb2.apps.googleusercontent.com</string>

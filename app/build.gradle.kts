@@ -78,10 +78,10 @@ dependencies {
 
     // exo player
     implementation ("com.google.android.exoplayer:exoplayer:2.16.0")
-    //implementation ("com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14")
-    //implementation ("com.google.android.exoplayer:extension-mediasession:2.16.0")
-    //implementation ("com.google.android.exoplayer:extension-cronet:2.16.0")
-    //implementation ("com.google.android.exoplayer:extension-ima:2.16.0")
+    implementation ("com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14")
+    implementation ("com.google.android.exoplayer:extension-mediasession:2.16.0")
+    implementation ("com.google.android.exoplayer:extension-cronet:2.16.0")
+    implementation ("com.google.android.exoplayer:extension-ima:2.16.0")
 
     //Google Sign In
     implementation ("com.google.android.gms:play-services-auth:20.7.0")

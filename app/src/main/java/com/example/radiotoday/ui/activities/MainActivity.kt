@@ -27,18 +27,21 @@ import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
 import com.example.radiotoday.utils.BitmapTransformation
 import com.example.radiotoday.utils.BlurTransformation
+import com.example.radiotoday.utils.OnBackAction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnBackAction {
     private var currentState: Int = R.id.start
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        AudioFragment.onBackAction(this)
 
         replaceFragment(HomeFragment())
         binding.bottomNavigationView.itemIconTintList=null
@@ -141,6 +144,10 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
 
 
+    }
+
+    override fun onBackListener() {
+        replaceFragment(HomeFragment())
     }
 
     /*override fun onBackPressed() {

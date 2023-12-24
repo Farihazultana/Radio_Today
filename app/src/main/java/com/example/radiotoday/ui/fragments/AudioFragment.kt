@@ -1,22 +1,28 @@
 package com.example.radiotoday.ui.fragments
 
+import android.content.ComponentName
 import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radiotoday.R
+import com.example.radiotoday.audioPlayer.MusicService
+import com.example.radiotoday.audioPlayer.PlayerController
 import com.example.radiotoday.databinding.FragmentAudioBinding
 import com.example.radiotoday.ui.activities.LoginActivity
 import com.example.radiotoday.ui.adapters.AudioPlaylistAdapter
 import com.example.radiotoday.ui.viewmodels.AudioViewModel
+import com.example.radiotoday.utils.OnBackAction
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,9 +32,14 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
     private lateinit var audioAdapter: AudioPlaylistAdapter
     private val audioViewModel by viewModels<AudioViewModel>()
 
+    var mPlayerController: PlayerController? = null
+    private var mMusicService: MusicService? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        mPlayerController = MusicService.getMediaPlayerHolder()
 
 
     }
@@ -40,7 +51,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         binding = FragmentAudioBinding.inflate(layoutInflater,container,false)
 
         binding.ivBack.setOnClickListener {
-
+            onBackAction.onBackListener()
         }
 
         audioAdapter = AudioPlaylistAdapter(requireContext(), this)
@@ -95,6 +106,14 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         }
 
         audioAdapter.notifyDataSetChanged()
+    }
+
+    companion object{
+
+        lateinit var onBackAction: OnBackAction
+        fun onBackAction(setBackAction: OnBackAction){
+            this.onBackAction = setBackAction
+        }
     }
 
 }

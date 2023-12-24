@@ -86,6 +86,7 @@ class ChildHomeAdapter(
             holder.title?.text = currentItem.albumname
             if (currentItem.catcode == "popmodern"){
                 Log.i("Folk", "onBindViewHolder: ${currentItem.catcode}")
+
                 val drawableStart = R.drawable.ic_music
                 holder.title?.setCompoundDrawablesWithIntrinsicBounds(
                     drawableStart, 0, 0, 0

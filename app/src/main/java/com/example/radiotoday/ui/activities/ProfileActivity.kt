@@ -2,10 +2,8 @@ package com.example.radiotoday.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.transition.Visibility
 import android.util.Log
 import android.view.View
-import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity() {
