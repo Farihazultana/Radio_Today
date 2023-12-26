@@ -18,6 +18,7 @@ class IntroScreenActivity : AppCompatActivity() {
     lateinit var sliderList: ArrayList<SliderData>
 
     lateinit var skipBtn: TextView
+    lateinit var nextBtn: Button
 
     lateinit var indicatorSlideOneTV: TextView
     lateinit var indicatorSlideTwoTV: TextView
@@ -31,6 +32,7 @@ class IntroScreenActivity : AppCompatActivity() {
         indicatorSlideOneTV = findViewById(R.id.idTVSlideOne)
         indicatorSlideTwoTV = findViewById(R.id.idTVSlideTwo)
         indicatorSlideThreeTV = findViewById(R.id.idTVSlideThree)
+        nextBtn = findViewById(R.id.idBtnNext)
 
         skipBtn.setOnClickListener {
             val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
@@ -66,6 +68,18 @@ class IntroScreenActivity : AppCompatActivity() {
         sliderAdapter = SliderAdapter(this, sliderList)
         viewPager.adapter = sliderAdapter
         viewPager.addOnPageChangeListener(viewListener)
+
+        nextBtn.setOnClickListener {
+            val currentItem = viewPager.currentItem
+            val nextItem = currentItem + 1
+
+            if (nextItem < sliderList.size) {
+                viewPager.currentItem = nextItem
+            } else {
+                val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
+                startActivity(i)
+            }
+        }
 
 
     }
