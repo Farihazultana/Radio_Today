@@ -1,22 +1,14 @@
 package com.example.radiotoday.ui.activities
 
 import android.os.Bundle
-import android.text.Html
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.core.content.ContextCompat
-import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.RequestOptions.bitmapTransform
-import com.bumptech.glide.request.target.Target
+import androidx.fragment.app.FragmentManager
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityMainBinding
 import com.example.radiotoday.ui.fragments.AudioFragment
@@ -25,17 +17,25 @@ import com.example.radiotoday.ui.fragments.NewsFragment
 import com.example.radiotoday.ui.fragments.SettingsFragment
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
-import com.example.radiotoday.utils.BitmapTransformation
-import com.example.radiotoday.utils.BlurTransformation
 import com.example.radiotoday.utils.OnBackAction
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), OnBackAction {
-    private var currentState: Int = R.id.start
+
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var activeFragment: Fragment
+    private var homeFragment = HomeFragment()
+    private var audioFragment = AudioFragment()
+    private var videoFragment = VideoFragment()
+    private var newsFragment = NewsFragment()
+    private var settingsFragment = SettingsFragment()
+
+    private var doubleBackToExitPressedOnce = true
+
+    private lateinit var fragmentManager: FragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), OnBackAction {
         VideoFragment.onBackAction(this)
         SettingsFragment.onBackAction(this)
 
-        replaceFragment(HomeFragment())
+        replaceFragment(homeFragment)
         binding.bottomNavigationView.itemIconTintList=null
         binding.bottomNavigationView.setOnItemSelectedListener {
             handleNavigation(it)
@@ -64,28 +64,27 @@ class MainActivity : AppCompatActivity(), OnBackAction {
         when (it.itemId) {
             R.id.home -> {
                 binding.layoutMiniPlayer.visibility = View.VISIBLE
-                replaceFragment(HomeFragment())
-
+                replaceFragment(homeFragment)
             }
 
             R.id.audio -> {
                 binding.layoutMiniPlayer.visibility = View.VISIBLE
-                replaceFragment(AudioFragment())
+                replaceFragment(audioFragment)
             }
 
             R.id.video -> {
                 binding.layoutMiniPlayer.visibility = View.VISIBLE
-                replaceFragment(VideoFragment())
+                replaceFragment(videoFragment)
             }
 
             R.id.news -> {
                 binding.layoutMiniPlayer.visibility = View.VISIBLE
-                replaceFragment(NewsFragment())
+                replaceFragment(newsFragment)
             }
 
             R.id.settings -> {
                 binding.layoutMiniPlayer.visibility = View.GONE
-                replaceFragment(SettingsFragment())
+                replaceFragment(settingsFragment)
             }
 
             else -> {}
@@ -95,18 +94,36 @@ class MainActivity : AppCompatActivity(), OnBackAction {
 
     private fun replaceFragment(fragment : Fragment){
 
-        val fragmentManager = supportFragmentManager
+        activeFragment = fragment
+
+        fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frameLayout,fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
-
-
     }
 
     override fun onBackListener() {
-        replaceFragment(HomeFragment())
+        replaceFragment(homeFragment)
         binding.bottomNavigationView.selectedItemId = R.id.home
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (activeFragment != homeFragment){
+            replaceFragment(homeFragment)
+            binding.bottomNavigationView.selectedItemId = R.id.home
+        } else{
+            if (doubleBackToExitPressedOnce) {
+                doubleBackToExitPressedOnce = false
+                Handler(Looper.getMainLooper()).postDelayed({
+                    doubleBackToExitPressedOnce = true
+                }, 2000)
+                Toast.makeText(this, "Press again to exit app", Toast.LENGTH_SHORT).show()
+            } else {
+                super.onBackPressed()
+                finish()
+            }
+        }
+    }
 }
