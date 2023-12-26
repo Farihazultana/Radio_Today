@@ -226,7 +226,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/ic_fb_btn"
             app:layout_constraintEnd_toStartOf="@+id/btn_loginWithGoogle"
             app:layout_constraintStart_toStartOf="parent"
@@ -288,28 +288,38 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/ivRegistrationLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="90dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginEnd="90dp"
-            android:src="@drawable/login_logo"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/ivBackgroundSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/slider_bg_img"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/ivSignUpLogo"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_toolbar_logo"
+            app:layout_constraintEnd_toEndOf="@+id/ivBackgroundSignUp"
+            app:layout_constraintStart_toStartOf="@+id/ivBackgroundSignUp"
+            app:layout_constraintTop_toTopOf="@+id/ivBackgroundSignUp" />
+
         <TextView
-            android:id="@+id/tvRegText"
+            android:id="@+id/tvSignUpText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="40dp"
             android:text="Sign Up"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivRegistrationLogo" />
+            app:layout_constraintBottom_toBottomOf="@+id/ivBackgroundSignUp"
+            app:layout_constraintEnd_toEndOf="@+id/ivSignUpLogo"
+            app:layout_constraintStart_toStartOf="@+id/ivSignUpLogo"
+            app:layout_constraintTop_toBottomOf="@+id/ivSignUpLogo" />
 
         <LinearLayout
             android:id="@+id/nameInputLayoutReg"
@@ -318,11 +328,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/border_bg"
+            android:background="@drawable/rectangular_border_bg_white"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRegText">
+            app:layout_constraintTop_toBottomOf="@+id/ivBackgroundSignUp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_Reg_name"
@@ -334,7 +344,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp"
                 android:hint="Name"
-                app:boxBackgroundColor="@android:color/transparent"
+                android:textColorHint="@color/white"
+                app:boxBackgroundColor="@color/screenBackgroundColor"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
@@ -353,6 +364,7 @@
                     android:inputType="textPersonName"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
+                    android:textColor="@color/white"
                     android:textCursorDrawable="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvRegText"
@@ -370,7 +382,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/border_bg"
+            android:background="@drawable/rectangular_border_bg_white"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -386,7 +398,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp"
                 android:hint="Email ID"
-                app:boxBackgroundColor="@android:color/transparent"
+                android:textColorHint="@color/white"
+                app:boxBackgroundColor="@color/screenBackgroundColor"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
@@ -405,6 +418,7 @@
                     android:inputType="textEmailAddress"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
+                    android:textColor="@color/white"
                     android:textCursorDrawable="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvRegText"
@@ -421,7 +435,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/border_bg"
+            android:background="@drawable/rectangular_border_bg_white"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -437,7 +451,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp"
                 android:hint="Password"
-                app:boxBackgroundColor="@android:color/transparent"
+                android:textColorHint="@color/white"
+                app:boxBackgroundColor="@color/screenBackgroundColor"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
@@ -445,7 +460,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvLoginText"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_Reg_password"
@@ -456,6 +472,7 @@
                     android:inputType="textPassword"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
+                    android:textColor="@color/white"
                     android:textCursorDrawable="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvRegText"
@@ -472,7 +489,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/border_bg"
+            android:background="@drawable/rectangular_border_bg_white"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -487,8 +504,9 @@
                 android:layout_marginTop="1dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp"
-                android:hint="Re-Enter Password"
-                app:boxBackgroundColor="@android:color/transparent"
+                android:hint="Confirm Password"
+                android:textColorHint="@color/white"
+                app:boxBackgroundColor="@color/screenBackgroundColor"
                 app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
@@ -496,7 +514,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvLoginText"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_Reg_reEnterPassword"
@@ -507,6 +526,7 @@
                     android:inputType="textPassword"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
+                    android:textColor="@color/white"
                     android:textCursorDrawable="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvRegText"
@@ -525,7 +545,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/border_bg"
-            android:backgroundTint="@color/navyBlue"
+            android:backgroundTint="@color/red"
             android:text="Sign Up"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -534,34 +554,35 @@
             app:layout_constraintTop_toBottomOf="@+id/reEnter_passwordInputLayoutReg" />
 
 
-
-
         <TextView
             android:id="@+id/tv_reg_RadioToday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="94dp"
+            android:layout_marginTop="32dp"
             android:text="Already have an account?"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvReg_Register"
             app:layout_constraintStart_toStartOf="@+id/btn_Registration"
-            app:layout_constraintTop_toBottomOf="@+id/btn_Registration" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_Registration"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvReg_Register"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="80dp"
-            android:text="Click here"
+            android:layout_marginStart="8dp"
+            android:text="Login"
+            android:textAlignment="textStart"
             android:textColor="@color/red"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_reg_RadioToday"
-            app:layout_constraintEnd_toEndOf="@+id/tv_reg_RadioToday"
+            app:layout_constraintEnd_toEndOf="@+id/btn_Registration"
             app:layout_constraintStart_toEndOf="@+id/tv_reg_RadioToday"
-            app:layout_constraintTop_toTopOf="@+id/tv_reg_RadioToday"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="@+id/tv_reg_RadioToday" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
