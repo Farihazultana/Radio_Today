@@ -17,6 +17,7 @@ import com.example.radiotoday.ui.activities.ContactActivity
 import com.example.radiotoday.ui.activities.LoginActivity
 import com.example.radiotoday.ui.activities.ProfileActivity
 import com.example.radiotoday.utils.AppUtils
+import com.example.radiotoday.utils.OnBackAction
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
@@ -34,6 +35,10 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSettingsBinding.inflate(layoutInflater,container, false)
+
+        binding.toolBarBackIcon.setOnClickListener {
+            onBackAction.onBackListener()
+        }
 
         binding.cvProfileImg.setOnClickListener {
             val intent = Intent(requireContext(), ProfileActivity::class.java)
@@ -103,6 +108,15 @@ class SettingsFragment : Fragment() {
         } catch (e: UninitializedPropertyAccessException) {
             false
         }
+    }
+
+    companion object{
+
+        lateinit var onBackAction: OnBackAction
+        fun onBackAction(setBackAction: OnBackAction){
+            this.onBackAction = setBackAction
+        }
+
     }
 
 
