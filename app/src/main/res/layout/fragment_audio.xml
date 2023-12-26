@@ -32,7 +32,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:foreground="@drawable/rectangular_border_bg"
+                    android:foreground="@drawable/rectangular_border_bg_red"
                     android:scaleType="fitXY"
                     android:src="@drawable/no_img"
                     app:layout_constraintBottom_toBottomOf="parent"
