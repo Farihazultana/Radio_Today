@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screenBackgroundColor"
+    tools:context=".ui.activities.IntroScreenActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/idViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/idLLDots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!--on below line we are creating a text view
+             for displaying our dots-->
+        <TextView
+            android:id="@+id/idTVSlideOne"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:text="•"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <!--on below line we are creating a text view
+             for displaying our dots-->
+        <TextView
+            android:id="@+id/idTVSlideTwo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:text="•"
+            android:textAlignment="center"
+            android:textColor="@color/grey"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <!--on below line we are creating a text view
+            for displaying our dots-->
+        <TextView
+            android:id="@+id/idTVSlideThree"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:text="•"
+            android:textAlignment="center"
+            android:textColor="@color/grey"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/idBtnSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Skip"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/idLLDots"
+        app:layout_constraintEnd_toStartOf="@+id/idLLDots"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/idLLDots" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/idBtnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/border_bg"
+        android:backgroundTint="@color/red"
+        android:drawableEnd="@drawable/ic_arrow_right"
+        android:drawableTint="@color/white"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="Next"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/idLLDots"
+        app:layout_constraintTop_toTopOf="@+id/idLLDots" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
