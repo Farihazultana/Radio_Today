@@ -223,7 +223,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:visibility="visible"
-                android:src="@drawable/ic_previous" />
+                android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/iv_loop"
