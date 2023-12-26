@@ -17,6 +17,10 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolBarBackIcon.setOnClickListener {
+            onBackPressed()
+        }
+
 
         binding.inputName.setText("Alex Smith")
         binding.inputEmail.setText("smith@gmail.com")
@@ -66,6 +70,7 @@ class ProfileActivity : AppCompatActivity() {
             binding.inputAddress.isEnabled = false
 
             name = binding.inputName.text.toString()
+            binding.tvProfileName.text = name
             email = binding.inputEmail.text.toString()
             phone = binding.inputPhone.text.toString()
             address = binding.inputAddress.text.toString()
