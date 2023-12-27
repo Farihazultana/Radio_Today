@@ -84,7 +84,8 @@ class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.
                 holder.rvHor.visibility = View.VISIBLE
                 holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contenttype, currentItem.catname, currentItem.contents, this)
                 if(currentItem.contenttype == "1"){
-                    holder.rvHor.layoutManager = GridLayoutManager(holder.rvHor.context,3, LinearLayoutManager.HORIZONTAL,false)
+                    holder.rvHor.visibility = View.GONE
+                    //holder.rvHor.layoutManager = GridLayoutManager(holder.rvHor.context,3, LinearLayoutManager.HORIZONTAL,false)
                 }else{
                     holder.rvHor.layoutManager = LinearLayoutManager(holder.rvHor.context, LinearLayoutManager.HORIZONTAL,false)
                 }
@@ -93,25 +94,27 @@ class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.
 
                 holder.rvHor.adapter = holder.childListAdapter
 
-                if(currentItem.catcode == "recent"){
+                if(currentItem.contenttype == "1"){
                     holder.title.visibility = View.GONE
-                    if(currentItem.contents.isEmpty()){
-                        holder.seeAll.visibility = View.GONE
+                    holder.seeAll.visibility = View.GONE
 
+                    /*if(currentItem.contents.isEmpty()){
+                        holder.seeAll.visibility = View.GONE
                     }else{
                         holder.seeAll.visibility = View.VISIBLE
 
-                    }
+                    }*/
 
                 } else {
+                    holder.title.visibility = View.VISIBLE
                     holder.seeAll.visibility = View.VISIBLE
+
                     holder.seeAll.setOnClickListener {
                         val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
                         intent.putExtra("catname", currentItem.catname)
                         intent.putExtra("contenttype", currentItem.contenttype)
                         holder.itemView.context.startActivity(intent)
                     }
-                    holder.title.visibility = View.VISIBLE
                 }
 
             }
