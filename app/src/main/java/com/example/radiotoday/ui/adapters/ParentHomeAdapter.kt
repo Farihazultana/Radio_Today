@@ -96,8 +96,10 @@ class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.
                 if(currentItem.catcode == "recent"){
                     if(currentItem.contents.isEmpty()){
                         holder.seeAll.visibility = View.GONE
+                        holder.title.visibility = View.GONE
                     }else{
                         holder.seeAll.visibility = View.VISIBLE
+                        holder.title.visibility = View.VISIBLE
                     }
 
                 } else {
