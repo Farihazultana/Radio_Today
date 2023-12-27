@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#A6A6A6</color>
     <color name="darkGrey">#4D4D4D</color>
+    <color name="darkTransparent">#52000000</color>
     <color name="navyBlue">#1c1c28</color>
     <color name="orange">#faa28e</color>
     <color name="red">#FFFF0000</color>

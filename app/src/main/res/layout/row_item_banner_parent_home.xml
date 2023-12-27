@@ -30,7 +30,7 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="85dp"
-            android:background="#52000000"
+            android:background="@color/darkTransparent"
             app:layout_constraintBottom_toBottomOf="@+id/image_slider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/image_slider"
