@@ -32,7 +32,6 @@ import org.json.JSONException
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
-
     private lateinit var enteredPhone: String
     private lateinit var enteredPassword: String
     private var phoneText: String? = null
