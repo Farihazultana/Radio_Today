@@ -94,12 +94,13 @@ class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.
                 holder.rvHor.adapter = holder.childListAdapter
 
                 if(currentItem.catcode == "recent"){
+                    holder.title.visibility = View.GONE
                     if(currentItem.contents.isEmpty()){
                         holder.seeAll.visibility = View.GONE
-                        holder.title.visibility = View.GONE
+
                     }else{
                         holder.seeAll.visibility = View.VISIBLE
-                        holder.title.visibility = View.VISIBLE
+
                     }
 
                 } else {
@@ -110,6 +111,7 @@ class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.
                         intent.putExtra("contenttype", currentItem.contenttype)
                         holder.itemView.context.startActivity(intent)
                     }
+                    holder.title.visibility = View.VISIBLE
                 }
 
             }
