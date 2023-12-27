@@ -37,11 +37,14 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var enteredPassword: String
     private var phoneText: String? = null
 
+    private val myIntent by lazy { Intent(this, MainActivity::class.java) }
+
     private val _requestCodeSignIn = 1000
     private var gso: GoogleSignInOptions? = null
     private var gsc: GoogleSignInClient? = null
 
     private val callbackManager = CallbackManager.Factory.create()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,9 +58,9 @@ class LoginActivity : AppCompatActivity() {
             val loginResult = SharedPreferencesUtil.getData(this,LogInStatus, "")
 
             if (loginResult == "successful"){
-                val intent = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(intent)
+
+                myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(myIntent)
 
                 Toast.makeText(
                     this@LoginActivity,
@@ -221,7 +224,9 @@ class LoginActivity : AppCompatActivity() {
                                     "Google Sign-In Successful!",
                                     Toast.LENGTH_LONG
                                 ).show()
-                                finish()
+                                //finish()
+                                myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                startActivity(myIntent)
                             } else {
                                 val exception = task.exception
                                 if (exception is ApiException) {

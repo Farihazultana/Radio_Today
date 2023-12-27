@@ -76,9 +76,9 @@ class IntroScreenActivity : AppCompatActivity() {
             if (nextItem < sliderList.size) {
                 viewPager.currentItem = nextItem
             } else {
+                finish()
                 val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
                 startActivity(i)
-                finish()
             }
         }
 
@@ -97,16 +97,22 @@ class IntroScreenActivity : AppCompatActivity() {
                     indicatorSlideThreeTV.setTextColor(resources.getColor(R.color.grey))
                     indicatorSlideOneTV.setTextColor(resources.getColor(R.color.red))
 
+                    nextBtn.text = "Next"
+
                 }
                 1 -> {
                     indicatorSlideTwoTV.setTextColor(resources.getColor(R.color.red))
                     indicatorSlideThreeTV.setTextColor(resources.getColor(R.color.grey))
                     indicatorSlideOneTV.setTextColor(resources.getColor(R.color.grey))
+
+                    nextBtn.text = "Next"
                 }
                 else -> {
                     indicatorSlideTwoTV.setTextColor(resources.getColor(R.color.grey))
                     indicatorSlideThreeTV.setTextColor(resources.getColor(R.color.red))
                     indicatorSlideOneTV.setTextColor(resources.getColor(R.color.grey))
+
+                    nextBtn.text = "  Let's Go"
                 }
             }
         }
