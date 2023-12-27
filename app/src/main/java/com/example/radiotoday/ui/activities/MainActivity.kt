@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), OnBackAction {
         AudioFragment.onBackAction(this)
         VideoFragment.onBackAction(this)
         SettingsFragment.onBackAction(this)
+        NewsFragment.onBackAction(this)
 
         replaceFragment(homeFragment)
         binding.bottomNavigationView.itemIconTintList=null
