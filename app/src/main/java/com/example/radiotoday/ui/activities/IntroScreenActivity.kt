@@ -12,13 +12,13 @@ import com.example.radiotoday.ui.adapters.SliderAdapter
 
 class IntroScreenActivity : AppCompatActivity() {
 
-    lateinit var viewPager: ViewPager
+    private lateinit var viewPager: ViewPager
 
-    lateinit var sliderAdapter: SliderAdapter
-    lateinit var sliderList: ArrayList<SliderData>
+    private lateinit var sliderAdapter: SliderAdapter
+    private lateinit var sliderList: ArrayList<SliderData>
 
-    lateinit var skipBtn: TextView
-    lateinit var nextBtn: Button
+    private lateinit var skipBtn: TextView
+    private lateinit var nextBtn: Button
 
     lateinit var indicatorSlideOneTV: TextView
     lateinit var indicatorSlideTwoTV: TextView
@@ -78,6 +78,7 @@ class IntroScreenActivity : AppCompatActivity() {
             } else {
                 val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
                 startActivity(i)
+                finish()
             }
         }
 

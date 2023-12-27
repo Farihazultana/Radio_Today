@@ -1,368 +1,380 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".ui.activities.AlarmActivity">
+    tools:context=".ui.activities.AlarmActivity"
+    android:background="@color/screenBackgroundColor">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/screenBackgroundColor">
+        android:background="@color/screenBackgroundColor"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextAppearance="@style/ToolbarTitleText">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/screenBackgroundColor"
-            android:minHeight="?attr/actionBarSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:titleTextAppearance="@style/ToolbarTitleText">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
+                android:id="@+id/toolBar_back_Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_ToolBarTitle"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_ToolBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Set Alarm"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/toolBar_back_Icon"
+                app:layout_constraintStart_toEndOf="@+id/toolBar_back_Icon"
+                app:layout_constraintTop_toTopOf="@+id/toolBar_back_Icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:id="@+id/view13"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/horizontal_line"
+        android:backgroundTint="@color/darkGrey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view13">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvAlarmIntro"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/baseThemeColor"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/toolBar_back_Icon"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_alarm_group"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/ic_alarm_group"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivAlarmLogo"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_alarm_clock_logo"
+                        app:layout_constraintBottom_toTopOf="@+id/tvDescription1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvDescription1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="@string/set_alarm_description_1"
+                        android:textColor="@color/grey"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/ivAlarmLogo"
+                        app:layout_constraintStart_toStartOf="@+id/ivAlarmLogo"
+                        app:layout_constraintTop_toBottomOf="@+id/ivAlarmLogo" />
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="32dp"
+                        android:text="@string/set_alarm_description_2"
+                        android:textColor="@color/darkGrey"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/ivAlarmLogo"
+                        app:layout_constraintStart_toStartOf="@+id/ivAlarmLogo"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDescription1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvStartStreaming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/baseThemeColor"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cvAlarmIntro">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutStartStreaming"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="4dp"
-                    android:src="@drawable/ic_back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_ToolBarTitle"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white" />
-
-                <TextView
-                    android:id="@+id/tv_ToolBarTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Set Alarm"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/toolBar_back_Icon"
-                    app:layout_constraintStart_toEndOf="@+id/toolBar_back_Icon"
-                    app:layout_constraintTop_toTopOf="@+id/toolBar_back_Icon" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.appcompat.widget.Toolbar>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/horizontal_line"
-            android:backgroundTint="@color/darkGrey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvAlarmIntro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/baseThemeColor"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/ic_alarm_group"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_alarm_group"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/ivAlarmLogo"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_alarm_clock_logo"
-                    app:layout_constraintBottom_toTopOf="@+id/tvDescription1"
+                    android:layout_margin="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/viewDown"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/viewTop">
 
-                <TextView
-                    android:id="@+id/tvDescription1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="@string/set_alarm_description_1"
-                    android:textColor="@color/grey"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/ivAlarmLogo"
-                    app:layout_constraintStart_toStartOf="@+id/ivAlarmLogo"
-                    app:layout_constraintTop_toBottomOf="@+id/ivAlarmLogo" />
+                    <TextView
+                        android:id="@+id/tvStartStreaminHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_stream_text"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="32dp"
-                    android:text="@string/set_alarm_description_2"
-                    android:textColor="@color/darkGrey"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/ivAlarmLogo"
-                    app:layout_constraintStart_toStartOf="@+id/ivAlarmLogo"
-                    app:layout_constraintTop_toBottomOf="@+id/tvDescription1" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/tvSelectedStartStreamingTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="00:00 AM"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvStartStreaminHeading"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/tvStartStreaminHeading"
+                        app:layout_constraintTop_toTopOf="@+id/tvStartStreaminHeading" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvStartStreaming"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/baseThemeColor"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvAlarmIntro">
+                    <LinearLayout
+                        android:id="@+id/layoutStart_NumberPicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:orientation="horizontal"
+                        android:weightSum="4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvStartStreaminHeading"
+                        app:layout_constraintVertical_bias="0.0">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutStartStreaming"
+                        <NumberPicker
+                            android:id="@+id/numPickerMin_Start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1.16"
+                            android:theme="@style/AppTheme.Picker" />
+
+                        <NumberPicker
+                            android:id="@+id/numPickerSec_Start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1.16"
+                            android:theme="@style/AppTheme.Picker" />
+
+                        <NumberPicker
+                            android:id="@+id/numPickerDayOrNight_Start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1.16"
+                            android:theme="@style/AppTheme.Picker" />
+
+                        <Switch
+                            android:id="@+id/switchStartStreaming"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="0.5"
+                            android:checked="true"
+                            android:thumb="@drawable/custom_thumb"
+                            android:track="@drawable/custom_track"
+                            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvStopStreaming"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/viewDown"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/baseThemeColor"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewTop">
+                app:layout_constraintTop_toBottomOf="@+id/cvStartStreaming">
 
-                <TextView
-                    android:id="@+id/tvStartStreaminHeading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/start_stream_text"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <TextView
-                    android:id="@+id/tvSelectedStartStreamingTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="00:00 AM"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvStartStreaminHeading"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/tvStartStreaminHeading"
-                    app:layout_constraintTop_toTopOf="@+id/tvStartStreaminHeading" />
-
-                <LinearLayout
-                    android:id="@+id/layoutStart_NumberPicker"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutStopStreaming"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:orientation="horizontal"
-                    android:weightSum="4"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/viewDown"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvStartStreaminHeading"
-                    app:layout_constraintVertical_bias="0.0">
+                    app:layout_constraintTop_toBottomOf="@+id/viewTop">
 
-                    <NumberPicker
-                        android:id="@+id/numPickerMin_Start"
+                    <TextView
+                        android:id="@+id/tvStopStreamingHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1.16"
-                        android:theme="@style/AppTheme.Picker" />
+                        android:text="@string/stop_stream_text"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <NumberPicker
-                        android:id="@+id/numPickerSec_Start"
+
+                    <TextView
+                        android:id="@+id/tvSelectedStopStreamingTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1.16"
-                        android:theme="@style/AppTheme.Picker" />
+                        android:layout_marginEnd="16dp"
+                        android:text="00:00 AM"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvStopStreamingHeading"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/tvStopStreamingHeading"
+                        app:layout_constraintTop_toTopOf="@+id/tvStopStreamingHeading" />
 
-                    <NumberPicker
-                        android:id="@+id/numPickerDayOrNight_Start"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/layout_StopNumberPicker"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1.16"
-                        android:theme="@style/AppTheme.Picker" />
+                        android:gravity="start"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvStopStreamingHeading"
+                        app:layout_constraintVertical_bias="0.0">
 
-                    <Switch
-                        android:id="@+id/switchStartStreaming"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start|center"
-                        android:layout_weight="0.5"
-                        android:checked="true"
-                        android:thumb="@drawable/custom_thumb"
-                        android:track="@drawable/custom_track"
-                        tools:ignore="UseSwitchCompatOrMaterialXml" />
+                        <NumberPicker
+                            android:id="@+id/numPickerMin_Stop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1.16"
+                            android:theme="@style/AppTheme.Picker" />
 
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+                        <NumberPicker
+                            android:id="@+id/numPickerSec_Stop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1.16"
+                            android:theme="@style/AppTheme.Picker" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvStopStreaming"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/baseThemeColor"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvStartStreaming">
+                        <NumberPicker
+                            android:id="@+id/numPickerDayOrNight_Stop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1.16"
+                            android:theme="@style/AppTheme.Picker" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutStopStreaming"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/viewDown"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewTop">
+                        <Switch
+                            android:id="@+id/switchStopStreaming"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="0.5"
+                            android:checked="true"
+                            android:thumb="@drawable/custom_thumb"
+                            android:track="@drawable/custom_track"
+                            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-                <TextView
-                    android:id="@+id/tvStopStreamingHeading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stop_stream_text"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/tvSelectedStopStreamingTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="00:00 AM"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvStopStreamingHeading"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/tvStopStreamingHeading"
-                    app:layout_constraintTop_toTopOf="@+id/tvStopStreamingHeading" />
+    </ScrollView>
 
-                <LinearLayout
-                    android:id="@+id/layout_StopNumberPicker"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvStopStreamingHeading"
-                    app:layout_constraintVertical_bias="0.0">
-
-                    <NumberPicker
-                        android:id="@+id/numPickerMin_Stop"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1.16"
-                        android:theme="@style/AppTheme.Picker" />
-
-                    <NumberPicker
-                        android:id="@+id/numPickerSec_Stop"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1.16"
-                        android:theme="@style/AppTheme.Picker" />
-
-                    <NumberPicker
-                        android:id="@+id/numPickerDayOrNight_Stop"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1.16"
-                        android:theme="@style/AppTheme.Picker" />
-
-                    <Switch
-                        android:id="@+id/switchStopStreaming"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start|center"
-                        android:layout_weight="0.5"
-                        android:checked="true"
-                        android:thumb="@drawable/custom_thumb"
-                        android:track="@drawable/custom_track"
-                        tools:ignore="UseSwitchCompatOrMaterialXml"  />
-
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
 

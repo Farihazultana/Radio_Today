@@ -77,4 +77,9 @@
         <item name="windowNoTitle">false</item>
     </style>
 
+    <style name="image_view_corner">
+        <item name="cornerFamily"> rounded</item>
+        <item name="cornerSize">6dp</item>
+    </style>
+
 </resources>

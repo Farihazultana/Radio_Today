@@ -54,12 +54,13 @@ class VideoFragment : Fragment(), VideoPlaylistAdapter.CardClickListener {
         videoViewModel.videoPlaylistData.observe(requireActivity()){
             when(it){
                 is ResultType.Loading -> {
-
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 is ResultType.Success -> {
                     val playlistData = it.data
                     videoAdapter.videoPlaylistData = playlistData.contents
                     videoAdapter.notifyDataSetChanged()
+                    binding.progressBar.visibility = View.GONE
                 }
 
                 else -> {}
