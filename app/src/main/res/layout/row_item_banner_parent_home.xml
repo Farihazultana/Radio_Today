@@ -30,16 +30,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.denzcoskun.imageslider.ImageSlider
+                <ImageView
                     android:id="@+id/image_slider"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:iss_auto_cycle="true"
-                    app:iss_delay="1000"
-                    app:iss_period="1000"
-                    app:iss_selected_dot="@drawable/default_selected_dot"
-                    app:iss_text_align="CENTER"
-                    app:iss_unselected_dot="@drawable/default_unselected_dot"
+                    android:scaleType="fitXY"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -26,7 +26,8 @@ class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.
     private val TYPE_CONTENT = 1
 
     inner class BannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imageSlider : ImageSlider = itemView.findViewById(R.id.image_slider)
+        //var imageSlider : ImageSlider = itemView.findViewById(R.id.image_slider)
+        var imageSlider : ImageView = itemView.findViewById(R.id.image_slider)
     }
 
     inner class ContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -73,10 +74,11 @@ class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.
 
         when (holder){
             is BannerViewHolder -> {
-                for(i in currentItem.contents){
+                /*for(i in currentItem.contents){
                     imageList.add(SlideModel(i.image_location, i.catname))
                 }
-                holder.imageSlider.setImageList(imageList)
+                holder.imageSlider.setImageList(imageList)*/
+                holder.imageSlider.setImageResource(R.drawable.banner_img)
             }
             is ContentViewHolder -> {
                 holder.rvHor.visibility = View.VISIBLE
