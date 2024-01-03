@@ -45,10 +45,10 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
         homeViewModel.homeData.observe(requireActivity()){
             when(it){
                 is ResultType.Loading -> {
-                    binding.pbHome.visibility = View.VISIBLE
+                    binding.shimmerFrameLayout.visibility = View.VISIBLE
                 }
                 is ResultType.Success -> {
-                    binding.pbHome.visibility = View.GONE
+                    binding.shimmerFrameLayout.visibility = View.GONE
                     val homeData = it.data
                     parentHomeAdapter.homeData = homeData
                     this.parentHomeAdapter.notifyDataSetChanged()

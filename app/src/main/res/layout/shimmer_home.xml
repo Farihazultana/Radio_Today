@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeWidth="0dp"></com.google.android.material.card.MaterialCardView>
+        app:strokeWidth="0dp"/>
 
     <View
         android:id="@+id/view14"

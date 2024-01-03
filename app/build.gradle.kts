@@ -62,6 +62,9 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    //Shimmer
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
     //ViewModel , livedata
     val lifecycle_version = "2.6.2"
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
