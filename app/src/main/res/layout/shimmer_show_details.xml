@@ -1,159 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/screenBackgroundColor"
-    tools:context=".ui.activities.ShowDetailsActivity">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvBannerAudio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/no_img"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/ivBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_back_round_filled"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvIntroAudio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/baseThemeColor"
-        app:layout_constraintBottom_toTopOf="@+id/rv_Playlist"
-        app:layout_constraintEnd_toEndOf="@+id/cvBannerAudio"
-        app:layout_constraintStart_toStartOf="@+id/cvBannerAudio"
-        app:layout_constraintTop_toTopOf="@+id/cvBannerAudio"
-        app:layout_constraintVertical_bias="1.0">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvAudioIntroTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Brooklyn Simmons"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvAudioIntroDescription"
-                app:layout_constraintEnd_toStartOf="@+id/ivMore"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintVertical_chainStyle="packed" />
-
-            <TextView
-                android:id="@+id/tvArtistName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Brooklyn Simmons"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/tvAudioIntroTitle"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/tvAudioIntroTitle"
-                app:layout_constraintTop_toBottomOf="@+id/tvAudioIntroTitle" />
-
-            <TextView
-                android:id="@+id/tvAudioIntroDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="24dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:text="Circumstances and owing to the  claims of duty of the obligations of business it"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/tvAudioIntroTitle"
-                app:layout_constraintTop_toBottomOf="@+id/tvArtistName" />
-
-            <ImageView
-                android:id="@+id/ivMore"
-                android:layout_width="20dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_dots"
-                app:layout_constraintBottom_toBottomOf="@+id/tvAudioIntroTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvAudioIntroTitle"
-                app:layout_constraintTop_toTopOf="@+id/tvAudioIntroTitle"
-                app:tint="@color/white" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_Playlist"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvBannerAudio"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/item_show_details" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -174,12 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <View
                 android:id="@+id/imageView8"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/no_img"
+                android:layout_height="200dp"
+                android:background="@color/baseThemeColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -321,52 +165,41 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <View
                 android:id="@+id/tvDescriptionScheduleTitle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="90s MixTape"
-                android:textColor="@color/white"
-                android:textSize="18sp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/screenBackgroundColor"
                 app:layout_constraintBottom_toTopOf="@+id/tvScheduleDescription"
-                app:layout_constraintEnd_toStartOf="@+id/ivShare"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <TextView
+            <View
                 android:id="@+id/tvSubTitle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginTop="8dp"
-                android:text="Circumstances and owing to the  claims of duty of the obligations of business it"
-                android:textColor="@color/white"
-                android:textSize="14sp"
+                android:background="@color/screenBackgroundColor"
                 app:layout_constraintEnd_toEndOf="@+id/tvDescriptionScheduleTitle"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle"
                 app:layout_constraintTop_toBottomOf="@+id/tvDescriptionScheduleTitle" />
 
-            <TextView
+            <View
                 android:id="@+id/tvScheduleDescription"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="44dp"
                 android:layout_marginBottom="24dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:text="Schedule \nMonday            8:00 - 11:00 "
-                android:textColor="@color/white"
-                android:textSize="14sp"
+                android:background="@color/screenBackgroundColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -374,17 +207,194 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvSubTitle"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/ivShare"
-                android:layout_width="20dp"
-                android:layout_height="0dp"
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDescriptionSchedule2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/baseThemeColor"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvDescriptionSchedule">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/tvDescriptionScheduleTitle2"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_share"
-                app:layout_constraintBottom_toBottomOf="@+id/tvDescriptionScheduleTitle"
+                android:background="@color/screenBackgroundColor"
+                app:layout_constraintBottom_toTopOf="@+id/tvScheduleDescription2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvDescriptionScheduleTitle"
-                app:layout_constraintTop_toTopOf="@+id/tvDescriptionScheduleTitle" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <View
+                android:id="@+id/tvSubTitle2"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/screenBackgroundColor"
+                app:layout_constraintEnd_toEndOf="@+id/tvDescriptionScheduleTitle2"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle2"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionScheduleTitle2" />
+
+            <View
+                android:id="@+id/tvScheduleDescription2"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="44dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/screenBackgroundColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle2"
+                app:layout_constraintTop_toBottomOf="@+id/tvSubTitle2"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDescriptionSchedule3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/baseThemeColor"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvDescriptionSchedule2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/tvDescriptionScheduleTitle3"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/screenBackgroundColor"
+                app:layout_constraintBottom_toTopOf="@+id/tvScheduleDescription3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <View
+                android:id="@+id/tvSubTitle3"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/screenBackgroundColor"
+                app:layout_constraintEnd_toEndOf="@+id/tvDescriptionScheduleTitle3"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle3"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionScheduleTitle3" />
+
+            <View
+                android:id="@+id/tvScheduleDescription3"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="44dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/screenBackgroundColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle3"
+                app:layout_constraintTop_toBottomOf="@+id/tvSubTitle3"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDescriptionSchedule4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/baseThemeColor"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvDescriptionSchedule3">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/tvDescriptionScheduleTitle4"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/screenBackgroundColor"
+                app:layout_constraintBottom_toTopOf="@+id/tvScheduleDescription4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <View
+                android:id="@+id/tvSubTitle4"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/screenBackgroundColor"
+                app:layout_constraintEnd_toEndOf="@+id/tvDescriptionScheduleTitle4"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle4"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionScheduleTitle4" />
+
+            <View
+                android:id="@+id/tvScheduleDescription4"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="44dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/screenBackgroundColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle4"
+                app:layout_constraintTop_toBottomOf="@+id/tvSubTitle4"
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

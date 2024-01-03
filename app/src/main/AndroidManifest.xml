@@ -18,17 +18,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.RadioToday"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.IntroScreenActivity"
-            android:screenOrientation="sensorPortrait"
+            android:name=".ui.activities.ShowDetailsDescriptionActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activities.IntroScreenActivity"
+            android:exported="false"
+            android:screenOrientation="sensorPortrait" />
+        <activity
             android:name=".ui.activities.ShowDetailsActivity"
-            android:screenOrientation="sensorPortrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="sensorPortrait" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
