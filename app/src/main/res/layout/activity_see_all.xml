@@ -115,7 +115,7 @@
     </com.facebook.shimmer.ShimmerFrameLayout>
 
 
-    <!--<com.facebook.shimmer.ShimmerFrameLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerFrameLayout2"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -138,6 +138,6 @@
             <include layout="@layout/shimmer_seeall_rectangles" />
         </LinearLayout>
 
-    </com.facebook.shimmer.ShimmerFrameLayout>-->
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

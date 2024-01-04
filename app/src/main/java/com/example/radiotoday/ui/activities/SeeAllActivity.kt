@@ -99,11 +99,17 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         seeAllViewModel.seeAllData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-                    binding.shimmerFrameLayout.visibility = View.VISIBLE
+                    if(catName == "Band"){
+                        binding.shimmerFrameLayout2.visibility = View.VISIBLE
+                    }else{
+                        binding.shimmerFrameLayout.visibility = View.VISIBLE
+                    }
+
                 }
 
                 is ResultType.Success -> {
                     binding.shimmerFrameLayout.visibility = View.GONE
+                    binding.shimmerFrameLayout2.visibility = View.GONE
                     playlistData = it.data
 
                     if(currentPage == 1){
