@@ -37,6 +37,7 @@ class IntroScreenActivity : AppCompatActivity() {
         skipBtn.setOnClickListener {
             val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
             startActivity(i)
+            finish()
         }
 
         sliderList = ArrayList()
