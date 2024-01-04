@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.RadioToday" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/baseThemeColor</item>
+        <item name="colorPrimary">@color/baseThemeColor</item>
+        <item name="android:navigationBarColor">@color/baseThemeColor</item>
     </style>
 
     <style name="Theme.RadioToday" parent="Base.Theme.RadioToday" />
@@ -10,6 +11,16 @@
     <style name="Screen.Theme.RadioToday" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/screenBackgroundColor</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+        <item name="android:navigationBarColor">@color/baseThemeColor</item>
     </style>
 
     <style name="ToolbarTitleText">
@@ -36,7 +47,8 @@
     </style>
 
     <style name="CustomBottomNavMenuStyle" parent="@style/Widget.MaterialComponents.CardView">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_bottom_nav_menu_corners</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_bottom_nav_menu_corners
+        </item>
 
     </style>
 
@@ -49,7 +61,7 @@
         <item name="android:textColor">@color/red</item>
     </style>
 
-    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:colorControlNormal">#ffffff</item>
     </style>
@@ -78,7 +90,7 @@
     </style>
 
     <style name="image_view_corner">
-        <item name="cornerFamily"> rounded</item>
+        <item name="cornerFamily">rounded</item>
         <item name="cornerSize">6dp</item>
     </style>
 

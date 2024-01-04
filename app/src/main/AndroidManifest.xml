@@ -43,8 +43,7 @@
         <activity
             android:name=".ui.activities.AlarmActivity"
             android:exported="false"
-            android:screenOrientation="sensorPortrait"
-            android:theme="@style/Screen.Theme.RadioToday" />
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".ui.activities.ContactActivity"
             android:exported="false"
@@ -52,22 +51,24 @@
         <activity
             android:name=".ui.activities.SeeMoreActivity"
             android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".ui.activities.SeeAllActivity"
             android:exported="false"
-            android:screenOrientation="sensorPortrait"
-            android:theme="@style/Screen.Theme.RadioToday" />
+            android:screenOrientation="sensorPortrait" />
+
         <activity
             android:name=".ui.activities.SplashActivity"
             android:exported="true"
-            android:screenOrientation="sensorPortrait">
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.activities.ProfileActivity"
             android:exported="false"
