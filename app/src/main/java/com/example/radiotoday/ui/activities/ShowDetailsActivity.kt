@@ -3,6 +3,7 @@ package com.example.radiotoday.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,12 +40,14 @@ class ShowDetailsActivity : AppCompatActivity(), ShowDetailsAdapter.CardClickLis
         showDetailsViewModel.showDetailsPlaylistData.observe(this){
             when(it){
                 is ResultType.Loading -> {
-
+                    binding.shimmerFrameLayout.visibility = View.VISIBLE
                 }
                 is ResultType.Success -> {
                     val playlistData = it.data
                     showDetailsAdapter.showDetailsPlaylistData = playlistData[0].similarartist
                     this.showDetailsAdapter.notifyDataSetChanged()
+
+                    binding.shimmerFrameLayout.visibility = View.GONE
 
                 }
 

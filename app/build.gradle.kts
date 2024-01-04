@@ -93,7 +93,9 @@ dependencies {
     implementation ("com.facebook.android:facebook-login:latest.release")
     implementation ("com.facebook.android:facebook-login:16.3.0")
 
+    //show more text
     implementation ("com.github.mahimrocky:ShowMoreText:1.0.2")
+
 }
 
 kapt {

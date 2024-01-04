@@ -69,13 +69,13 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         audioViewModel.audioPlaylistData.observe(requireActivity()){
             when(it){
                 is ResultType.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    binding.shimmerFrameLayout.visibility = View.VISIBLE
                 }
                 is ResultType.Success -> {
                     val playlistData = it.data
                     audioAdapter.audioPlaylistData = playlistData.contents
                     audioAdapter.notifyDataSetChanged()
-                    binding.progressBar.visibility = View.GONE
+                    binding.shimmerFrameLayout.visibility  = View.GONE
                 }
 
                 else -> {}
