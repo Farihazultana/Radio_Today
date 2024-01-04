@@ -76,9 +76,10 @@ class IntroScreenActivity : AppCompatActivity() {
             if (nextItem < sliderList.size) {
                 viewPager.currentItem = nextItem
             } else {
-                finish()
+
                 val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
                 startActivity(i)
+                finish()
             }
         }
 

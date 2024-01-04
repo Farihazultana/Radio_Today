@@ -99,11 +99,11 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         seeAllViewModel.seeAllData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-                    binding.pbSeeAll.visibility = View.VISIBLE
+                    binding.shimmerFrameLayout.visibility = View.VISIBLE
                 }
 
                 is ResultType.Success -> {
-                    binding.pbSeeAll.visibility = View.GONE
+                    binding.shimmerFrameLayout.visibility = View.GONE
                     playlistData = it.data
 
                     if(currentPage == 1){
