@@ -26,7 +26,6 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
     private val TYPE_CONTENT = 1
 
     inner class BannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //var imageSlider : ImageSlider = itemView.findViewById(R.id.image_slider)
         var imageSlider: ImageSlider = itemView.findViewById(R.id.image_slider)
     }
 
@@ -85,7 +84,6 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
             is ContentViewHolder -> {
                 holder.rvHor.visibility = View.VISIBLE
 
-                // Assuming there is only one content in TYPE_CONTENT, adjust this accordingly
                 val content = currentItem.content.firstOrNull()
                 if (content != null) {
                     holder.childListAdapter = ChildHomeAdapter(
