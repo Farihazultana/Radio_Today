@@ -1,6 +1,5 @@
 package com.example.radiotoday.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.home.Content
+import com.example.radiotoday.data.models.home.ContentXX
 
 class ChildHomeAdapter(
-    private var contentViewType: String,
-    private var contentType : String,
-    private var catName : String,
-    private var contentData: List<Content>,
+    private var contentViewType: Int,
+    private var contentType: Int,
+    private var catName: String,
+    private var contentData: List<ContentXX>,
     private val listener: ItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -64,18 +63,16 @@ class ChildHomeAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (contentViewType == "2"){
-            TYPE_CONTINUE_WATCHING
-        }else if (contentType == "1"){
-            TYPE_NEWRELEASE
-        }
-        else if (contentType == "3"){
-            Type_ARTIST
-        }else if (catName == "Band"){
+        return if (contentViewType == 2){
             TYPE_PODCAST
+        }else if (contentType == 1){
+            TYPE_CONTENT
+        }
+        else if (contentViewType == 3){
+            Type_ARTIST
         }
         else{
-            TYPE_CONTENT
+            TYPE_NEWRELEASE
         }
     }
 
@@ -83,8 +80,8 @@ class ChildHomeAdapter(
         val currentItem = contentData[position]
 
         if (holder is ContentViewHolder) {
-            holder.title?.text = currentItem.albumname
-            if (currentItem.catcode == "popmodern"){
+            holder.title?.text = currentItem.title
+            /*if (currentItem.catcode == "popmodern"){
                 Log.i("Folk", "onBindViewHolder: ${currentItem.catcode}")
 
                 val drawableStart = R.drawable.ic_music
@@ -97,12 +94,13 @@ class ChildHomeAdapter(
                     0, 0, 0, 0
                 )
 
-            }
+            }*/
 
-            holder.descriptionText?.text = currentItem.artistname
+
+            holder.descriptionText?.text = currentItem.description
 
             holder.image?.let {
-                Glide.with(it.context).load(currentItem.image_location)
+                Glide.with(it.context).load(currentItem.image)
                     .placeholder(R.drawable.no_img).into(holder.image)
             }
 
@@ -113,7 +111,7 @@ class ChildHomeAdapter(
     }
 
     interface ItemClickListener {
-        fun onItemClickListener(position: Int, currentItem: Content)
+        fun onItemClickListener(position: Int, currentItem: ContentXX)
 
     }
 

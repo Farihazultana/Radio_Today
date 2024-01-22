@@ -7,12 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.radiotoday.data.models.home.Content
+import com.example.radiotoday.data.models.home.ContentXX
 import com.example.radiotoday.databinding.FragmentHomeBinding
-import com.example.radiotoday.ui.activities.SeeMoreActivity
 import com.example.radiotoday.ui.activities.ShowDetailsActivity
 import com.example.radiotoday.ui.adapters.ParentHomeAdapter
 import com.example.radiotoday.ui.viewmodels.HomeViewModel
@@ -41,7 +39,7 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
         binding.rvVerticalHome.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvVerticalHome.adapter = parentHomeAdapter
 
-        homeViewModel.fetchHomeData("")
+        homeViewModel.fetchHomeData("home", "android")
         homeViewModel.homeData.observe(requireActivity()){
             when(it){
                 is ResultType.Loading -> {
@@ -49,7 +47,7 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
                 }
                 is ResultType.Success -> {
                     binding.shimmerFrameLayout.visibility = View.GONE
-                    val homeData = it.data
+                    val homeData = it.data.content
                     parentHomeAdapter.homeData = homeData
                     this.parentHomeAdapter.notifyDataSetChanged()
                 }
@@ -61,10 +59,10 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
         return binding.root
     }
 
-    override fun onItemClickListener(position: Int, currentItem: Content) {
+    override fun onItemClickListener(position: Int, currentItem: ContentXX) {
         val intent = Intent(activity, ShowDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        intent.putExtra("ALBUM_CODE", currentItem.albumcode)
+        //intent.putExtra("ALBUM_CODE", currentItem.albumcode)
         startActivity(intent)
     }
 

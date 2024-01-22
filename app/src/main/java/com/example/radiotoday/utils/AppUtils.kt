@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.example.radiotoday.R
 
 object AppUtils {
-    const val BASE_URL = "https://banglalinkdhol.com/v2/"
+    const val BASE_URL = "http://192.168.110.196/api/"
 
     const val LogInStatus = "LOGIN_STATUS"
 
