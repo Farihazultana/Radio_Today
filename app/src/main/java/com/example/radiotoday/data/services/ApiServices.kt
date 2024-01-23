@@ -35,9 +35,9 @@ interface ApiServices {
     ): Response<VideoResponse>
 
     @FormUrlEncoded
-    @POST("api/")
+    @POST("api/{section_code}")
     suspend fun postSeeAllData(
-        @Param("section_code") section_code: String,
+        @Path("section_code") section_code: String,
         @Field("page") page: String,
     ): Response<SeeAllResponseX>
 
