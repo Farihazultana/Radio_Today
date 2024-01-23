@@ -1,7 +1,6 @@
 package com.example.radiotoday.ui.adapters
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.home.ContentX
 import com.example.radiotoday.data.models.home.ContentXX
-import com.example.radiotoday.data.models.home.HomeResponseX
+import com.example.radiotoday.data.models.seeAll.ContentX
 import com.example.radiotoday.ui.activities.SeeAllActivity
 
 class ParentHomeAdapter(private val listener: ItemClickListener) :
