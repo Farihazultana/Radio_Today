@@ -99,16 +99,16 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
             when (it) {
                 is ResultType.Loading -> {
                     if(catName == "Band"){
-                        binding.shimmerFrameLayout2.visibility = View.VISIBLE
+                        binding.shimmerFrameLayoutRectangles.visibility = View.VISIBLE
                     }else{
-                        binding.shimmerFrameLayout.visibility = View.VISIBLE
+                        binding.shimmerFrameLayoutSquare.visibility = View.VISIBLE
                     }
 
                 }
 
                 is ResultType.Success -> {
-                    binding.shimmerFrameLayout.visibility = View.GONE
-                    binding.shimmerFrameLayout2.visibility = View.GONE
+                    binding.shimmerFrameLayoutSquare.visibility = View.GONE
+                    binding.shimmerFrameLayoutRectangles.visibility = View.GONE
                     playlistData = it.data
 
                     if(currentPage == 1){

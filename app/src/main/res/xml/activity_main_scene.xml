@@ -95,7 +95,7 @@
             motion:layout_constraintTop_toBottomOf="@+id/linearLayout_play"
             motion:layout_constraintHorizontal_bias="0.5"
             motion:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/rvHor"
+            android:id="@+id/rvMain"
             android:layout_marginTop="8dp" />
         <Constraint
             android:id="@+id/iv_PlayerBG"
@@ -176,7 +176,7 @@
             android:alpha="1"
             motion:layout_constraintStart_toStartOf="parent" />
         <Constraint
-            android:id="@+id/rvHor"
+            android:id="@+id/rvMain"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="409dp"
             android:layout_height="1dp"

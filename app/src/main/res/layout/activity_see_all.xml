@@ -32,13 +32,13 @@
                 android:src="@drawable/ic_back"
                 app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_ToolBarTitle"
+                app:layout_constraintEnd_toStartOf="@+id/tvToolBarTitle"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_ToolBarTitle"
+                android:id="@+id/tvToolBarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -78,7 +78,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_SeeAll"
+        android:id="@+id/rvSeeAll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
@@ -90,16 +90,18 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerFrameLayout"
+        android:id="@+id/shimmerFrameLayoutSquare"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:orientation="vertical"
         android:transitionGroup="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rvSeeAll"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:visibility="visible">
@@ -116,17 +118,18 @@
 
 
     <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerFrameLayout2"
+        android:id="@+id/shimmerFrameLayoutRectangles"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
+        android:layout_marginEnd="16dp"
         android:orientation="vertical"
         android:transitionGroup="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rvSeeAll"
+        app:layout_constraintStart_toStartOf="@+id/rvSeeAll"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:visibility="visible">
 

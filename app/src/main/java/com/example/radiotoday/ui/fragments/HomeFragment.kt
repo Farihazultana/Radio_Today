@@ -36,17 +36,17 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
 
         parentHomeAdapter = ParentHomeAdapter(this)
-        binding.rvVerticalHome.layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvVerticalHome.adapter = parentHomeAdapter
+        binding.rvHomeMain.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvHomeMain.adapter = parentHomeAdapter
 
         homeViewModel.fetchHomeData("home", "android")
         homeViewModel.homeData.observe(requireActivity()){
             when(it){
                 is ResultType.Loading -> {
-                    binding.shimmerFrameLayout.visibility = View.VISIBLE
+                    binding.shimmerFrameLayoutHome.visibility = View.VISIBLE
                 }
                 is ResultType.Success -> {
-                    binding.shimmerFrameLayout.visibility = View.GONE
+                    binding.shimmerFrameLayoutHome.visibility = View.GONE
                     val homeData = it.data.content
                     parentHomeAdapter.homeData = homeData
                     this.parentHomeAdapter.notifyDataSetChanged()
