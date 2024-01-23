@@ -1,13 +1,13 @@
 package com.example.radiotoday.data.repositories
 
 import android.util.Log
-import com.example.radiotoday.data.models.seeAll.SeeAllResponseX
+import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.data.services.ApiServices
 import com.example.radiotoday.utils.ResultType
 import javax.inject.Inject
 
 class SeeAllRepository @Inject constructor(private val apiServices: ApiServices) {
-    suspend fun getSeeAllData(section_code: String, page: String): ResultType<SeeAllResponseX> {
+    suspend fun getSeeAllData(section_code: String, page: String): ResultType<SeeAllResponse> {
         try {
             val response = apiServices.postSeeAllData(section_code, page)
             Log.i("TAGS", "successful api call: ${response.code()}")

@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.radiotoday.data.models.seeAll.ContentXX
-import com.example.radiotoday.data.models.seeAll.SeeAllResponseX
+import com.example.radiotoday.data.models.seeAll.ContentSeeAll
+import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
 import com.example.radiotoday.ui.viewmodels.SeeAllViewModel
@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
-    private lateinit var playlistData: SeeAllResponseX
+    private lateinit var playlistData: SeeAllResponse
     private lateinit var binding: ActivitySeeAllBinding
     private lateinit var seeAllAdapter: SeeAllAdapter
     private val seeAllViewModel by viewModels<SeeAllViewModel>()
@@ -113,13 +113,13 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
                     if(currentPage == 1){
                         if (contentType == "2") {
-                            seeAllAdapter.seeAllPlaylistData = playlistData.content.contents as ArrayList<ContentXX>
+                            seeAllAdapter.seeAllPlaylistData = playlistData.content.contents as ArrayList<ContentSeeAll>
                         } else {
                             Toast.makeText(this, "Coming Soon!", Toast.LENGTH_SHORT).show()
                         }
                     }else{
                         if(!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.content.contents)){
-                            seeAllAdapter.seeAllPlaylistData = seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.contents) as ArrayList<ContentXX>
+                            seeAllAdapter.seeAllPlaylistData = seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.contents) as ArrayList<ContentSeeAll>
 
                         }
                     }
@@ -139,7 +139,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         }
     }
 
-    override fun onItemClickListener(position: Int, playlistItem: ContentXX) {
+    override fun onItemClickListener(position: Int, playlistItem: ContentSeeAll) {
 
         val intent = Intent(this, ShowDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

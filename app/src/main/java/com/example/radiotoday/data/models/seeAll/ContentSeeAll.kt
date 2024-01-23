@@ -1,6 +1,6 @@
 package com.example.radiotoday.data.models.seeAll
 
-data class ContentXX(
+data class ContentSeeAll(
     val id: String,
     val title: String,
     val name: String,

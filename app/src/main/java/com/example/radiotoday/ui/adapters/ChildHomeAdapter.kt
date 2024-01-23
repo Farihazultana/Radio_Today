@@ -8,13 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.home.ContentXX
+import com.example.radiotoday.data.models.home.ContentHome
 
 class ChildHomeAdapter(
     private var contentViewType: Int,
     private var contentType: Int,
     private var catName: String,
-    private var contentData: List<ContentXX>,
+    private var contentData: List<ContentHome>,
     private val listener: ItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -127,7 +127,7 @@ class ChildHomeAdapter(
     }
 
     interface ItemClickListener {
-        fun onItemClickListener(position: Int, currentItem: ContentXX)
+        fun onItemClickListener(position: Int, currentItem: ContentHome)
 
     }
 

@@ -9,12 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.seeAll.ContentX
-import com.example.radiotoday.data.models.seeAll.ContentXX
+import com.example.radiotoday.data.models.seeAll.ContentSeeAll
 
 class SeeAllAdapter (private val context: Context, private val listener: ItemClickListener, private val catName: String): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    var seeAllPlaylistData : ArrayList<ContentXX> = ArrayList()
+    var seeAllPlaylistData : ArrayList<ContentSeeAll> = ArrayList()
 
     val TYPE_CONTENT = 1
     val TYPE_PODCAST = 22
@@ -107,7 +106,7 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
     }
 
     interface ItemClickListener {
-        fun onItemClickListener(position: Int, playlistItem: ContentXX)
+        fun onItemClickListener(position: Int, playlistItem: ContentSeeAll)
 
     }
 }
