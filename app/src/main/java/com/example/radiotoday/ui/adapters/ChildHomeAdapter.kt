@@ -32,6 +32,12 @@ class ChildHomeAdapter(
         val premiumTag : TextView? = itemView.findViewById(R.id.premiumTextView)
         val descriptionText: TextView? = itemView.findViewById(R.id.tvDescription)
     }
+
+    inner class ArtistViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        val image:ImageView? = itemView.findViewById(R.id.iv_ChildContent)
+        val title: TextView? = itemView.findViewById(R.id.title_textView)
+        val descriptionText: TextView? = itemView.findViewById(R.id.tvDescription)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
@@ -65,14 +71,12 @@ class ChildHomeAdapter(
     override fun getItemViewType(position: Int): Int {
         return if (contentViewType == 2){
             TYPE_PODCAST
-        }else if (contentType == 1){
-            TYPE_CONTENT
         }
         else if (contentViewType == 3){
             Type_ARTIST
         }
         else{
-            TYPE_NEWRELEASE
+            TYPE_CONTENT
         }
     }
 
@@ -97,6 +101,19 @@ class ChildHomeAdapter(
             }*/
 
 
+            holder.descriptionText?.text = currentItem.description
+
+            holder.image?.let {
+                Glide.with(it.context).load(currentItem.image)
+                    .placeholder(R.drawable.no_img).into(holder.image)
+            }
+
+            holder.itemView.setOnClickListener {
+                listener.onItemClickListener(position, currentItem)
+            }
+        }
+        else if (holder is ArtistViewHolder){
+            holder.title?.text = currentItem.title
             holder.descriptionText?.text = currentItem.description
 
             holder.image?.let {

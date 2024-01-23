@@ -76,7 +76,7 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
             is BannerViewHolder -> {
                 val imageList: ArrayList<SlideModel> = ArrayList()
                 for (item in currentItem.content) {
-                    imageList.add(SlideModel(item.image, item.title))
+                    imageList.add(SlideModel(item?.image ?: "", item?.title ?: ""))
                 }
                 holder.imageSlider.setImageList(imageList)
             }
@@ -84,48 +84,35 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
             is ContentViewHolder -> {
                 holder.rvHor.visibility = View.VISIBLE
 
-                val content = currentItem.content.firstOrNull()
-                if (content != null) {
-                    holder.childListAdapter = ChildHomeAdapter(
-                        currentItem.contentviewtype,
-                        currentItem.contenttype,
-                        currentItem.name,
-                        currentItem.content,
-                        this
+                val content = currentItem.content
+                holder.childListAdapter = ChildHomeAdapter(
+                    currentItem.contentviewtype,
+                    currentItem.contenttype,
+                    currentItem.name,
+                    content,
+                    this
+                )
+
+                holder.rvHor.layoutManager =
+                    LinearLayoutManager(
+                        holder.rvHor.context,
+                        LinearLayoutManager.HORIZONTAL,
+                        false
                     )
+                holder.rvHor.adapter = holder.childListAdapter
 
-                    holder.rvHor.layoutManager =
-                        LinearLayoutManager(
-                            holder.rvHor.context,
-                            LinearLayoutManager.HORIZONTAL,
-                            false
-                        )
-                    holder.rvHor.adapter = holder.childListAdapter
+                holder.title.text = currentItem.name
 
-                    /*if (content.contenttype == "1") {
-                        holder.rvHor.visibility = View.GONE
-                    } else {
-                        holder.rvHor.layoutManager =
-                            LinearLayoutManager(
-                                holder.rvHor.context,
-                                LinearLayoutManager.HORIZONTAL,
-                                false
-                            )
-                        holder.rvHor.adapter = holder.childListAdapter
-                    }*/
-
-                    holder.title.text = currentItem.name
-
-                    holder.seeAll.setOnClickListener {
-                        val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
-                        intent.putExtra("catname", currentItem.name)
-                        intent.putExtra("contenttype", currentItem.contenttype)
-                        holder.itemView.context.startActivity(intent)
-                    }
+                holder.seeAll.setOnClickListener {
+                    val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
+                    intent.putExtra("catname", currentItem.name)
+                    intent.putExtra("contenttype", currentItem.contenttype)
+                    holder.itemView.context.startActivity(intent)
                 }
             }
         }
     }
+
 
 
     override fun onItemClickListener(position: Int, currentItem: ContentXX) {
