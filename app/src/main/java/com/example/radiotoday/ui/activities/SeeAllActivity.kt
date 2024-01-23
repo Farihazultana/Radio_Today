@@ -9,11 +9,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.example.radiotoday.data.models.seeAll.Content
-import com.example.radiotoday.data.models.seeAll.SeeAllResponse
+import com.example.radiotoday.data.models.seeAll.ContentXX
+import com.example.radiotoday.data.models.seeAll.SeeAllResponseX
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
-import com.example.radiotoday.ui.adapters.ChildHomeAdapter
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
 import com.example.radiotoday.ui.viewmodels.SeeAllViewModel
 import com.example.radiotoday.utils.ResultType
@@ -22,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
-    private lateinit var playlistData: SeeAllResponse
+    private lateinit var playlistData: SeeAllResponseX
     private lateinit var binding: ActivitySeeAllBinding
     private lateinit var seeAllAdapter: SeeAllAdapter
     private val seeAllViewModel by viewModels<SeeAllViewModel>()
@@ -44,11 +42,12 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         }
 
         catName = intent.getStringExtra("catname").toString()
+        Log.i("section", "onCreate: $catName")
         contentType = intent.getStringExtra("contenttype").toString()
 
 
         seeAllAdapter = SeeAllAdapter(this, this, catName)
-        if (catName == "Band"){
+        if (catName == "Podcasts"){
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(2)
         }else{
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(3)
@@ -91,7 +90,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
     private fun loadSeeAllData() {
         Log.i("catname", "loadSeeAllData: $catName")
-        seeAllViewModel.fetchSeeAllData(catName, "album", currentPage.toString())
+        seeAllViewModel.fetchSeeAllData(catName,  currentPage.toString())
 
     }
 
@@ -114,13 +113,13 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
                     if(currentPage == 1){
                         if (contentType == "2") {
-                            seeAllAdapter.seeAllPlaylistData = playlistData.contents
+                            seeAllAdapter.seeAllPlaylistData = playlistData.content.contents as ArrayList<ContentXX>
                         } else {
                             Toast.makeText(this, "Coming Soon!", Toast.LENGTH_SHORT).show()
                         }
                     }else{
-                        if(!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.contents)){
-                            seeAllAdapter.seeAllPlaylistData = seeAllAdapter.seeAllPlaylistData.plus(playlistData.contents) as ArrayList<Content>
+                        if(!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.content.contents)){
+                            seeAllAdapter.seeAllPlaylistData = seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.contents) as ArrayList<ContentXX>
 
                         }
                     }
@@ -130,7 +129,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
                     isLoading = false
                     //checking last page
-                    isLastpage = playlistData.contents.isEmpty()
+                    isLastpage = playlistData.content.contents.isEmpty()
                     currentPage++
                     seeAllAdapter.notifyDataSetChanged()
                 }
@@ -140,14 +139,14 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         }
     }
 
-    override fun onItemClickListener(position: Int, playlistItem: Content) {
+    override fun onItemClickListener(position: Int, playlistItem: ContentXX) {
 
         val intent = Intent(this, ShowDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        intent.putExtra("ALBUM_CODE", playlistItem.albumcode)
-        intent.putExtra("TITLE_IMG", playlistItem.image_location)
-        intent.putExtra("TITLE", playlistItem.albumname)
-        intent.putExtra("SUBTITLE", playlistItem.artistname)
+        intent.putExtra("ALBUM_CODE", playlistItem.content)
+        intent.putExtra("TITLE_IMG", playlistItem.image)
+        intent.putExtra("TITLE", playlistItem.title)
+        intent.putExtra("SUBTITLE", playlistItem.artists)
         startActivity(intent)
 
     }

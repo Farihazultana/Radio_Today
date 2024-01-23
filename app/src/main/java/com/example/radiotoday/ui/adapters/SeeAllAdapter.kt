@@ -9,11 +9,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.seeAll.Content
+import com.example.radiotoday.data.models.seeAll.ContentX
+import com.example.radiotoday.data.models.seeAll.ContentXX
 
 class SeeAllAdapter (private val context: Context, private val listener: ItemClickListener, private val catName: String): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    var seeAllPlaylistData : ArrayList<Content> = ArrayList()
+    var seeAllPlaylistData : ArrayList<ContentXX> = ArrayList()
 
     val TYPE_CONTENT = 1
     val TYPE_PODCAST = 22
@@ -61,13 +62,13 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
 
         if (holder is SeeAllViewHolder){
             Glide.with(context)
-                .load(playlistItem.image_location)
+                .load(playlistItem.image)
                 .placeholder(R.drawable.no_img)
                 .error(R.drawable.no_img)
                 .into(holder.posterImage)
 
-            holder.title.text = playlistItem.albumname
-            holder.description.text = playlistItem.artistname
+            holder.title.text = playlistItem.title
+            holder.description.text = playlistItem.artists
 
             holder.itemView.setOnClickListener {
                 listener.onItemClickListener(position, playlistItem)
@@ -76,13 +77,13 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
 
         if(holder is PodcastViewHolder){
             Glide.with(context)
-                .load(playlistItem.image_location)
+                .load(playlistItem.image)
                 .placeholder(R.drawable.no_img)
                 .error(R.drawable.no_img)
                 .into(holder.posterImage)
 
-            holder.title.text = playlistItem.albumname
-            holder.description.text = playlistItem.artistname
+            holder.title.text = playlistItem.title
+            holder.description.text = playlistItem.artists
 
             holder.itemView.setOnClickListener {
                 listener.onItemClickListener(position, playlistItem)
@@ -106,7 +107,7 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
     }
 
     interface ItemClickListener {
-        fun onItemClickListener(position: Int, playlistItem: Content)
+        fun onItemClickListener(position: Int, playlistItem: ContentXX)
 
     }
 }

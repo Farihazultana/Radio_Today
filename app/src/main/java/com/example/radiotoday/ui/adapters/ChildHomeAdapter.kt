@@ -113,8 +113,7 @@ class ChildHomeAdapter(
             }
         }
         else if (holder is ArtistViewHolder){
-            holder.title?.text = currentItem.title
-            holder.descriptionText?.text = currentItem.description
+            holder.title?.text = currentItem.name
 
             holder.image?.let {
                 Glide.with(it.context).load(currentItem.image)
