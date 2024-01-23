@@ -136,6 +136,7 @@
             android:orientation="vertical">
 
             <include layout="@layout/shimmer_seeall_rectangles" />
+
         </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>

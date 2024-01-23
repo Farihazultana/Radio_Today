@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.radiotoday.data.models.home.HomeResponse
+import com.example.radiotoday.data.models.home.HomeResponseX
 import com.example.radiotoday.data.repositories.HomeRepository
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,13 +16,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) : ViewModel(){
-    private val _homeData = MutableLiveData<ResultType<HomeResponse>>(ResultType.Loading)
-    val homeData: LiveData<ResultType<HomeResponse>> = _homeData
+    private val _homeData = MutableLiveData<ResultType<HomeResponseX>>(ResultType.Loading)
+    val homeData: LiveData<ResultType<HomeResponseX>> = _homeData
 
-    fun fetchHomeData(userId: String){
+    fun fetchHomeData(page_slug: String, from_source: String){
         viewModelScope.launch {
             try {
-                val result = homeRepository.getHomeData(userId)
+                val result = homeRepository.getHomeData(page_slug, from_source)
                 _homeData.value = result
             }catch (e: Exception){
                 _homeData.value = ResultType.Error(e)

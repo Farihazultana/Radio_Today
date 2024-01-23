@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
 
     private lateinit var calendar: Calendar
     private lateinit var footer: TextView
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)  {
         val splashDelay: Long = 2000
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)

@@ -1,52 +1,53 @@
 package com.example.radiotoday.ui.adapters
 
-import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.home.Content
-import com.example.radiotoday.data.models.home.HomeResponseItem
+import com.example.radiotoday.data.models.home.ContentX
+import com.example.radiotoday.data.models.home.ContentXX
+import com.example.radiotoday.data.models.home.HomeResponseX
 import com.example.radiotoday.ui.activities.SeeAllActivity
 
-class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildHomeAdapter.ItemClickListener{
+class ParentHomeAdapter(private val listener: ItemClickListener) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildHomeAdapter.ItemClickListener {
 
-    var homeData : List<HomeResponseItem> = ArrayList()
+    var homeData: List<ContentX> = ArrayList()
 
 
     private val TYPE_BANNER = 0
     private val TYPE_CONTENT = 1
 
     inner class BannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //var imageSlider : ImageSlider = itemView.findViewById(R.id.image_slider)
-        var imageSlider : ImageSlider = itemView.findViewById(R.id.image_slider)
+        var imageSlider: ImageSlider = itemView.findViewById(R.id.image_slider)
     }
 
-    inner class ContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class ContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var childListAdapter: ChildHomeAdapter
         val rvHor: RecyclerView = itemView.findViewById(R.id.rvHorizontal_Home)
         val title: TextView = itemView.findViewById(R.id.tv_Title)
         val seeAll: TextView = itemView.findViewById(R.id.seeAll)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        return when(viewType){
+        return when (viewType) {
             TYPE_BANNER -> {
                 val itemView = inflater.inflate(R.layout.row_item_banner_parent_home, parent, false)
                 BannerViewHolder(itemView)
             }
 
             TYPE_CONTENT -> {
-                val itemView = inflater.inflate(R.layout.row_item_content_parent_home, parent, false)
+                val itemView =
+                    inflater.inflate(R.layout.row_item_content_parent_home, parent, false)
                 ContentViewHolder(itemView)
             }
 
@@ -61,7 +62,7 @@ class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.
 
     override fun getItemViewType(position: Int): Int {
         val currentItem = homeData[position]
-        return if (currentItem.contentviewtype == "4"){
+        return if (currentItem.contentviewtype == 4){
             TYPE_BANNER
         }else{
             TYPE_CONTENT
@@ -70,63 +71,56 @@ class ParentHomeAdapter(private val listener: ItemClickListener) : RecyclerView.
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentItem = homeData[position]
-        val imageList:ArrayList<SlideModel> = ArrayList()
 
-        when (holder){
+        when (holder) {
             is BannerViewHolder -> {
-                for(i in currentItem.contents){
-                    imageList.add(SlideModel(i.image_location, i.catname))
+                val imageList: ArrayList<SlideModel> = ArrayList()
+                for (item in currentItem.content) {
+                    imageList.add(SlideModel(item?.image ?: "", item?.title ?: ""))
                 }
                 holder.imageSlider.setImageList(imageList)
-                //holder.imageSlider.setImageResource(R.drawable.banner_img)
             }
+
             is ContentViewHolder -> {
                 holder.rvHor.visibility = View.VISIBLE
-                holder.childListAdapter = ChildHomeAdapter(currentItem.contentviewtype, currentItem.contenttype, currentItem.catname, currentItem.contents, this)
-                if(currentItem.contenttype == "1"){
-                    holder.rvHor.visibility = View.GONE
-                    //holder.rvHor.layoutManager = GridLayoutManager(holder.rvHor.context,3, LinearLayoutManager.HORIZONTAL,false)
-                }else{
-                    holder.rvHor.layoutManager = LinearLayoutManager(holder.rvHor.context, LinearLayoutManager.HORIZONTAL,false)
-                }
 
-                holder.title.text = currentItem.catname
+                val content = currentItem.content
+                holder.childListAdapter = ChildHomeAdapter(
+                    currentItem.contentviewtype,
+                    currentItem.contenttype,
+                    currentItem.name,
+                    content,
+                    this
+                )
 
+                holder.rvHor.layoutManager =
+                    LinearLayoutManager(
+                        holder.rvHor.context,
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
                 holder.rvHor.adapter = holder.childListAdapter
 
-                if(currentItem.contenttype == "1"){
-                    holder.title.visibility = View.GONE
-                    holder.seeAll.visibility = View.GONE
+                holder.title.text = currentItem.name
 
-                    /*if(currentItem.contents.isEmpty()){
-                        holder.seeAll.visibility = View.GONE
-                    }else{
-                        holder.seeAll.visibility = View.VISIBLE
-
-                    }*/
-
-                } else {
-                    holder.title.visibility = View.VISIBLE
-                    holder.seeAll.visibility = View.VISIBLE
-
-                    holder.seeAll.setOnClickListener {
-                        val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
-                        intent.putExtra("catname", currentItem.catname)
-                        intent.putExtra("contenttype", currentItem.contenttype)
-                        holder.itemView.context.startActivity(intent)
-                    }
+                holder.seeAll.setOnClickListener {
+                    val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
+                    intent.putExtra("catname", currentItem.name)
+                    intent.putExtra("contenttype", currentItem.contenttype)
+                    holder.itemView.context.startActivity(intent)
                 }
-
             }
         }
     }
 
-    override fun onItemClickListener(position: Int, currentItem: Content) {
+
+
+    override fun onItemClickListener(position: Int, currentItem: ContentXX) {
         listener.onItemClickListener(position, currentItem)
     }
 
     interface ItemClickListener {
-        fun onItemClickListener(position: Int, currentItem: Content)
+        fun onItemClickListener(position: Int, currentItem: ContentXX)
 
     }
 }
