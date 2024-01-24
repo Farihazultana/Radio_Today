@@ -8,7 +8,7 @@ data class SeeAllMainContent(
     val last_page: Int,
     val nextPageUrl: String,
     val prevPageUrl: String,
-    val contents: List<ContentSeeAll>,
+    val content: List<ContentSeeAll>,
     val podcasts: List<Podcast>,
     val total: Int,
 )

@@ -112,14 +112,15 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
                     playlistData = it.data
 
                     if(currentPage == 1){
-                        if (contentType == "2") {
-                            seeAllAdapter.seeAllPlaylistData = playlistData.content.contents as ArrayList<ContentSeeAll>
+                        seeAllAdapter.seeAllPlaylistData = playlistData.content.content as ArrayList<ContentSeeAll>
+                        /*if (contentType == "2") {
+                            seeAllAdapter.seeAllPlaylistData = playlistData.content.content as ArrayList<ContentSeeAll>
                         } else {
                             Toast.makeText(this, "Coming Soon!", Toast.LENGTH_SHORT).show()
-                        }
+                        }*/
                     }else{
-                        if(!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.content.contents)){
-                            seeAllAdapter.seeAllPlaylistData = seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.contents) as ArrayList<ContentSeeAll>
+                        if(!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.content.content)){
+                            seeAllAdapter.seeAllPlaylistData = seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.content) as ArrayList<ContentSeeAll>
 
                         }
                     }
@@ -129,7 +130,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
                     isLoading = false
                     //checking last page
-                    isLastpage = playlistData.content.contents.isEmpty()
+                    isLastpage = playlistData.content.content.isEmpty()
                     currentPage++
                     seeAllAdapter.notifyDataSetChanged()
                 }
