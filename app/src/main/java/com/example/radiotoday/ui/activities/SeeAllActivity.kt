@@ -47,9 +47,9 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
 
         seeAllAdapter = SeeAllAdapter(this, this, catName)
-        if (catName == "promotions"){
+        if (catName == "promotions") {
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(2)
-        }else{
+        } else {
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(3)
         }
 
@@ -57,10 +57,10 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
 
         observeSeeAllData()
-        if (catName.isNotEmpty()){
+        if (catName.isNotEmpty()) {
             loadSeeAllData()  //Initial data load
 
-            binding.rvSeeAll.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            binding.rvSeeAll.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
@@ -83,14 +83,14 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
     }
 
-    private fun CustomGridLayoutManager(span : Int): GridLayoutManager {
+    private fun CustomGridLayoutManager(span: Int): GridLayoutManager {
         layoutManager = GridLayoutManager(this, span)
         return layoutManager
     }
 
     private fun loadSeeAllData() {
         Log.i("catname", "loadSeeAllData: $catName")
-        seeAllViewModel.fetchSeeAllData(catName,  currentPage.toString())
+        seeAllViewModel.fetchSeeAllData(catName, currentPage.toString())
 
     }
 
@@ -98,9 +98,9 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         seeAllViewModel.seeAllData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-                    if(catName == "Band"){
+                    if (catName == "Band") {
                         binding.shimmerFrameLayoutRectangles.visibility = View.VISIBLE
-                    }else{
+                    } else {
                         binding.shimmerFrameLayoutSquare.visibility = View.VISIBLE
                     }
 
@@ -111,16 +111,18 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
                     binding.shimmerFrameLayoutRectangles.visibility = View.GONE
                     playlistData = it.data
 
-                    if(currentPage == 1){
-                        seeAllAdapter.seeAllPlaylistData = playlistData.content.content as ArrayList<ContentSeeAll>
+                    if (currentPage == 1) {
+                        seeAllAdapter.seeAllPlaylistData =
+                            playlistData.content.content as ArrayList<ContentSeeAll>
                         /*if (contentType == "2") {
                             seeAllAdapter.seeAllPlaylistData = playlistData.content.content as ArrayList<ContentSeeAll>
                         } else {
                             Toast.makeText(this, "Coming Soon!", Toast.LENGTH_SHORT).show()
                         }*/
-                    }else{
-                        if(!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.content.content)){
-                            seeAllAdapter.seeAllPlaylistData = seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.content) as ArrayList<ContentSeeAll>
+                    } else {
+                        if (!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.content.content)) {
+                            seeAllAdapter.seeAllPlaylistData =
+                                seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.content) as ArrayList<ContentSeeAll>
 
                         }
                     }
