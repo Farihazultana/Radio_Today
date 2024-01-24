@@ -47,7 +47,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
 
         seeAllAdapter = SeeAllAdapter(this, this, catName)
-        if (catName == "Podcasts"){
+        if (catName == "promotions"){
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(2)
         }else{
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(3)
