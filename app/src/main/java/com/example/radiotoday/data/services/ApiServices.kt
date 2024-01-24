@@ -1,7 +1,7 @@
 package com.example.radiotoday.data.services
 
 import com.example.radiotoday.data.models.audio.AudioResponse
-import com.example.radiotoday.data.models.home.HomeResponseX
+import com.example.radiotoday.data.models.home.HomeResponse
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.data.models.showDetails.ShowDetailsResponse
 import com.example.radiotoday.data.models.video.VideoResponse
@@ -9,14 +9,15 @@ import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiServices {
     @FormUrlEncoded
-    @POST("sections")
+    @POST("api/sections")
     suspend fun postHomeData(
         @Field("page_slug") page_slug: String,
         @Field("from_source") from_source: String
-    ): Response<HomeResponseX>
+    ): Response<HomeResponse>
 
     @FormUrlEncoded
     @POST("bangladhol_json_app.php")
@@ -32,10 +33,9 @@ interface ApiServices {
     ): Response<VideoResponse>
 
     @FormUrlEncoded
-    @POST("bangladhol_json_album.php")
+    @POST("api/{section_code}")
     suspend fun postSeeAllData(
-        @Field("ct") ct: String,
-        @Field("type") type: String,
+        @Path("section_code") section_code: String,
         @Field("page") page: String,
     ): Response<SeeAllResponse>
 

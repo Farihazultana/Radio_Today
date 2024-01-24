@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/ivHomeLogo"
             android:layout_width="90dp"
             android:layout_height="match_parent"
             android:layout_marginStart="12dp"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tvGreeting"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -39,7 +39,7 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/ivHomeLogo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!--<ImageView
@@ -57,7 +57,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvVertical_Home"
+        android:id="@+id/rvHomeMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:elevation="6dp"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layoutHeader" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerFrameLayout"
+        android:id="@+id/shimmerFrameLayoutHome"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_centerInParent="true"

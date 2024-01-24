@@ -9,11 +9,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.example.radiotoday.data.models.seeAll.Content
+import com.example.radiotoday.data.models.seeAll.ContentSeeAll
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
-import com.example.radiotoday.ui.adapters.ChildHomeAdapter
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
 import com.example.radiotoday.ui.viewmodels.SeeAllViewModel
 import com.example.radiotoday.utils.ResultType
@@ -28,6 +26,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
     private val seeAllViewModel by viewModels<SeeAllViewModel>()
     private lateinit var layoutManager: GridLayoutManager
     lateinit var catName: String
+    lateinit var seeAllTitle: String
     lateinit var contentType: String
 
     private var isLoading = false
@@ -44,13 +43,15 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         }
 
         catName = intent.getStringExtra("catname").toString()
+        Log.i("section", "onCreate: $catName")
+        seeAllTitle = intent.getStringExtra("name").toString()
         contentType = intent.getStringExtra("contenttype").toString()
 
 
         seeAllAdapter = SeeAllAdapter(this, this, catName)
-        if (catName == "Band"){
+        if (catName == "promotions") {
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(2)
-        }else{
+        } else {
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(3)
         }
 
@@ -58,10 +59,10 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
 
         observeSeeAllData()
-        if (catName.isNotEmpty()){
+        if (catName.isNotEmpty()) {
             loadSeeAllData()  //Initial data load
 
-            binding.rvSeeAll.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            binding.rvSeeAll.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
@@ -84,14 +85,14 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
     }
 
-    private fun CustomGridLayoutManager(span : Int): GridLayoutManager {
+    private fun CustomGridLayoutManager(span: Int): GridLayoutManager {
         layoutManager = GridLayoutManager(this, span)
         return layoutManager
     }
 
     private fun loadSeeAllData() {
         Log.i("catname", "loadSeeAllData: $catName")
-        seeAllViewModel.fetchSeeAllData(catName, "album", currentPage.toString())
+        seeAllViewModel.fetchSeeAllData(catName, currentPage.toString())
 
     }
 
@@ -99,38 +100,41 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         seeAllViewModel.seeAllData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-                    if(catName == "Band"){
-                        binding.shimmerFrameLayout2.visibility = View.VISIBLE
-                    }else{
-                        binding.shimmerFrameLayout.visibility = View.VISIBLE
+                    if (catName == "promotions") {
+                        binding.shimmerFrameLayoutRectangles.visibility = View.VISIBLE
+                    } else {
+                        binding.shimmerFrameLayoutSquare.visibility = View.VISIBLE
                     }
 
                 }
 
                 is ResultType.Success -> {
-                    binding.shimmerFrameLayout.visibility = View.GONE
-                    binding.shimmerFrameLayout2.visibility = View.GONE
+                    binding.shimmerFrameLayoutSquare.visibility = View.GONE
+                    binding.shimmerFrameLayoutRectangles.visibility = View.GONE
                     playlistData = it.data
 
-                    if(currentPage == 1){
-                        if (contentType == "2") {
-                            seeAllAdapter.seeAllPlaylistData = playlistData.contents
+                    if (currentPage == 1) {
+                        seeAllAdapter.seeAllPlaylistData =
+                            playlistData.content.content as ArrayList<ContentSeeAll>
+                        /*if (contentType == "2") {
+                            seeAllAdapter.seeAllPlaylistData = playlistData.content.content as ArrayList<ContentSeeAll>
                         } else {
                             Toast.makeText(this, "Coming Soon!", Toast.LENGTH_SHORT).show()
-                        }
-                    }else{
-                        if(!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.contents)){
-                            seeAllAdapter.seeAllPlaylistData = seeAllAdapter.seeAllPlaylistData.plus(playlistData.contents) as ArrayList<Content>
+                        }*/
+                    } else {
+                        if (!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.content.content)) {
+                            seeAllAdapter.seeAllPlaylistData =
+                                seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.content) as ArrayList<ContentSeeAll>
 
                         }
                     }
 
 
-                    binding.tvToolBarTitle.text = catName
+                    binding.tvToolBarTitle.text = seeAllTitle
 
                     isLoading = false
                     //checking last page
-                    isLastpage = playlistData.contents.isEmpty()
+                    isLastpage = playlistData.content.content.isEmpty()
                     currentPage++
                     seeAllAdapter.notifyDataSetChanged()
                 }
@@ -140,14 +144,14 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         }
     }
 
-    override fun onItemClickListener(position: Int, playlistItem: Content) {
+    override fun onItemClickListener(position: Int, playlistItem: ContentSeeAll) {
 
         val intent = Intent(this, ShowDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        intent.putExtra("ALBUM_CODE", playlistItem.albumcode)
-        intent.putExtra("TITLE_IMG", playlistItem.image_location)
-        intent.putExtra("TITLE", playlistItem.albumname)
-        intent.putExtra("SUBTITLE", playlistItem.artistname)
+        intent.putExtra("ALBUM_CODE", playlistItem.content)
+        intent.putExtra("TITLE_IMG", playlistItem.image)
+        intent.putExtra("TITLE", playlistItem.title)
+        intent.putExtra("SUBTITLE", playlistItem.artists)
         startActivity(intent)
 
     }

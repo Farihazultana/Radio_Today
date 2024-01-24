@@ -13,7 +13,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_ChildContent"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="100dp"
         app:cardCornerRadius="100dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/title_textView"
+        android:id="@+id/tvTitleAnnouncer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -73,9 +73,9 @@
         android:textColor="@color/grey"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/title_textView"
-        app:layout_constraintStart_toStartOf="@+id/title_textView"
-        app:layout_constraintTop_toBottomOf="@+id/title_textView" />
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleAnnouncer"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleAnnouncer"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleAnnouncer" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

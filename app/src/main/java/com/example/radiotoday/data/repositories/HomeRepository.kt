@@ -1,13 +1,13 @@
 package com.example.radiotoday.data.repositories
 
-import com.example.radiotoday.data.models.home.HomeResponseX
+import com.example.radiotoday.data.models.home.HomeResponse
 import com.example.radiotoday.data.services.ApiServices
 import com.example.radiotoday.utils.ResultType
 import javax.inject.Inject
 
 class HomeRepository @Inject constructor(private val apiServices: ApiServices){
 
-    suspend fun getHomeData(page_slug: String, from_source: String) : ResultType<HomeResponseX>{
+    suspend fun getHomeData(page_slug: String, from_source: String) : ResultType<HomeResponse>{
         try {
             val response = apiServices.postHomeData(page_slug, from_source)
             if (response.isSuccessful){

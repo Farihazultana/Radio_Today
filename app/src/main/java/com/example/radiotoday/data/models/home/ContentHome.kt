@@ -1,6 +1,6 @@
 package com.example.radiotoday.data.models.home
 
-data class ContentXX(
+data class ContentHome(
     val artists: String?,
     val content: String?,
     val description: String?,

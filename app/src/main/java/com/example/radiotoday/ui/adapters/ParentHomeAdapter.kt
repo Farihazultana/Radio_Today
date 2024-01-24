@@ -1,7 +1,6 @@
 package com.example.radiotoday.ui.adapters
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.home.ContentX
-import com.example.radiotoday.data.models.home.ContentXX
-import com.example.radiotoday.data.models.home.HomeResponseX
+import com.example.radiotoday.data.models.home.ContentHome
+import com.example.radiotoday.data.models.ContentMain
 import com.example.radiotoday.ui.activities.SeeAllActivity
 
 class ParentHomeAdapter(private val listener: ItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildHomeAdapter.ItemClickListener {
 
-    var homeData: List<ContentX> = ArrayList()
+    var homeData: List<ContentMain> = ArrayList()
 
 
     private val TYPE_BANNER = 0
@@ -105,7 +103,8 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
                 holder.seeAll.setOnClickListener {
                     val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
-                    intent.putExtra("catname", currentItem.name)
+                    intent.putExtra("catname", currentItem.section_code)
+                    intent.putExtra("name", currentItem.name)
                     intent.putExtra("contenttype", currentItem.contenttype)
                     holder.itemView.context.startActivity(intent)
                 }
@@ -115,12 +114,12 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
 
 
-    override fun onItemClickListener(position: Int, currentItem: ContentXX) {
+    override fun onItemClickListener(position: Int, currentItem: ContentHome) {
         listener.onItemClickListener(position, currentItem)
     }
 
     interface ItemClickListener {
-        fun onItemClickListener(position: Int, currentItem: ContentXX)
+        fun onItemClickListener(position: Int, currentItem: ContentHome)
 
     }
 }
