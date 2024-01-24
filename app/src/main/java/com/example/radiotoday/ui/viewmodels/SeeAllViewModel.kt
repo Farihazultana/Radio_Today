@@ -1,5 +1,6 @@
 package com.example.radiotoday.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,7 @@ class SeeAllViewModel @Inject constructor(private val repository: SeeAllReposito
             try {
                 val result = repository.getSeeAllData(section_code, page)
                 _seeAllData.value=result
+                Log.i("SeeAll", "fetchSeeAllData: $result")
             } catch (e: Exception) {
                 _seeAllData.value = ResultType.Error(e)
             }
