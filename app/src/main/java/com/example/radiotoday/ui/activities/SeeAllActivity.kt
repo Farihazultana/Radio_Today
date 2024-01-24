@@ -26,6 +26,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
     private val seeAllViewModel by viewModels<SeeAllViewModel>()
     private lateinit var layoutManager: GridLayoutManager
     lateinit var catName: String
+    lateinit var seeAllTitle: String
     lateinit var contentType: String
 
     private var isLoading = false
@@ -43,6 +44,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
         catName = intent.getStringExtra("catname").toString()
         Log.i("section", "onCreate: $catName")
+        seeAllTitle = intent.getStringExtra("name").toString()
         contentType = intent.getStringExtra("contenttype").toString()
 
 
@@ -98,7 +100,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         seeAllViewModel.seeAllData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-                    if (catName == "Band") {
+                    if (catName == "promotions") {
                         binding.shimmerFrameLayoutRectangles.visibility = View.VISIBLE
                     } else {
                         binding.shimmerFrameLayoutSquare.visibility = View.VISIBLE
@@ -128,7 +130,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
                     }
 
 
-                    binding.tvToolBarTitle.text = catName
+                    binding.tvToolBarTitle.text = seeAllTitle
 
                     isLoading = false
                     //checking last page

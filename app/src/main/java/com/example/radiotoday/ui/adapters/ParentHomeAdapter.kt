@@ -104,6 +104,7 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
                 holder.seeAll.setOnClickListener {
                     val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
                     intent.putExtra("catname", currentItem.section_code)
+                    intent.putExtra("name", currentItem.name)
                     intent.putExtra("contenttype", currentItem.contenttype)
                     holder.itemView.context.startActivity(intent)
                 }
