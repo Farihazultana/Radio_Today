@@ -37,7 +37,7 @@ class ShowDetailsActivity : AppCompatActivity(), ShowDetailsAdapter.CardClickLis
         binding.rvPlaylist.adapter = showDetailsAdapter
 
         sectionCode = intent.getStringExtra("section_code").toString()
-        Log.i("showDetails", "albumCode: $sectionCode")
+        Log.i("showDetails", "section code: $sectionCode")
         id = intent.getStringExtra("id").toString()
         Log.i("showDetails", "id: $id")
 

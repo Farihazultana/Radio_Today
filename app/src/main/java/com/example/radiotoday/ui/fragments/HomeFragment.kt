@@ -22,11 +22,7 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
     private lateinit var parentHomeAdapter: ParentHomeAdapter
     private val homeViewModel by viewModels<HomeViewModel>()
     private lateinit var binding: FragmentHomeBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    lateinit var sectionCode: String
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -47,9 +43,11 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
                 }
                 is ResultType.Success -> {
                     binding.shimmerFrameLayoutHome.visibility = View.GONE
-                    val homeData = it.data.content
+                    val homeData= it.data.content
                     parentHomeAdapter.homeData = homeData
                     this.parentHomeAdapter.notifyDataSetChanged()
+
+
                 }
 
                 else -> {}
@@ -59,10 +57,11 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
         return binding.root
     }
 
-    override fun onItemClickListener(position: Int, currentItem: SubContent) {
+    override fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
         val intent = Intent(activity, ShowDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        //intent.putExtra("ALBUM_CODE", currentItem.albumcode)
+        intent.putExtra("section_code", currentSection)
+        intent.putExtra("id", currentItem.id)
         startActivity(intent)
     }
 

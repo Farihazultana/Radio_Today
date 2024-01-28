@@ -17,7 +17,7 @@ import com.example.radiotoday.ui.activities.SeeAllActivity
 class ParentHomeAdapter(private val listener: ItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildHomeAdapter.ItemClickListener {
 
-    var homeData: List<ContentMain> = ArrayList()
+    var homeData: ArrayList<ContentMain> = ArrayList()
 
 
     private val TYPE_BANNER = 0
@@ -83,20 +83,20 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
                 holder.rvHor.visibility = View.VISIBLE
 
                 val content = currentItem.content
+
+
                 holder.childListAdapter = ChildHomeAdapter(
                     currentItem.contentviewtype,
                     currentItem.contenttype,
                     currentItem.name,
                     content,
+                    currentItem.section_code,
                     this
                 )
 
-                holder.rvHor.layoutManager =
-                    LinearLayoutManager(
-                        holder.rvHor.context,
-                        LinearLayoutManager.HORIZONTAL,
-                        false
-                    )
+
+                holder.rvHor.layoutManager = LinearLayoutManager(holder.rvHor.context, LinearLayoutManager.HORIZONTAL, false)
+
                 holder.rvHor.adapter = holder.childListAdapter
 
                 holder.title.text = currentItem.name
@@ -114,12 +114,12 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
 
 
-    override fun onItemClickListener(position: Int, currentItem: SubContent) {
-        listener.onItemClickListener(position, currentItem)
+    override fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
+        listener.onItemClickListener(position, currentItem, currentSection)
     }
 
     interface ItemClickListener {
-        fun onItemClickListener(position: Int, currentItem: SubContent)
+        fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String)
 
     }
 }
