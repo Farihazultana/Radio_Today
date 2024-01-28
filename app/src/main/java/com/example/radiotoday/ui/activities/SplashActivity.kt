@@ -29,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
         val year: Int = calendar.get(Calendar.YEAR)
 
         footer = findViewById(R.id.footer)
-        footer.text = "©Radio Today & EBS $year. All Rights Reserved"
+        footer.text = getString(R.string.footer_text, year.toString())
 
         CoroutineScope(Dispatchers.Main).launch {
             delay(splashDelay)
