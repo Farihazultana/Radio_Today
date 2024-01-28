@@ -7,20 +7,21 @@ import com.example.radiotoday.utils.ResultType
 import javax.inject.Inject
 
 class ShowDetailsRepository @Inject constructor(private val apiServices: ApiServices){
-    suspend fun getShowDetailsPlaylistData(albumcode : String) : ResultType<ShowDetailsResponse>{
+    suspend fun getShowDetailsPlaylistData(sectionCode : String, id : String, empty: String) : ResultType<ShowDetailsResponse>{
         try {
-            val response = apiServices.postShowDetailsData(albumcode)
+            val response = apiServices.postShowDetailsData(sectionCode, id, empty)
             Log.i("TAGY", "successful api call: ${response.code()}")
             if (response.isSuccessful) {
                 val data = response.body()
                 if (data != null) {
-                    Log.i("TAGY", "getAudioPlaylistData: ${data[0].image_location}")
+                    Log.i("TAGY", "getShowDetailsData: ${data.content}")
                 }
                 if (data != null) {
                     return ResultType.Success(data)
                 }
             }
-            return ResultType.Error(Exception("Failed to fetch AudioPlaylist data"))
+
+            return ResultType.Error(Exception("Failed to fetch ShowDetailsData"))
 
         }catch (e: Exception){
             return ResultType.Error(e)

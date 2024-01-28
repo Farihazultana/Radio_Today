@@ -9,14 +9,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.showDetails.SimilarArtist
+import com.example.radiotoday.data.models.SubContent
 
 class ShowDetailsAdapter(private val context: Context, private val cardClickListener : CardClickListener):
     RecyclerView.Adapter<ShowDetailsAdapter.ShowDetailsPlaylistViewHolder>()  {
 
 
-    var showDetailsPlaylistData : ArrayList<SimilarArtist> = ArrayList()
+    var showDetailsPlaylistData : ArrayList<SubContent> = ArrayList()
     inner class ShowDetailsPlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val poster : ImageView = itemView.findViewById(R.id.ivShowdetailsPoster)
         val title : TextView = itemView.findViewById(R.id.tvShowDetailsTitle)
         val duration : TextView = itemView.findViewById(R.id.tvDuration)
         val description : TextView = itemView.findViewById(R.id.tv_ShowDetailsDescription)
@@ -36,9 +37,15 @@ class ShowDetailsAdapter(private val context: Context, private val cardClickList
     override fun onBindViewHolder(holder: ShowDetailsAdapter.ShowDetailsPlaylistViewHolder, position: Int) {
         val playlistItem = showDetailsPlaylistData[position]
 
-        holder.title.text = playlistItem.albumname
-        holder.duration.text = playlistItem.release
-        holder.description.text = playlistItem.artistname
+        Glide.with(context)
+            .load(playlistItem.img)
+            .placeholder(R.drawable.no_img)
+            .error(R.drawable.no_img)
+            .into(holder.poster)
+
+        holder.title.text = playlistItem.title
+        holder.duration.text = playlistItem.schedule
+        holder.description.text = playlistItem.description
 
         holder.itemView.setOnClickListener {
             cardClickListener.onCardClickListener(position, playlistItem)
@@ -51,6 +58,6 @@ class ShowDetailsAdapter(private val context: Context, private val cardClickList
     }
 
     interface CardClickListener {
-        fun onCardClickListener(position: Int, playlistItem: SimilarArtist)
+        fun onCardClickListener(position: Int, playlistItem: SubContent)
     }
 }
