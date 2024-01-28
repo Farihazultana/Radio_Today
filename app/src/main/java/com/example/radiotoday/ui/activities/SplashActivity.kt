@@ -34,9 +34,29 @@ class SplashActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             delay(splashDelay)
 
-            val intent = Intent(this@SplashActivity, IntroScreenActivity::class.java)
-            startActivity(intent)
+            val introScreenShown = getIntroScreenShownStatus()
+
+            if (!introScreenShown) {
+                val intent = Intent(this@SplashActivity, IntroScreenActivity::class.java)
+                setIntroScreenShownStatus(true)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+            }
             finish()
         }
+    }
+
+    private fun getIntroScreenShownStatus(): Boolean {
+        val sharedPreferences = getPreferences(MODE_PRIVATE)
+        return sharedPreferences.getBoolean("introScreenShown", false)
+    }
+
+    private fun setIntroScreenShownStatus(shown: Boolean) {
+        val sharedPreferences = getPreferences(MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("introScreenShown", shown)
+        editor.apply()
     }
 }
