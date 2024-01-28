@@ -115,11 +115,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
                     if (currentPage == 1) {
                         seeAllAdapter.seeAllPlaylistData = playlistContent as ArrayList<SubContent>
-                        /*if (contentType == "2") {
-                            seeAllAdapter.seeAllPlaylistData = playlistData.content.content as ArrayList<ContentSeeAll>
-                        } else {
-                            Toast.makeText(this, "Coming Soon!", Toast.LENGTH_SHORT).show()
-                        }*/
+
                         for (item in playlistContent){
                             id = item.id
                         }
@@ -156,9 +152,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         val intent = Intent(this, ShowDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra("section_code", sectionCode)
-        intent.putExtra("id", id)
-        intent.putExtra("TITLE", playlistItem.title)
-        intent.putExtra("SUBTITLE", playlistItem.artists)
+        intent.putExtra("id", playlistItem.id)
         startActivity(intent)
 
     }

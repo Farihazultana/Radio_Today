@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.example.radiotoday.R
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.databinding.ActivityShowDetailsBinding
 import com.example.radiotoday.ui.adapters.ShowDetailsAdapter
@@ -47,8 +49,25 @@ class ShowDetailsActivity : AppCompatActivity(), ShowDetailsAdapter.CardClickLis
                 }
                 is ResultType.Success -> {
                     val playlistData = it.data.content
-                    showDetailsAdapter.showDetailsPlaylistData = arrayListOf<SubContent>(playlistData)
+                    //showDetailsAdapter.showDetailsPlaylistData = arrayListOf<SubContent>(playlistData)   //no recyclerView at UI
                     this.showDetailsAdapter.notifyDataSetChanged()
+
+                    Glide.with(this)
+                        .load(playlistData.image)
+                        .placeholder(R.drawable.no_img)
+                        .error(R.drawable.no_img)
+                        .into(binding.ivShowdetailsPoster)
+
+                    binding.tvTitleShowDetails.text = playlistData.title
+                    binding.tvSubTitleShowdetails.text = playlistData.description
+
+                    if (sectionCode == "segments"){
+                        binding.tvScheduleDescription.visibility = View.VISIBLE
+                        binding.tvScheduleDescription.text = "Schedule \n${playlistData.schedule}"
+
+                    }else{
+                        binding.tvScheduleDescription.visibility = View.GONE
+                    }
 
                     binding.shimmerFrameLayout.visibility = View.GONE
 
