@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.home.ContentHome
 import com.example.radiotoday.data.models.ContentMain
+import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.ui.activities.SeeAllActivity
 
 class ParentHomeAdapter(private val listener: ItemClickListener) :
@@ -114,12 +114,12 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
 
 
-    override fun onItemClickListener(position: Int, currentItem: ContentHome) {
+    override fun onItemClickListener(position: Int, currentItem: SubContent) {
         listener.onItemClickListener(position, currentItem)
     }
 
     interface ItemClickListener {
-        fun onItemClickListener(position: Int, currentItem: ContentHome)
+        fun onItemClickListener(position: Int, currentItem: SubContent)
 
     }
 }

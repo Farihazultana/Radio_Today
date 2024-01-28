@@ -5,11 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.radiotoday.data.models.seeAll.ContentSeeAll
+import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
@@ -115,7 +114,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
                     if (currentPage == 1) {
                         seeAllAdapter.seeAllPlaylistData =
-                            playlistData.content.content as ArrayList<ContentSeeAll>
+                            playlistData.content.content as ArrayList<SubContent>
                         /*if (contentType == "2") {
                             seeAllAdapter.seeAllPlaylistData = playlistData.content.content as ArrayList<ContentSeeAll>
                         } else {
@@ -124,7 +123,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
                     } else {
                         if (!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.content.content)) {
                             seeAllAdapter.seeAllPlaylistData =
-                                seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.content) as ArrayList<ContentSeeAll>
+                                seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.content) as ArrayList<SubContent>
 
                         }
                     }
@@ -144,7 +143,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         }
     }
 
-    override fun onItemClickListener(position: Int, playlistItem: ContentSeeAll) {
+    override fun onItemClickListener(position: Int, playlistItem: SubContent) {
 
         val intent = Intent(this, ShowDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

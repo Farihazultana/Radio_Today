@@ -1,5 +1,7 @@
 package com.example.radiotoday.data.models.seeAll
 
+import com.example.radiotoday.data.models.SubContent
+
 data class SeeAllMainContent(
     val current_page: Int,
     val first: String,
@@ -8,7 +10,6 @@ data class SeeAllMainContent(
     val last_page: Int,
     val nextPageUrl: String,
     val prevPageUrl: String,
-    val content: List<ContentSeeAll>,
-    val podcasts: List<Podcast>,
+    val content: ArrayList<SubContent>,
     val total: Int,
 )
