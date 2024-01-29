@@ -47,19 +47,19 @@ class ChildHomeAdapter(
 
         return when(viewType){
             TYPE_CONTENT -> {
-                val itemView = inflater.inflate(R.layout.col_item_content_child_home, parent, false)
+                val itemView = inflater.inflate(R.layout.item_child_home_content, parent, false)
                 ContentViewHolder(itemView)
             }
             TYPE_NEWRELEASE -> {
-                val itemView = inflater.inflate(R.layout.col_item_previous_show_child_home,parent, false)
+                val itemView = inflater.inflate(R.layout.item_show_child_home_previous,parent, false)
                 ContentViewHolder(itemView)
             }
             Type_ARTIST -> {
-                val itemView = inflater.inflate(R.layout.col_item_artist_child_home,parent, false)
+                val itemView = inflater.inflate(R.layout.item_child_home_artist,parent, false)
                 ContentViewHolder(itemView)
             }
             TYPE_PODCAST -> {
-                val itemView = inflater.inflate(R.layout.col_item_prodcast_child_home,parent, false)
+                val itemView = inflater.inflate(R.layout.item_child_home_podcast,parent, false)
                 ContentViewHolder(itemView)
             }
 

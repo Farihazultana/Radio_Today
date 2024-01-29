@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvSeeAllPoster"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         app:cardCornerRadius="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -350,13 +350,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
                     android:text="Circumstances and owing to the  claims of duty of the obligations of business it"
                     android:textColor="@color/white"
                     android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/tvTitleShowDetails"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/tvTitleShowDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitleShowDetails" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleShowDetails"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/tvScheduleDescription"
