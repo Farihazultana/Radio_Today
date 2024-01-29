@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), OnBackAction {
+class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity(), OnBackAction {
     private var videoFragment = VideoFragment()
     private var newsFragment = NewsFragment()
     private var settingsFragment = SettingsFragment()
+    private var songsFragment = SongsFragment()
 
     private var doubleBackToExitPressedOnce = true
 
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity(), OnBackAction {
         SettingsFragment.onBackAction(this)
         NewsFragment.onBackAction(this)
 
+        homeFragment.songClickListener = this
+
         replaceFragment(homeFragment)
         binding.bottomNavigationView.itemIconTintList=null
         binding.bottomNavigationView.setOnItemSelectedListener {
@@ -55,8 +58,7 @@ class MainActivity : AppCompatActivity(), OnBackAction {
 
 
         binding.layoutMiniPlayer.setOnClickListener {
-            val songsFragment = SongsFragment()
-            songsFragment.show(supportFragmentManager,songsFragment.tag)
+            GotoPlayer()
         }
 
     }
@@ -126,5 +128,14 @@ class MainActivity : AppCompatActivity(), OnBackAction {
                 finish()
             }
         }
+    }
+
+    override fun onSongClickListener() {
+        GotoPlayer()
+    }
+
+    private fun GotoPlayer() {
+        val songsFragment = SongsFragment()
+        songsFragment.show(supportFragmentManager, songsFragment.tag)
     }
 }

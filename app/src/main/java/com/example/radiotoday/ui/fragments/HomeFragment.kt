@@ -28,6 +28,8 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
     private lateinit var binding: FragmentHomeBinding
     lateinit var sectionCode: String
 
+    var songClickListener: SongClickListener? = null
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,12 +72,13 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
     override fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
 
         if (currentSection == "songs"){
-            val songsFragment = SongsFragment()
+
+            /*val songsFragment = SongsFragment()
             requireActivity().supportFragmentManager.beginTransaction()
                 .add(R.id.frameLayout, songsFragment)
-                .commit()
+                .commit()*/
 
-
+            songClickListener?.onSongClickListener()
 
         }else{
             val intent = Intent(activity, ShowDetailsActivity::class.java)
@@ -100,5 +103,11 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
             else -> "Hello"
         }
     }
+
+    interface SongClickListener {
+        fun onSongClickListener()
+
+    }
+
 
 }
