@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.radiotoday.R
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.databinding.FragmentHomeBinding
 import com.example.radiotoday.ui.activities.ShowDetailsActivity
@@ -58,11 +60,23 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
     }
 
     override fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
-        val intent = Intent(activity, ShowDetailsActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        intent.putExtra("section_code", currentSection)
-        intent.putExtra("id", currentItem.id)
-        startActivity(intent)
+
+        if (currentSection == "songs"){
+            val songsFragment = SongsFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .add(R.id.frameLayout, songsFragment)
+                .commit()
+
+
+
+        }else{
+            val intent = Intent(activity, ShowDetailsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("section_code", currentSection)
+            intent.putExtra("id", currentItem.id)
+            startActivity(intent)
+        }
+
     }
 
 }

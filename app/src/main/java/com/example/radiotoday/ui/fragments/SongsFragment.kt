@@ -84,9 +84,9 @@ class SongsFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.viewTreeObserver.addOnPreDrawListener {
-            val parent = view.parent as View
-            val params = parent.layoutParams as CoordinatorLayout.LayoutParams
-            val behavior = params.behavior
+            val parent = view.parent as? View
+            val params = parent?.layoutParams as? CoordinatorLayout.LayoutParams
+            val behavior = params?.behavior
 
             if (behavior is BottomSheetBehavior<*>) {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED

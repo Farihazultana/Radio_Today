@@ -12,6 +12,7 @@ import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
+import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.viewmodels.SeeAllViewModel
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.AndroidEntryPoint
@@ -149,11 +150,18 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
     override fun onItemClickListener(position: Int, playlistItem: SubContent) {
 
-        val intent = Intent(this, ShowDetailsActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        intent.putExtra("section_code", sectionCode)
-        intent.putExtra("id", playlistItem.id)
-        startActivity(intent)
+        if (sectionCode == "songs"){
+            val songsFragment = SongsFragment()
+            songsFragment.show(supportFragmentManager,songsFragment.tag)
+        }else{
+            val intent = Intent(this, ShowDetailsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("section_code", sectionCode)
+            intent.putExtra("id", playlistItem.id)
+            startActivity(intent)
+        }
+
+
 
     }
 
