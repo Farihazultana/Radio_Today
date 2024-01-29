@@ -92,14 +92,14 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
 
     private fun ShowGreetingsMsg() : String{
         val cal = Calendar.getInstance()
-        val timeOfDay = cal.get(Calendar.HOUR_OF_DAY)
 
-        return when(timeOfDay){
-            in 0..11 -> "Good Morning"
+        return when(cal.get(Calendar.HOUR_OF_DAY)){
+            in 5..11 -> "Good Morning"
             in 12..14 -> "Good Noon"
             in 15..17 -> "Good Afternoon"
             in 18..20 -> "Good Evening"
             in 21..23 -> "Good Night"
+            in 1..4 -> "Good Night"
             else -> "Hello"
         }
     }
