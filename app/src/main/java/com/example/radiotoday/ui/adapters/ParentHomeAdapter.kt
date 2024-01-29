@@ -39,13 +39,13 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
         return when (viewType) {
             TYPE_BANNER -> {
-                val itemView = inflater.inflate(R.layout.row_item_banner_parent_home, parent, false)
+                val itemView = inflater.inflate(R.layout.item_parent_home_banner, parent, false)
                 BannerViewHolder(itemView)
             }
 
             TYPE_CONTENT -> {
                 val itemView =
-                    inflater.inflate(R.layout.row_item_content_parent_home, parent, false)
+                    inflater.inflate(R.layout.item_parent_home_content, parent, false)
                 ContentViewHolder(itemView)
             }
 
