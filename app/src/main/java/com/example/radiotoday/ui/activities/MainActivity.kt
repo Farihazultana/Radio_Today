@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
 
 
         binding.layoutMiniPlayer.setOnClickListener {
-            GotoPlayer()
+            gotoPlayer()
         }
 
     }
@@ -131,10 +131,10 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
     }
 
     override fun onSongClickListener() {
-        GotoPlayer()
+        gotoPlayer()
     }
 
-    private fun GotoPlayer() {
+    private fun gotoPlayer() {
         val songsFragment = SongsFragment()
         songsFragment.show(supportFragmentManager, songsFragment.tag)
     }
