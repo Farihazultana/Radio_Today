@@ -3,6 +3,7 @@ package com.example.radiotoday.ui.fragments
 import android.content.Intent
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.example.radiotoday.ui.adapters.ParentHomeAdapter
 import com.example.radiotoday.ui.viewmodels.HomeViewModel
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
@@ -32,6 +34,12 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
+
+        val currentHour = Calendar.getInstance().get(Calendar.AM)
+
+        val greeting = ShowGreetingsMsg()
+        Log.i("Greeting", "onCreateView: $greeting")
+        binding.tvGreeting.text = greeting
 
         parentHomeAdapter = ParentHomeAdapter(this)
         binding.rvHomeMain.layoutManager = LinearLayoutManager(requireActivity())
@@ -77,6 +85,20 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
             startActivity(intent)
         }
 
+    }
+
+    private fun ShowGreetingsMsg() : String{
+        val cal = Calendar.getInstance()
+        val timeOfDay = cal.get(Calendar.HOUR_OF_DAY)
+
+        return when(timeOfDay){
+            in 0..11 -> "Good Morning"
+            in 12..14 -> "Good Noon"
+            in 15..17 -> "Good Afternoon"
+            in 18..20 -> "Good Evening"
+            in 21..23 -> "Good Night"
+            else -> "Hello"
+        }
     }
 
 }
