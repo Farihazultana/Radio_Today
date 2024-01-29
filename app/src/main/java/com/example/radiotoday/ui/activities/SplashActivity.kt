@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.radiotoday.R
+import com.example.radiotoday.utils.SharedPreferencesUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -34,29 +35,18 @@ class SplashActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             delay(splashDelay)
 
-            val introScreenShown = getIntroScreenShownStatus()
+            val introScreenShown = SharedPreferencesUtil.getData(this@SplashActivity, "IntroScreenShown", false)
 
-            if (!introScreenShown) {
+            if (introScreenShown != true) {
                 val intent = Intent(this@SplashActivity, IntroScreenActivity::class.java)
-                setIntroScreenShownStatus(true)
+
                 startActivity(intent)
             } else {
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                //setIntroScreenShownStatus(true)
                 startActivity(intent)
             }
             finish()
         }
-    }
-
-    private fun getIntroScreenShownStatus(): Boolean {
-        val sharedPreferences = getPreferences(MODE_PRIVATE)
-        return sharedPreferences.getBoolean("introScreenShown", false)
-    }
-
-    private fun setIntroScreenShownStatus(shown: Boolean) {
-        val sharedPreferences = getPreferences(MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("introScreenShown", shown)
-        editor.apply()
     }
 }

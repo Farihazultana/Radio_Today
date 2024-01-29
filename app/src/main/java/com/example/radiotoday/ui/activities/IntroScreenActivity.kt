@@ -1,6 +1,7 @@
 package com.example.radiotoday.ui.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -9,6 +10,8 @@ import androidx.viewpager.widget.ViewPager
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.slider.SliderData
 import com.example.radiotoday.ui.adapters.SliderAdapter
+import com.example.radiotoday.utils.SharedPreferencesUtil
+import com.google.android.gms.common.util.SharedPreferencesUtils
 
 class IntroScreenActivity : AppCompatActivity() {
 
@@ -37,6 +40,7 @@ class IntroScreenActivity : AppCompatActivity() {
         skipBtn.setOnClickListener {
             val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
             startActivity(i)
+            SharedPreferencesUtil.saveData(this@IntroScreenActivity, "IntroScreenShown", true)
             finish()
         }
 
@@ -77,8 +81,8 @@ class IntroScreenActivity : AppCompatActivity() {
             if (nextItem < sliderList.size) {
                 viewPager.currentItem = nextItem
             } else {
-
                 val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
+                SharedPreferencesUtil.saveData(this@IntroScreenActivity, "IntroScreenShown", true)
                 startActivity(i)
                 finish()
             }
@@ -115,6 +119,8 @@ class IntroScreenActivity : AppCompatActivity() {
                     indicatorSlideOneTV.setTextColor(resources.getColor(R.color.grey))
 
                     nextBtn.text = "  Let's Go"
+
+
                 }
             }
         }
