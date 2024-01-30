@@ -1,6 +1,7 @@
 package com.example.radiotoday.ui.activities
 
 import android.os.Bundle
+import android.provider.Settings
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -147,7 +148,9 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val token = task.result
-                Log.i("NOtificationFCM", "getFCMToken: $token")
+                Log.i("NotificationFCM", "getFCMToken: $token")
+                var deviceID = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+                Log.i("NotificationFCM", "Device ID: $deviceID ")
 
             } else {
 
