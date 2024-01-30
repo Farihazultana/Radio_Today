@@ -3,6 +3,7 @@ package com.example.radiotoday.ui.activities
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -18,6 +19,7 @@ import com.example.radiotoday.ui.fragments.SettingsFragment
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
 import com.example.radiotoday.utils.OnBackAction
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -60,6 +62,8 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
         binding.layoutMiniPlayer.setOnClickListener {
             gotoPlayer()
         }
+
+        getFCMToken()
 
     }
 
@@ -137,5 +141,17 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
     private fun gotoPlayer() {
         val songsFragment = SongsFragment()
         songsFragment.show(supportFragmentManager, songsFragment.tag)
+    }
+
+    private fun getFCMToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                Log.i("NOtificationFCM", "getFCMToken: $token")
+
+            } else {
+
+            }
+        }
     }
 }
