@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "979892582381",
+    "project_id": "radio-today-496fc",
+    "storage_bucket": "radio-today-496fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979892582381:android:70dc4076b8d17ca352d9e4",
+        "android_client_info": {
+          "package_name": "com.example.radiotoday"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGzI9l25Dm70xIt0kyGsIT3NOmG0pknpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
