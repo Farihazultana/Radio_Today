@@ -9,6 +9,7 @@ object AppUtils {
     const val BASE_URL = "http://202.164.208.69:8080/"
 
     const val LogInStatus = "LOGIN_STATUS"
+    const val InroScreenStatus = "IntroScreenShown"
 
     fun setDialog(context: Context, layoutId: Int): Dialog {
         val dialog = Dialog(context)

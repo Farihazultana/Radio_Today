@@ -12,6 +12,7 @@ import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
+import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.viewmodels.SeeAllViewModel
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,14 +25,14 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
     private lateinit var seeAllAdapter: SeeAllAdapter
     private val seeAllViewModel by viewModels<SeeAllViewModel>()
     private lateinit var layoutManager: GridLayoutManager
-    lateinit var catName: String
-    lateinit var seeAllTitle: String
-    lateinit var contentType: String
+    private lateinit var sectionCode: String
+    private var id: String? = null
+    private lateinit var seeAllTitle: String
+    private lateinit var contentType: String
 
     private var isLoading = false
     private var isLastpage = false
     private var currentPage = 1
-    lateinit var albumCode: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySeeAllBinding.inflate(layoutInflater)
@@ -41,14 +42,14 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
             onBackPressed()
         }
 
-        catName = intent.getStringExtra("catname").toString()
-        Log.i("section", "onCreate: $catName")
+        sectionCode = intent.getStringExtra("catname").toString()
+        Log.i("section", "onCreate: $sectionCode")
         seeAllTitle = intent.getStringExtra("name").toString()
         contentType = intent.getStringExtra("contenttype").toString()
 
 
-        seeAllAdapter = SeeAllAdapter(this, this, catName)
-        if (catName == "promotions") {
+        seeAllAdapter = SeeAllAdapter(this, this, sectionCode)
+        if (sectionCode == "promotions") {
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(2)
         } else {
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(3)
@@ -58,7 +59,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
 
         observeSeeAllData()
-        if (catName.isNotEmpty()) {
+        if (sectionCode.isNotEmpty()) {
             loadSeeAllData()  //Initial data load
 
             binding.rvSeeAll.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -90,8 +91,8 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
     }
 
     private fun loadSeeAllData() {
-        Log.i("catname", "loadSeeAllData: $catName")
-        seeAllViewModel.fetchSeeAllData(catName, currentPage.toString())
+        Log.i("catname", "loadSeeAllData: $sectionCode")
+        seeAllViewModel.fetchSeeAllData(sectionCode, currentPage.toString())
 
     }
 
@@ -99,7 +100,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         seeAllViewModel.seeAllData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-                    if (catName == "promotions") {
+                    if (sectionCode == "promotions") {
                         binding.shimmerFrameLayoutRectangles.visibility = View.VISIBLE
                     } else {
                         binding.shimmerFrameLayoutSquare.visibility = View.VISIBLE
@@ -111,19 +112,22 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
                     binding.shimmerFrameLayoutSquare.visibility = View.GONE
                     binding.shimmerFrameLayoutRectangles.visibility = View.GONE
                     playlistData = it.data
+                    val playlistContent = playlistData.content.content
 
                     if (currentPage == 1) {
-                        seeAllAdapter.seeAllPlaylistData =
-                            playlistData.content.content as ArrayList<SubContent>
-                        /*if (contentType == "2") {
-                            seeAllAdapter.seeAllPlaylistData = playlistData.content.content as ArrayList<ContentSeeAll>
-                        } else {
-                            Toast.makeText(this, "Coming Soon!", Toast.LENGTH_SHORT).show()
-                        }*/
+                        seeAllAdapter.seeAllPlaylistData = playlistContent as ArrayList<SubContent>
+
+                        for (item in playlistContent){
+                            id = item.id
+                        }
                     } else {
-                        if (!seeAllAdapter.seeAllPlaylistData.containsAll(playlistData.content.content)) {
-                            seeAllAdapter.seeAllPlaylistData =
-                                seeAllAdapter.seeAllPlaylistData.plus(playlistData.content.content) as ArrayList<SubContent>
+                        if (!seeAllAdapter.seeAllPlaylistData.containsAll(playlistContent)) {
+
+                            seeAllAdapter.seeAllPlaylistData = seeAllAdapter.seeAllPlaylistData.plus(playlistContent) as ArrayList<SubContent>
+
+                            for (item in playlistContent){
+                                id = item.id
+                            }
 
                         }
                     }
@@ -131,9 +135,10 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
                     binding.tvToolBarTitle.text = seeAllTitle
 
+
                     isLoading = false
                     //checking last page
-                    isLastpage = playlistData.content.content.isEmpty()
+                    isLastpage = playlistContent.isEmpty()
                     currentPage++
                     seeAllAdapter.notifyDataSetChanged()
                 }
@@ -145,13 +150,18 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
     override fun onItemClickListener(position: Int, playlistItem: SubContent) {
 
-        val intent = Intent(this, ShowDetailsActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        intent.putExtra("ALBUM_CODE", playlistItem.content)
-        intent.putExtra("TITLE_IMG", playlistItem.image)
-        intent.putExtra("TITLE", playlistItem.title)
-        intent.putExtra("SUBTITLE", playlistItem.artists)
-        startActivity(intent)
+        if (sectionCode == "songs"){
+            val songsFragment = SongsFragment()
+            songsFragment.show(supportFragmentManager,songsFragment.tag)
+        }else{
+            val intent = Intent(this, ShowDetailsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("section_code", sectionCode)
+            intent.putExtra("id", playlistItem.id)
+            startActivity(intent)
+        }
+
+
 
     }
 

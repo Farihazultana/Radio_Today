@@ -8,16 +8,20 @@ import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.slider.SliderData
+import com.example.radiotoday.databinding.ActivityIntroScreenBinding
 import com.example.radiotoday.ui.adapters.SliderAdapter
+import com.example.radiotoday.utils.AppUtils
+import com.example.radiotoday.utils.SharedPreferencesUtil
 
 class IntroScreenActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityIntroScreenBinding
     private lateinit var viewPager: ViewPager
 
     private lateinit var sliderAdapter: SliderAdapter
     private lateinit var sliderList: ArrayList<SliderData>
 
-    private lateinit var skipBtn: TextView
+
     private lateinit var nextBtn: Button
 
     lateinit var indicatorSlideOneTV: TextView
@@ -25,18 +29,20 @@ class IntroScreenActivity : AppCompatActivity() {
     lateinit var indicatorSlideThreeTV: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_intro_screen)
+        binding = ActivityIntroScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        viewPager = findViewById(R.id.idViewPager)
-        skipBtn = findViewById(R.id.idBtnSkip)
-        indicatorSlideOneTV = findViewById(R.id.idTVSlideOne)
-        indicatorSlideTwoTV = findViewById(R.id.idTVSlideTwo)
-        indicatorSlideThreeTV = findViewById(R.id.idTVSlideThree)
-        nextBtn = findViewById(R.id.idBtnNext)
+        viewPager = binding.idViewPager
 
-        skipBtn.setOnClickListener {
+        indicatorSlideOneTV = binding.idTVSlideOne
+        indicatorSlideTwoTV = binding.idTVSlideTwo
+        indicatorSlideThreeTV = binding.idTVSlideThree
+        nextBtn = binding.idBtnNext
+
+        binding.idBtnSkip.setOnClickListener {
             val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
             startActivity(i)
+            SharedPreferencesUtil.saveData(this@IntroScreenActivity, AppUtils.InroScreenStatus, true)
             finish()
         }
 
@@ -77,8 +83,8 @@ class IntroScreenActivity : AppCompatActivity() {
             if (nextItem < sliderList.size) {
                 viewPager.currentItem = nextItem
             } else {
-
                 val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
+                SharedPreferencesUtil.saveData(this@IntroScreenActivity, AppUtils.InroScreenStatus, true)
                 startActivity(i)
                 finish()
             }
@@ -87,7 +93,7 @@ class IntroScreenActivity : AppCompatActivity() {
 
     }
 
-    // creating a method for view pager for on page change listener.
+
     private var viewListener: ViewPager.OnPageChangeListener = object : ViewPager.OnPageChangeListener {
 
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -115,11 +121,12 @@ class IntroScreenActivity : AppCompatActivity() {
                     indicatorSlideOneTV.setTextColor(resources.getColor(R.color.grey))
 
                     nextBtn.text = "  Let's Go"
+
+
                 }
             }
         }
 
-        // below method is use to check scroll state.
         override fun onPageScrollStateChanged(state: Int) {}
     }
 }

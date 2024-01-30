@@ -1,5 +1,6 @@
 package com.example.radiotoday.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,8 @@ class ChildHomeAdapter(
     private var contentViewType: Int,
     private var contentType: Int,
     private var catName: String,
-    private var contentData: List<SubContent>,
+    private var contentData: ArrayList<SubContent>,
+    private var currentSection: String,
     private val listener: ItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -24,6 +26,7 @@ class ChildHomeAdapter(
     val Type_ARTIST = 33
     val TYPE_NEWRELEASE = 11
     val TYPE_PODCAST = 22
+
 
 
     inner class ContentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -44,19 +47,19 @@ class ChildHomeAdapter(
 
         return when(viewType){
             TYPE_CONTENT -> {
-                val itemView = inflater.inflate(R.layout.col_item_content_child_home, parent, false)
+                val itemView = inflater.inflate(R.layout.item_child_home_content, parent, false)
                 ContentViewHolder(itemView)
             }
             TYPE_NEWRELEASE -> {
-                val itemView = inflater.inflate(R.layout.col_item_previous_show_child_home,parent, false)
+                val itemView = inflater.inflate(R.layout.item_show_child_home_previous,parent, false)
                 ContentViewHolder(itemView)
             }
             Type_ARTIST -> {
-                val itemView = inflater.inflate(R.layout.col_item_artist_child_home,parent, false)
+                val itemView = inflater.inflate(R.layout.item_child_home_artist,parent, false)
                 ContentViewHolder(itemView)
             }
             TYPE_PODCAST -> {
-                val itemView = inflater.inflate(R.layout.col_item_prodcast_child_home,parent, false)
+                val itemView = inflater.inflate(R.layout.item_child_home_podcast,parent, false)
                 ContentViewHolder(itemView)
             }
 
@@ -102,6 +105,7 @@ class ChildHomeAdapter(
 
 
             holder.descriptionText?.text = currentItem.description
+            Log.i("home", "onBindViewHolder: ${currentItem.description}")
 
             holder.image?.let {
                 Glide.with(it.context).load(currentItem.image)
@@ -109,7 +113,7 @@ class ChildHomeAdapter(
             }
 
             holder.itemView.setOnClickListener {
-                listener.onItemClickListener(position, currentItem)
+                listener.onItemClickListener(position, currentItem, currentSection)
             }
         }
         else if (holder is ArtistViewHolder){
@@ -121,13 +125,13 @@ class ChildHomeAdapter(
             }
 
             holder.itemView.setOnClickListener {
-                listener.onItemClickListener(position, currentItem)
+                listener.onItemClickListener(position, currentItem, currentSection)
             }
         }
     }
 
     interface ItemClickListener {
-        fun onItemClickListener(position: Int, currentItem: SubContent)
+        fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String)
 
     }
 

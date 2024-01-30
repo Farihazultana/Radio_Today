@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Radio Today</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
     <string name="track_selection_title">Select tracks</string>
 
@@ -21,4 +20,6 @@
     <string name="start_stream_text">Start Stream At :</string>
     <string name="stop_stream_text">Stop Stream At :</string>
     <string name="showMoreText">Circumstances and owing to the claims of duty of the obligations of business it But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.</string>
+    <string name="footer_text"><![CDATA[©Radio Today & EBS %1$s. All Rights Reserved]]></string>
+    <string name="next">Next</string>
 </resources>

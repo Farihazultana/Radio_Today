@@ -1,8 +1,10 @@
 package com.example.radiotoday.ui.activities
 
 import android.os.Bundle
+import android.provider.Settings
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -18,11 +20,12 @@ import com.example.radiotoday.ui.fragments.SettingsFragment
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
 import com.example.radiotoday.utils.OnBackAction
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), OnBackAction {
+class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity(), OnBackAction {
     private var videoFragment = VideoFragment()
     private var newsFragment = NewsFragment()
     private var settingsFragment = SettingsFragment()
+    private var songsFragment = SongsFragment()
 
     private var doubleBackToExitPressedOnce = true
 
@@ -46,6 +50,8 @@ class MainActivity : AppCompatActivity(), OnBackAction {
         SettingsFragment.onBackAction(this)
         NewsFragment.onBackAction(this)
 
+        homeFragment.songClickListener = this
+
         replaceFragment(homeFragment)
         binding.bottomNavigationView.itemIconTintList=null
         binding.bottomNavigationView.setOnItemSelectedListener {
@@ -55,9 +61,10 @@ class MainActivity : AppCompatActivity(), OnBackAction {
 
 
         binding.layoutMiniPlayer.setOnClickListener {
-            val songsFragment = SongsFragment()
-            songsFragment.show(supportFragmentManager,songsFragment.tag)
+            gotoPlayer()
         }
+
+        getFCMToken()
 
     }
 
@@ -124,6 +131,29 @@ class MainActivity : AppCompatActivity(), OnBackAction {
             } else {
                 super.onBackPressed()
                 finish()
+            }
+        }
+    }
+
+    override fun onSongClickListener() {
+        gotoPlayer()
+    }
+
+    private fun gotoPlayer() {
+        val songsFragment = SongsFragment()
+        songsFragment.show(supportFragmentManager, songsFragment.tag)
+    }
+
+    private fun getFCMToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                Log.i("NotificationFCM", "getFCMToken: $token")
+                var deviceID = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+                Log.i("NotificationFCM", "Device ID: $deviceID ")
+
+            } else {
+
             }
         }
     }

@@ -175,7 +175,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/ivShowdetailsPoster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
@@ -304,91 +304,100 @@
         tools:listitem="@layout/item_show_details" />
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvDescriptionSchedule"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/baseThemeColor"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="0dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvBannerAudio">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvDescriptionSchedule"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/baseThemeColor"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvBannerAudio">
 
-            <TextView
-                android:id="@+id/tvDescriptionScheduleTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="90s MixTape"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvScheduleDescription"
-                app:layout_constraintEnd_toStartOf="@+id/ivShare"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintVertical_chainStyle="packed" />
-
-            <TextView
-                android:id="@+id/tvSubTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Circumstances and owing to the  claims of duty of the obligations of business it"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/tvDescriptionScheduleTitle"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionScheduleTitle" />
-
-            <TextView
-                android:id="@+id/tvScheduleDescription"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="24dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:text="Schedule \nMonday            8:00 - 11:00 "
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle"
-                app:layout_constraintTop_toBottomOf="@+id/tvSubTitle"
-                app:layout_constraintVertical_bias="0.0" />
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/ivShare"
-                android:layout_width="20dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_share"
-                app:layout_constraintBottom_toBottomOf="@+id/tvDescriptionScheduleTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvDescriptionScheduleTitle"
-                app:layout_constraintTop_toTopOf="@+id/tvDescriptionScheduleTitle" />
+                <TextView
+                    android:id="@+id/tvTitleShowDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="90s MixTape"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/ivShare"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/tvSubTitleShowdetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Circumstances and owing to the  claims of duty of the obligations of business it"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tvTitleShowDetails"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/tvTitleShowDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleShowDetails"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tvScheduleDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="24dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="Schedule \nMonday            8:00 - 11:00 "
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvTitleShowDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSubTitleShowdetails"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/ivShare"
+                    android:layout_width="20dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_share"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/tvTitleShowDetails"
+                    app:layout_constraintTop_toTopOf="@+id/tvTitleShowDetails" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.core.widget.NestedScrollView>
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerFrameLayout"

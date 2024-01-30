@@ -1,3 +1,8 @@
 package com.example.radiotoday.data.models.showDetails
 
-class ShowDetailsResponse : ArrayList<ShowDetailsResponseItem>()
+import com.example.radiotoday.data.models.SubContent
+
+data class ShowDetailsResponse(
+    val content: SubContent,
+    val message: String
+)

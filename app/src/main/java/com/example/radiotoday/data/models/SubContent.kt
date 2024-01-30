@@ -10,5 +10,8 @@ data class SubContent(
     val schedule: String?,
     val short_description: String?,
     val title: String?,
-    val type: String?
+    val type: String?,
+    val img: String,
+    val cover_img: String,
+    val details: String,
 )

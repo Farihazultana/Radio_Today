@@ -19,6 +19,27 @@ interface ApiServices {
         @Field("from_source") from_source: String
     ): Response<HomeResponse>
 
+
+    @FormUrlEncoded
+    @POST("api/{section_code}")
+    suspend fun postSeeAllData(
+        @Path("section_code") section_code: String,
+        @Field("page") page: String,
+    ): Response<SeeAllResponse>
+
+    @FormUrlEncoded
+    @POST("api/{section_code}/{id}")
+    suspend fun postShowDetailsData(
+        @Path("section_code") section_code: String,
+        @Path("id") id: String,
+        @Field("empty") empty: String,
+    ): Response<ShowDetailsResponse>
+
+
+
+
+
+
     @FormUrlEncoded
     @POST("bangladhol_json_app.php")
     suspend fun postAudioPlaylistData(
@@ -32,18 +53,7 @@ interface ApiServices {
         @Field("userId") userId: String
     ): Response<VideoResponse>
 
-    @FormUrlEncoded
-    @POST("api/{section_code}")
-    suspend fun postSeeAllData(
-        @Path("section_code") section_code: String,
-        @Field("page") page: String,
-    ): Response<SeeAllResponse>
 
-    @FormUrlEncoded
-    @POST("bangladhol_json_album_single.php")
-    suspend fun postShowDetailsData(
-        @Field("albumcode") albumcode: String,
-    ): Response<ShowDetailsResponse>
 
 
 }

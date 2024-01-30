@@ -167,7 +167,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvDescriptionScheduleTitle"
+                android:id="@+id/tvTitleShowDetails"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -187,17 +187,17 @@
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
-                android:id="@+id/tvSubTitle"
+                android:id="@+id/tvSubTitleShowdetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Brooklyn Simmons"
                 android:textColor="@color/white"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/tvDescriptionScheduleTitle"
+                app:layout_constraintEnd_toEndOf="@+id/tvTitleShowDetails"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionScheduleTitle" />
+                app:layout_constraintStart_toStartOf="@+id/tvTitleShowDetails"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleShowDetails" />
 
             <TextView
                 android:id="@+id/tvScheduleDescription"
@@ -215,8 +215,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/tvDescriptionScheduleTitle"
-                app:layout_constraintTop_toBottomOf="@+id/tvSubTitle"
+                app:layout_constraintStart_toStartOf="@+id/tvTitleShowDetails"
+                app:layout_constraintTop_toBottomOf="@+id/tvSubTitleShowdetails"
                 app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
@@ -225,11 +225,11 @@
                 android:layout_height="0dp"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_dots"
-                app:layout_constraintBottom_toBottomOf="@+id/tvDescriptionScheduleTitle"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitleShowDetails"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvDescriptionScheduleTitle"
-                app:layout_constraintTop_toTopOf="@+id/tvDescriptionScheduleTitle"
+                app:layout_constraintStart_toEndOf="@+id/tvTitleShowDetails"
+                app:layout_constraintTop_toTopOf="@+id/tvTitleShowDetails"
                 app:tint="@color/white" />
 
 

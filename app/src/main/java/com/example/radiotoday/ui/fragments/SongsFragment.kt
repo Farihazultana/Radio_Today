@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import com.example.radiotoday.R
+import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.databinding.FragmentSongsBinding
 import com.example.radiotoday.utils.BlurTransformation
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -84,9 +85,9 @@ class SongsFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.viewTreeObserver.addOnPreDrawListener {
-            val parent = view.parent as View
-            val params = parent.layoutParams as CoordinatorLayout.LayoutParams
-            val behavior = params.behavior
+            val parent = view.parent as? View
+            val params = parent?.layoutParams as? CoordinatorLayout.LayoutParams
+            val behavior = params?.behavior
 
             if (behavior is BottomSheetBehavior<*>) {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -110,5 +111,7 @@ class SongsFragment : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireContext(), theme)
     }
+
+
 
 }
