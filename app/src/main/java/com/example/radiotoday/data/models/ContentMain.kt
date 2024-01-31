@@ -18,5 +18,8 @@ data class ContentMain(
     val name: String,
     val page_slug: String,
     val position: Int,
-    val section_code: String
+    val section_code: String,
+
+    val catCode: String,
+    val catName: String,
 )

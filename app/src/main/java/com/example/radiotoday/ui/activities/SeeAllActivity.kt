@@ -112,6 +112,11 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
                     binding.shimmerFrameLayoutSquare.visibility = View.GONE
                     binding.shimmerFrameLayoutRectangles.visibility = View.GONE
                     playlistData = it.data
+                    /*var playlistContent: ArrayList<SubContent> = ArrayList()
+
+                    for (item in playlistData.content){
+                        playlistContent = item.content
+                    }*/
                     val playlistContent = playlistData.content.content
 
                     if (currentPage == 1) {
@@ -134,6 +139,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
 
 
                     binding.tvToolBarTitle.text = seeAllTitle
+                    Log.i("SeeAll", "observeSeeAllData: $seeAllTitle")
 
 
                     isLoading = false

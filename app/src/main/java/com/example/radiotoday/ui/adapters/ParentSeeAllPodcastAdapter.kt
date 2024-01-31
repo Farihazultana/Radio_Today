@@ -12,13 +12,12 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.ContentMain
 import com.example.radiotoday.data.models.SubContent
-import com.example.radiotoday.ui.activities.PodcastActivity
 import com.example.radiotoday.ui.activities.SeeAllActivity
 
-class ParentHomeAdapter(private val listener: ItemClickListener) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildHomeAdapter.ItemClickListener {
+class ParentSeeAllPodcastAdapter (private val listener: ItemClickListener) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildSeeAllPodcastAdapter.ItemClickListener {
 
-    var homeData: ArrayList<ContentMain> = ArrayList()
+    var seeAllPodcastData: ArrayList<ContentMain> = ArrayList()
 
 
     private val TYPE_BANNER = 0
@@ -29,10 +28,10 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
     }
 
     inner class ContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        lateinit var childListAdapter: ChildHomeAdapter
-        val rvHor: RecyclerView = itemView.findViewById(R.id.rvHorizontal_Home)
+        lateinit var childListAdapter: ChildSeeAllPodcastAdapter
+        val rvHor: RecyclerView = itemView.findViewById(R.id.rvHorizontal_Podcast)
         val title: TextView = itemView.findViewById(R.id.tv_Title)
-        val seeAll: TextView = itemView.findViewById(R.id.seeAll)
+        //val seeAll: TextView = itemView.findViewById(R.id.seeAll)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -46,7 +45,7 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
             TYPE_CONTENT -> {
                 val itemView =
-                    inflater.inflate(R.layout.item_parent_home_content, parent, false)
+                    inflater.inflate(R.layout.item_parent_seeallpodcast_content, parent, false)
                 ContentViewHolder(itemView)
             }
 
@@ -56,11 +55,11 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
     }
 
     override fun getItemCount(): Int {
-        return homeData.size
+        return seeAllPodcastData.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        val currentItem = homeData[position]
+        val currentItem = seeAllPodcastData[position]
         return if (currentItem.contentviewtype == 4){
             TYPE_BANNER
         }else{
@@ -69,7 +68,7 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val currentItem = homeData[position]
+        val currentItem = seeAllPodcastData[position]
 
         when (holder) {
             is BannerViewHolder -> {
@@ -86,12 +85,9 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
                 val content = currentItem.content
 
 
-                holder.childListAdapter = ChildHomeAdapter(
+                holder.childListAdapter = ChildSeeAllPodcastAdapter(
                     currentItem.contentviewtype,
-                    currentItem.contenttype,
-                    currentItem.name,
                     content,
-                    currentItem.section_code,
                     this
                 )
 
@@ -100,24 +96,15 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
                 holder.rvHor.adapter = holder.childListAdapter
 
-                holder.title.text = currentItem.name
+                holder.title.text = currentItem.catCode
 
-                holder.seeAll.setOnClickListener {
-
-
-                    if (currentItem.section_code == "podcasts"){
-                        val intent = Intent(holder.itemView.context, PodcastActivity::class.java)
-                        intent.putExtra("catname", currentItem.section_code)
-                        holder.itemView.context.startActivity(intent)
-                    }else{
-                        val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
-                        intent.putExtra("catname", currentItem.section_code)
-                        intent.putExtra("name", currentItem.name)
-                        intent.putExtra("contenttype", currentItem.contenttype)
-                        holder.itemView.context.startActivity(intent)
-                    }
-
-                }
+                /*holder.seeAll.setOnClickListener {
+                    val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
+                    intent.putExtra("catname", currentItem.section_code)
+                    intent.putExtra("name", currentItem.name)
+                    intent.putExtra("contenttype", currentItem.contenttype)
+                    holder.itemView.context.startActivity(intent)
+                }*/
             }
         }
     }

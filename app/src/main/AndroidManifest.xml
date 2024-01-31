@@ -21,6 +21,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.PodcastActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.ShowDetailsDescriptionActivity"
             android:exported="false" />
         <activity
@@ -50,12 +53,11 @@
         <activity
             android:name=".ui.activities.SeeMoreActivity"
             android:exported="false"
-            android:screenOrientation="sensorPortrait"/>
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".ui.activities.SeeAllActivity"
             android:exported="false"
             android:screenOrientation="sensorPortrait" />
-
         <activity
             android:name=".ui.activities.SplashActivity"
             android:exported="true"
@@ -67,7 +69,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activities.ProfileActivity"
             android:exported="false"
@@ -87,7 +88,7 @@
             android:name=".utils.FirebaseMessagingService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>

@@ -13,5 +13,5 @@ data class SubContent(
     val type: String?,
     val img: String,
     val cover_img: String,
-    val details: String,
+    val details: String
 )

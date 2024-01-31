@@ -21,4 +21,5 @@ class HomeRepository @Inject constructor(private val apiServices: ApiServices){
             return ResultType.Error(e)
         }
     }
+
 }

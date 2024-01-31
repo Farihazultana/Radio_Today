@@ -2,6 +2,7 @@ package com.example.radiotoday.data.services
 
 import com.example.radiotoday.data.models.audio.AudioResponse
 import com.example.radiotoday.data.models.home.HomeResponse
+import com.example.radiotoday.data.models.seeAll.SeeAllPodcastResponse
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.data.models.showDetails.ShowDetailsResponse
 import com.example.radiotoday.data.models.video.VideoResponse
@@ -47,6 +48,25 @@ interface ApiServices {
         @Path("section_code") section_code: String,
         @Field("page") page: String,
     ): Response<SeeAllResponse>
+
+
+    @FormUrlEncoded
+    @POST("api/{section_code}")
+    suspend fun postSeeAllPosdcastData(
+        /*@Header("fromsrc") fromsrc : String,
+        @Header("deviceId") deviceId : String,
+        @Header("softwareVersion") softwareVersion : String,
+        @Header("brand") brand : String,
+        @Header("model") model : String,
+        @Header("sdkVersion") sdkVersion : String,
+        @Header("versionCode") versionCode : String,
+        @Header("release") release : String,*/
+
+
+        @Path("section_code") section_code: String,
+        @Field("empty") empty: String,
+
+    ): Response<SeeAllPodcastResponse>
 
     @FormUrlEncoded
     @POST("api/{section_code}/{id}")

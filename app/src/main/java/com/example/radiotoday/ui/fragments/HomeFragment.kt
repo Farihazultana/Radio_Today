@@ -56,7 +56,7 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
                 is ResultType.Success -> {
                     binding.shimmerFrameLayoutHome.visibility = View.GONE
                     val homeData= it.data.content
-                    parentHomeAdapter.homeData = homeData
+                    parentHomeAdapter.homeData = ArrayList(homeData + homeData + homeData + homeData + homeData + homeData + homeData + homeData + homeData + homeData)
                     this.parentHomeAdapter.notifyDataSetChanged()
 
 
@@ -81,16 +81,18 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
             songClickListener?.onSongClickListener()
 
         }else{
+
             val intent = Intent(activity, ShowDetailsActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             intent.putExtra("section_code", currentSection)
             intent.putExtra("id", currentItem.id)
             startActivity(intent)
+
         }
 
     }
 
-    private fun ShowGreetingsMsg() : String{
+    private fun ShowGreetingsMsg() : String {
         val cal = Calendar.getInstance()
 
         return when(cal.get(Calendar.HOUR_OF_DAY)){
