@@ -121,7 +121,10 @@ class LoginActivity : AppCompatActivity() {
 
                     is ResultType.Success -> {
                         val logInResult = it.data.content
-                        SharedPreferencesUtil.saveData(this, LogInStatus, "successful")
+                        if(logInResult.token != null){
+                            SharedPreferencesUtil.saveData(this, LogInStatus, "successful")
+                        }
+
                     }
 
                     is ResultType.Error -> {
