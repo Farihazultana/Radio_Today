@@ -1,17 +1,18 @@
 package com.example.radiotoday.ui.activities
 
-import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityLoginBinding
+import com.example.radiotoday.ui.viewmodels.LoginViewModel
 import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.AppUtils.LogInStatus
+import com.example.radiotoday.utils.ResultType
 import com.example.radiotoday.utils.SharedPreferencesUtil
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -27,10 +28,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
+import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private val loginViewModel by viewModels<LoginViewModel>()
 
     private lateinit var enteredPhone: String
     private lateinit var enteredPassword: String
@@ -100,31 +104,39 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun phoneLoginValidation() {
-        enteredPhone = binding.inputUsername.text.toString()
+        enteredPhone = binding.inputUsername.text.toString().trim()
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         enteredPassword = binding.inputPassword.text.toString()
 
-        if (enteredPhone.isNotEmpty() && enteredPassword.isNotEmpty() && enteredPhone.length == 11) {
-            phoneText = "88$enteredPhone"
+        if (enteredPhone.matches(emailPattern.toRegex())) {
 
-            SharedPreferencesUtil.saveData(this, LogInStatus, "successful")
-        } else {
-            if (enteredPhone.isEmpty() || enteredPassword.isEmpty()) {
-                SharedPreferencesUtil.saveData(this, LogInStatus, "fail")
-                Toast.makeText(
-                    this@LoginActivity,
-                    "Phone number or Password must not be empty! Please input first.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                SharedPreferencesUtil.saveData(this, LogInStatus, "fail")
-                Toast.makeText(
-                    this@LoginActivity,
-                    "Phone number should be 11 digits",
-                    Toast.LENGTH_LONG
-                ).show()
+            Toast.makeText(this,"Valid email address", Toast.LENGTH_SHORT).show()
 
+            loginViewModel.fetchLoginData(enteredPhone, enteredPassword)
+            loginViewModel.loginData.observe(this){
+                when(it){
+                    is ResultType.Loading -> {
+
+                    }
+
+                    is ResultType.Success -> {
+                        val logInResult = it.data.content
+                        SharedPreferencesUtil.saveData(this, LogInStatus, "successful")
+                    }
+
+                    is ResultType.Error -> {
+
+                    }
+                }
             }
+
+        } else {
+
+            SharedPreferencesUtil.saveData(this, LogInStatus, "fail")
+            Toast.makeText(this,"Invalid email address", Toast.LENGTH_SHORT).show()
+
         }
+
     }
 
     private fun googleLogIn() {

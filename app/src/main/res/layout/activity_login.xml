@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -81,7 +81,7 @@
                     android:layout_marginTop="1dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="4dp"
-                    android:hint="Phone Number"
+                    android:hint="Email Address"
                     android:textColorHint="@color/white"
                     app:boxBackgroundColor="@color/screenBackgroundColor"
                     app:boxStrokeColor="@color/grey"
@@ -99,8 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:inputType="phone"
-                        android:maxLength="11"
+                        android:inputType="textEmailAddress"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
                         android:textColor="@color/white"
@@ -293,7 +292,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/ivBackgroundSignUp"

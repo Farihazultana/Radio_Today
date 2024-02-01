@@ -1,14 +1,14 @@
 package com.example.radiotoday.data.repositories
 
 import android.util.Log
-import com.example.radiotoday.data.models.seeAll.SeeAllPodcastResponse
+import com.example.radiotoday.data.models.home.HomeResponse
 import com.example.radiotoday.data.services.ApiServices
 import com.example.radiotoday.utils.ResultType
 import javax.inject.Inject
 
 class SeeAllPodcastRepository @Inject constructor(private val apiServices: ApiServices){
 
-    suspend fun getSeeAllPodcastData(section_code: String): ResultType<SeeAllPodcastResponse> {
+    suspend fun getSeeAllPodcastData(section_code: String): ResultType<HomeResponse> {
 
         try {
             val response = apiServices.postSeeAllPosdcastData(section_code, "")

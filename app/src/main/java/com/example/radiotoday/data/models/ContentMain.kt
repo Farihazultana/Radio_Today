@@ -22,4 +22,6 @@ data class ContentMain(
 
     val catCode: String,
     val catName: String,
+
+    val token: String
 )
