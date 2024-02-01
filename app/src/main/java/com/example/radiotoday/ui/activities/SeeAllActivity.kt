@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
-import com.example.radiotoday.ui.adapters.ParentSeeAllPodcastAdapter
+import com.example.radiotoday.ui.adapters.ParentHomeAdapter
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.viewmodels.SeeAllPodcastViewModel
@@ -21,12 +21,12 @@ import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, ParentSeeAllPodcastAdapter.ItemClickListener {
+class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, ParentHomeAdapter.ItemClickListener {
 
     private lateinit var playlistData: SeeAllResponse
     private lateinit var binding: ActivitySeeAllBinding
     private lateinit var seeAllAdapter: SeeAllAdapter
-    private lateinit var parentSeeAllPodcastAdapter: ParentSeeAllPodcastAdapter
+    private lateinit var parentSeeAllPodcastAdapter: ParentHomeAdapter
     private val seeAllViewModel by viewModels<SeeAllViewModel>()
     private val podcastViewModel by viewModels<SeeAllPodcastViewModel>()
     private lateinit var layoutManager: GridLayoutManager
@@ -65,7 +65,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
 
         //SeeAllPodcast Adapter & recyclerview
         if (sectionCode == "podcasts"){
-            parentSeeAllPodcastAdapter = ParentSeeAllPodcastAdapter(this)
+            parentSeeAllPodcastAdapter = ParentHomeAdapter(this)
             binding.rvSeeAll.layoutManager = LinearLayoutManager(this)
             binding.rvSeeAll.adapter = parentSeeAllPodcastAdapter
         }
@@ -101,7 +101,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
                 is ResultType.Success -> {
 
                     val podcastData = it.data.content
-                    parentSeeAllPodcastAdapter.seeAllPodcastData = podcastData
+                    parentSeeAllPodcastAdapter.homeData = podcastData
                     this.parentSeeAllPodcastAdapter.notifyDataSetChanged()
 
                     binding.tvToolBarTitle.text = sectionCode

@@ -44,8 +44,7 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
             }
 
             TYPE_CONTENT -> {
-                val itemView =
-                    inflater.inflate(R.layout.item_parent_home_content, parent, false)
+                val itemView = inflater.inflate(R.layout.item_parent_home_content, parent, false)
                 ContentViewHolder(itemView)
             }
 
@@ -87,10 +86,8 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
                 holder.childListAdapter = ChildHomeAdapter(
                     currentItem.contentviewtype,
-                    currentItem.contenttype,
-                    currentItem.name,
                     content,
-                    currentItem.section_code,
+                    currentItem.section_code?:"",
                     this
                 )
 
@@ -101,15 +98,23 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
                 holder.title.text = currentItem.name
 
-                holder.seeAll.setOnClickListener {
+                if (currentItem.section_code == null){
+                    //for Podcast seeAll
+                    holder.seeAll.visibility = View.GONE
+                    holder.title.text = currentItem.catName
+                }else{
+                    holder.seeAll.setOnClickListener {
 
-                    val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
-                    intent.putExtra("catname", currentItem.section_code)
-                    intent.putExtra("name", currentItem.name)
-                    intent.putExtra("contenttype", currentItem.contenttype)
-                    holder.itemView.context.startActivity(intent)
+                        val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
+                        intent.putExtra("catname", currentItem.section_code)
+                        intent.putExtra("name", currentItem.name)
+                        intent.putExtra("contenttype", currentItem.contenttype)
+                        holder.itemView.context.startActivity(intent)
 
+                    }
                 }
+
+
             }
         }
     }

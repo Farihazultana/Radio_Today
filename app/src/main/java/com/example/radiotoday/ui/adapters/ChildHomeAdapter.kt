@@ -13,10 +13,8 @@ import com.example.radiotoday.data.models.SubContent
 
 class ChildHomeAdapter(
     private var contentViewType: Int,
-    private var contentType: Int,
-    private var catName: String,
     private var contentData: ArrayList<SubContent>,
-    private var currentSection: String,
+    private var currentSection: String?,
     private val listener: ItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -26,7 +24,6 @@ class ChildHomeAdapter(
     val Type_ARTIST = 33
     val TYPE_NEWRELEASE = 11
     val TYPE_PODCAST = 22
-
 
 
     inner class ContentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -113,7 +110,7 @@ class ChildHomeAdapter(
             }
 
             holder.itemView.setOnClickListener {
-                listener.onItemClickListener(position, currentItem, currentSection)
+                listener.onItemClickListener(position, currentItem, currentSection!!)
             }
         }
         else if (holder is ArtistViewHolder){
@@ -125,7 +122,7 @@ class ChildHomeAdapter(
             }
 
             holder.itemView.setOnClickListener {
-                listener.onItemClickListener(position, currentItem, currentSection)
+                listener.onItemClickListener(position, currentItem, currentSection!!)
             }
         }
     }
