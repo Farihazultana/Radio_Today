@@ -7,23 +7,28 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
+import com.example.radiotoday.ui.adapters.ParentSeeAllPodcastAdapter
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
 import com.example.radiotoday.ui.fragments.SongsFragment
+import com.example.radiotoday.ui.viewmodels.SeeAllPodcastViewModel
 import com.example.radiotoday.ui.viewmodels.SeeAllViewModel
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
+class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, ParentSeeAllPodcastAdapter.ItemClickListener {
 
     private lateinit var playlistData: SeeAllResponse
     private lateinit var binding: ActivitySeeAllBinding
     private lateinit var seeAllAdapter: SeeAllAdapter
+    private lateinit var parentSeeAllPodcastAdapter: ParentSeeAllPodcastAdapter
     private val seeAllViewModel by viewModels<SeeAllViewModel>()
+    private val podcastViewModel by viewModels<SeeAllPodcastViewModel>()
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var sectionCode: String
     private var id: String? = null
@@ -48,41 +53,88 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         contentType = intent.getStringExtra("contenttype").toString()
 
 
+        //SeeAll Adapter & recyclerview
         seeAllAdapter = SeeAllAdapter(this, this, sectionCode)
         if (sectionCode == "promotions") {
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(2)
         } else {
             binding.rvSeeAll.layoutManager = CustomGridLayoutManager(3)
         }
-
         binding.rvSeeAll.adapter = seeAllAdapter
 
 
-        observeSeeAllData()
-        if (sectionCode.isNotEmpty()) {
-            loadSeeAllData()  //Initial data load
-
-            binding.rvSeeAll.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-
-                    val visibleItemCount = layoutManager.childCount
-                    val totalItemCount = layoutManager.itemCount
-                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-
-                    if (!isLoading && !isLastpage) {
-                        if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                            && firstVisibleItemPosition >= 0
-                        ) {
-                            isLoading = true
-                            //currentPage++
-                            loadSeeAllData()
-                        }
-                    }
-                }
-            })
+        //SeeAllPodcast Adapter & recyclerview
+        if (sectionCode == "podcasts"){
+            parentSeeAllPodcastAdapter = ParentSeeAllPodcastAdapter(this)
+            binding.rvSeeAll.layoutManager = LinearLayoutManager(this)
+            binding.rvSeeAll.adapter = parentSeeAllPodcastAdapter
         }
 
+
+        if (sectionCode == "podcasts"){
+            observeSeeAllPodcastData()
+        }else{
+            observeSeeAllData()
+        }
+        if (sectionCode.isNotEmpty()) {
+            if(sectionCode == "podcasts"){
+                showSeeAllPodcast()
+            }else{
+                showSeeAlll()
+            }
+
+        }
+
+    }
+
+    private fun showSeeAllPodcast() {
+        podcastViewModel.fetchSeeAllPodcastData(sectionCode)
+    }
+
+    private fun observeSeeAllPodcastData() {
+        podcastViewModel.seeAllPodcastData.observe(this) {
+            when (it) {
+                is ResultType.Loading -> {
+
+                }
+
+                is ResultType.Success -> {
+
+                    val podcastData = it.data.content
+                    parentSeeAllPodcastAdapter.seeAllPodcastData = podcastData
+                    this.parentSeeAllPodcastAdapter.notifyDataSetChanged()
+
+                    binding.tvToolBarTitle.text = sectionCode
+
+                }
+
+                else -> {}
+            }
+        }
+    }
+
+    private fun showSeeAlll() {
+        loadSeeAllData()  //Initial data load
+
+        binding.rvSeeAll.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                if (!isLoading && !isLastpage) {
+                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                    ) {
+                        isLoading = true
+                        //currentPage++
+                        loadSeeAllData()
+                    }
+                }
+            }
+        })
     }
 
     private fun CustomGridLayoutManager(span: Int): GridLayoutManager {
@@ -168,6 +220,14 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener {
         }
 
 
+
+    }
+
+    override fun onItemClickListener(
+        position: Int,
+        currentItem: SubContent,
+        currentSection: String
+    ) {
 
     }
 

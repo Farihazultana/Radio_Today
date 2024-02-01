@@ -12,7 +12,6 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.ContentMain
 import com.example.radiotoday.data.models.SubContent
-import com.example.radiotoday.ui.activities.PodcastActivity
 import com.example.radiotoday.ui.activities.SeeAllActivity
 
 class ParentHomeAdapter(private val listener: ItemClickListener) :
@@ -104,18 +103,11 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
                 holder.seeAll.setOnClickListener {
 
-
-                    if (currentItem.section_code == "podcasts"){
-                        val intent = Intent(holder.itemView.context, PodcastActivity::class.java)
-                        intent.putExtra("catname", currentItem.section_code)
-                        holder.itemView.context.startActivity(intent)
-                    }else{
-                        val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
-                        intent.putExtra("catname", currentItem.section_code)
-                        intent.putExtra("name", currentItem.name)
-                        intent.putExtra("contenttype", currentItem.contenttype)
-                        holder.itemView.context.startActivity(intent)
-                    }
+                    val intent = Intent(holder.itemView.context, SeeAllActivity::class.java)
+                    intent.putExtra("catname", currentItem.section_code)
+                    intent.putExtra("name", currentItem.name)
+                    intent.putExtra("contenttype", currentItem.contenttype)
+                    holder.itemView.context.startActivity(intent)
 
                 }
             }

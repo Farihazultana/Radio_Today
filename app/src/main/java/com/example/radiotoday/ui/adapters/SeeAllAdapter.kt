@@ -61,6 +61,7 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
 
             else -> throw IllegalArgumentException("Invalid view type")
         }
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
