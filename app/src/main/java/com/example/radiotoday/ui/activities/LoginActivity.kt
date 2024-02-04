@@ -56,21 +56,11 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
 
-            phoneLoginValidation()
+            emailLoginValidation()
+            observeEmailLogin()
 
-            val loginResult = SharedPreferencesUtil.getData(this,LogInStatus, "")
+            //val loginResult = SharedPreferencesUtil.getData(this,LogInStatus, "")
 
-            if (loginResult == "successful"){
-
-                myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(myIntent)
-
-                Toast.makeText(
-                    this@LoginActivity,
-                    "Login Successful",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
 
         }
 
@@ -103,35 +93,17 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun phoneLoginValidation() {
+    private fun emailLoginValidation() {
         enteredPhone = binding.inputUsername.text.toString().trim()
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         enteredPassword = binding.inputPassword.text.toString()
 
         if (enteredPhone.matches(emailPattern.toRegex())) {
 
-            Toast.makeText(this,"Valid email address", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this,"Valid email address", Toast.LENGTH_SHORT).show()
 
             loginViewModel.fetchLoginData(enteredPhone, enteredPassword)
-            loginViewModel.loginData.observe(this){
-                when(it){
-                    is ResultType.Loading -> {
 
-                    }
-
-                    is ResultType.Success -> {
-                        val logInResult = it.data.content
-                        if(logInResult.token != null){
-                            SharedPreferencesUtil.saveData(this, LogInStatus, "successful")
-                        }
-
-                    }
-
-                    is ResultType.Error -> {
-
-                    }
-                }
-            }
 
         } else {
 
@@ -140,6 +112,34 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    private fun observeEmailLogin() {
+        loginViewModel.loginData.observe(this) {
+            when (it) {
+                is ResultType.Loading -> {
+
+                }
+
+                is ResultType.Success -> {
+                    val logInResult = it.data.content
+                    Toast.makeText(this, it.data.message, Toast.LENGTH_SHORT).show()
+                    /*if (logInResult.token != null) {
+                        SharedPreferencesUtil.saveData(this, LogInStatus, "successful")
+                    }*/
+
+                    myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(myIntent)
+
+
+
+                }
+
+                is ResultType.Error -> {
+
+                }
+            }
+        }
     }
 
     private fun googleLogIn() {
