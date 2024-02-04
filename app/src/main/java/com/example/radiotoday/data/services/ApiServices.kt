@@ -112,6 +112,16 @@ interface ApiServices {
         ): Response<LoginResponse>
 
 
+    @FormUrlEncoded
+    @POST("api/logout")
+    @Headers("Accept: application/json")
+    suspend fun postLogoutData(
+
+        @Header("Authorization") token: String,
+        @Field("empty") empty: String
+
+        ): Response<LoginResponse>
+
 
 
 

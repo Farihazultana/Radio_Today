@@ -3,29 +3,41 @@ package com.example.radiotoday.ui.fragments
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.radiotoday.R
+import com.example.radiotoday.data.models.ErrorResponse
 import com.example.radiotoday.databinding.FragmentSettingsBinding
 import com.example.radiotoday.databinding.LogoutDialogBinding
 import com.example.radiotoday.ui.activities.AlarmActivity
 import com.example.radiotoday.ui.activities.ContactActivity
 import com.example.radiotoday.ui.activities.LoginActivity
 import com.example.radiotoday.ui.activities.ProfileActivity
+import com.example.radiotoday.ui.viewmodels.LogoutViewModel
 import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.OnBackAction
+import com.example.radiotoday.utils.ResultType
+import com.example.radiotoday.utils.SharedPreferencesUtil
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
-
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import dagger.hilt.android.AndroidEntryPoint
+import java.lang.reflect.Type
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var signInClient: SignInClient
+
+    private val logoutViewModel by viewModels<LogoutViewModel> ()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -55,6 +67,7 @@ class SettingsFragment : Fragment() {
             startActivity(intent)
         }
 
+        observeLogout()
         binding.layoutLog.setOnClickListener {
             val logText = binding.tvLog.text
             if (logText == "Logout"){
@@ -82,6 +95,10 @@ class SettingsFragment : Fragment() {
     }
 
     private fun logout(){
+        val token = SharedPreferencesUtil.getData(requireActivity(), AppUtils.LogInToken, "")
+        Log.i("Login", "logout: $token")
+        logoutViewModel.fetchLogoutData("Bearer $token")
+
         if (isSignInClientInitialized()) {
 
             signInClient.signOut().addOnFailureListener {
@@ -101,6 +118,30 @@ class SettingsFragment : Fragment() {
         //Facebook logout
         LoginManager.getInstance().logOut()
     }
+
+    private fun observeLogout() {
+        logoutViewModel.logoutData.observe(requireActivity()) {
+            when (it) {
+                is ResultType.Loading -> {
+
+                }
+
+                is ResultType.Success -> {
+                    val logInResponse = it.data
+                    Toast.makeText(requireActivity(), logInResponse.message, Toast.LENGTH_SHORT)
+                        .show()
+
+                }
+
+                is ResultType.Error -> {
+
+                    Toast.makeText(requireContext(), "Something went wrong!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        }
+    }
+
     private fun isSignInClientInitialized(): Boolean {
         return try {
             signInClient = Identity.getSignInClient(requireActivity())

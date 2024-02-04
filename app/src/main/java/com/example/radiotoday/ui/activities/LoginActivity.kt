@@ -14,6 +14,7 @@ import com.example.radiotoday.ui.viewmodels.LoginViewModel
 import com.example.radiotoday.ui.viewmodels.RegistrationViewModel
 import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.AppUtils.LogInStatus
+import com.example.radiotoday.utils.AppUtils.LogInToken
 import com.example.radiotoday.utils.ResultType
 import com.example.radiotoday.utils.SharedPreferencesUtil
 import com.facebook.AccessToken
@@ -177,7 +178,7 @@ class LoginActivity : AppCompatActivity() {
                         SharedPreferencesUtil.saveData(this, LogInStatus, "successful")
                     }*/
 
-                    SharedPreferencesUtil.saveData(this, LogInStatus, logInResponse.content.token)
+                    SharedPreferencesUtil.saveData(this, LogInToken, logInResponse.content.token)
 
                     myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(myIntent)
