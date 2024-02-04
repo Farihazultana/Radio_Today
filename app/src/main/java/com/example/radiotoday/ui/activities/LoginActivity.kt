@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.radiotoday.R
+import com.example.radiotoday.data.models.ErrorResponse
 import com.example.radiotoday.databinding.ActivityLoginBinding
 import com.example.radiotoday.ui.viewmodels.LoginViewModel
 import com.example.radiotoday.utils.AppUtils
@@ -28,8 +29,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
+import java.lang.reflect.Type
+
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -136,7 +141,11 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 is ResultType.Error -> {
+                    val gson = Gson()
+                    val type: Type = object : TypeToken<ErrorResponse?>() {}.type
+                    val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
 
+                    Toast.makeText(this, errorResponse.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }

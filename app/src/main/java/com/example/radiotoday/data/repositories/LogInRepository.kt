@@ -9,6 +9,7 @@ import javax.inject.Inject
 class LogInRepository @Inject constructor(private val apiServices: ApiServices){
     suspend fun getLogInData(email: String, password: String) : ResultType<LoginResponse>{
         try {
+
             val response = apiServices.postLoginData(email, password)
             if (response.isSuccessful){
                 val data = response.body()
@@ -16,7 +17,7 @@ class LogInRepository @Inject constructor(private val apiServices: ApiServices){
                     return ResultType.Success(data)
                 }
             }
-            return ResultType.Error(Exception("Failed to fetch Login Data"))
+            return ResultType.Error(Throwable(response.errorBody()?.string()))
 
         }catch (e: Exception){
             return ResultType.Error(e)
