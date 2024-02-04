@@ -59,10 +59,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        observeEmailLogin()
         binding.btnLogin.setOnClickListener {
 
             emailLoginValidation()
-            observeEmailLogin()
 
             //val loginResult = SharedPreferencesUtil.getData(this,LogInStatus, "")
 
