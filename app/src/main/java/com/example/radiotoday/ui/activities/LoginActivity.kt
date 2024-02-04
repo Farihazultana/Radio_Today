@@ -11,10 +11,9 @@ import com.example.radiotoday.R
 import com.example.radiotoday.data.models.ErrorResponse
 import com.example.radiotoday.databinding.ActivityLoginBinding
 import com.example.radiotoday.ui.viewmodels.LoginViewModel
+import com.example.radiotoday.ui.viewmodels.RegistrationViewModel
 import com.example.radiotoday.utils.AppUtils
-import com.example.radiotoday.utils.AppUtils.LogInStatus
 import com.example.radiotoday.utils.ResultType
-import com.example.radiotoday.utils.SharedPreferencesUtil
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -40,9 +39,13 @@ import java.lang.reflect.Type
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel by viewModels<LoginViewModel>()
+    private val registrationViewModel by viewModels<RegistrationViewModel>()
 
     private lateinit var enteredPhone: String
     private lateinit var enteredPassword: String
+    private lateinit var enteredConfirmedpassword: String
+    private lateinit var enteredName: String
+    private lateinit var enteredEmail: String
     private var phoneText: String? = null
 
     private val myIntent by lazy { Intent(this, MainActivity::class.java) }
@@ -61,12 +64,8 @@ class LoginActivity : AppCompatActivity() {
 
         observeEmailLogin()
         binding.btnLogin.setOnClickListener {
-
-            emailLoginValidation()
-
+            handleLogin()
             //val loginResult = SharedPreferencesUtil.getData(this,LogInStatus, "")
-
-
         }
 
         binding.btnLoginWithGoogle.setOnClickListener {
@@ -86,7 +85,13 @@ class LoginActivity : AppCompatActivity() {
             binding.layoutLogin.visibility = View.GONE
             binding.layoutRegistration.visibility = View.VISIBLE
         }
-        binding.tvRegRegister.setOnClickListener {
+
+        observeRegistration()
+        binding.btnRegistration.setOnClickListener {
+            handleRegistration()
+        }
+
+        binding.tvLogin.setOnClickListener {
             binding.layoutLogin.visibility = View.VISIBLE
             binding.layoutRegistration.visibility = View.GONE
         }
@@ -98,25 +103,62 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun emailLoginValidation() {
-        enteredPhone = binding.inputUsername.text.toString().trim()
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        enteredPassword = binding.inputPassword.text.toString()
+    private fun handleRegistration() {
+        enteredName = binding.inputRegName.text.toString()
+        enteredEmail = binding.inputRegUsername.text.toString()
+        val validationStatus = emailValidation(enteredEmail)
+        enteredPhone = binding.inputRegPhone.text.toString()
+        enteredPassword = binding.inputRegPassword.text.toString()
+        enteredConfirmedpassword = binding.inputRegReEnterPassword.text.toString()
 
-        if (enteredPhone.matches(emailPattern.toRegex())) {
-
-            //Toast.makeText(this,"Valid email address", Toast.LENGTH_SHORT).show()
-
-            loginViewModel.fetchLoginData(enteredPhone, enteredPassword)
+        registrationViewModel.fetchRegistrationData(enteredName, enteredEmail, enteredPhone, enteredPassword, enteredConfirmedpassword)
 
 
-        } else {
 
-            SharedPreferencesUtil.saveData(this, LogInStatus, "fail")
-            Toast.makeText(this,"Invalid email address", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun observeRegistration() {
+        registrationViewModel.registrationData.observe(this) {
+            when (it) {
+                is ResultType.Loading -> {
+
+                }
+
+                is ResultType.Success -> {
+                    val logInResponse = it.data
+                    Toast.makeText(this, logInResponse.message, Toast.LENGTH_SHORT).show()
+
+                    binding.layoutRegistration.visibility = View.GONE
+                    binding.layoutLogin.visibility = View.VISIBLE
+
+
+                }
+
+                is ResultType.Error -> {
+                    val gson = Gson()
+                    val type: Type = object : TypeToken<ErrorResponse?>() {}.type
+                    val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
+
+                    Toast.makeText(this, errorResponse.message, Toast.LENGTH_SHORT).show()
+                }
+            }
 
         }
+    }
 
+    private fun handleLogin() {
+        enteredEmail = binding.inputUsername.text.toString()
+
+        enteredPassword = binding.inputPassword.text.toString()
+        loginViewModel.fetchLoginData(enteredEmail, enteredPassword)
+
+
+    }
+
+    private fun emailValidation(enteredEmail: String): Boolean {
+        val email = enteredEmail.trim()
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return email.matches(emailPattern.toRegex())
     }
 
     private fun observeEmailLogin() {
@@ -127,15 +169,14 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 is ResultType.Success -> {
-                    val logInResult = it.data.content
-                    Toast.makeText(this, it.data.message, Toast.LENGTH_SHORT).show()
+                    val logInResponse = it.data
+                    Toast.makeText(this, logInResponse.message, Toast.LENGTH_SHORT).show()
                     /*if (logInResult.token != null) {
                         SharedPreferencesUtil.saveData(this, LogInStatus, "successful")
                     }*/
 
                     myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(myIntent)
-
 
 
                 }
@@ -200,7 +241,10 @@ class LoginActivity : AppCompatActivity() {
                                 val profileImage = pictureData?.getString("url").toString()
 
                                 // Log the profile information
-                                Log.d("FacebookProfile", "ID: $id, Name: $fullname, Email: , Image URL: $profileImage")
+                                Log.d(
+                                    "FacebookProfile",
+                                    "ID: $id, Name: $fullname, Email: , Image URL: $profileImage"
+                                )
 
                                 /*SharedPreferencesUtil.saveData(this@LoginActivity, UsernameInputKey, id ?: "")
                                 *//*SharedPreferencesUtil.saveData(this@LoginActivity, AppUtils.FBSignIN_Fullname, fullname ?: "")
@@ -211,11 +255,11 @@ class LoginActivity : AppCompatActivity() {
 
                                 SocialmediaLoginUtil().fetchSocialLogInData(this@LoginActivity, "facebook",id,fullname, "","", profileImage )*/
 
-                            }catch (e : JSONException){
+                            } catch (e: JSONException) {
                                 Log.e("FacebookProfile", "onSuccess: $e")
                             }
 
-                        }else {
+                        } else {
                             Log.e("FacebookProfile", "Error in GraphRequest: ${response.error}")
                         }
                     }
@@ -261,6 +305,7 @@ class LoginActivity : AppCompatActivity() {
                                                 Toast.LENGTH_LONG
                                             ).show()
                                         }
+
                                         GoogleSignInStatusCodes.SIGN_IN_FAILED -> {
                                             Toast.makeText(
                                                 this@LoginActivity,
@@ -268,6 +313,7 @@ class LoginActivity : AppCompatActivity() {
                                                 Toast.LENGTH_LONG
                                             ).show()
                                         }
+
                                         else -> {
                                             Toast.makeText(
                                                 this@LoginActivity,
@@ -279,7 +325,11 @@ class LoginActivity : AppCompatActivity() {
                                 }
                             }
                         } catch (apiException: ApiException) {
-                            Log.e("GoogleSignIn", "Error during Google Sign-In: ${apiException.statusCode}", apiException)
+                            Log.e(
+                                "GoogleSignIn",
+                                "Error during Google Sign-In: ${apiException.statusCode}",
+                                apiException
+                            )
                             Toast.makeText(
                                 this@LoginActivity,
                                 "An error occurred during Google Sign-In. Please try again.",
@@ -314,7 +364,10 @@ class LoginActivity : AppCompatActivity() {
 
             //val loginData = SocialLoginData(personEmail.toString(), firstname.toString(), lastname.toString(), imageUri.toString(), displayName.toString())
 
-            Log.i("SignIn", "onActivityResult: $displayName $personEmail, $userID, $firstname, $lastname, $imageUri")
+            Log.i(
+                "SignIn",
+                "onActivityResult: $displayName $personEmail, $userID, $firstname, $lastname, $imageUri"
+            )
 
             //SharedPreferencesUtil.saveData(this@LoginActivity, UsernameInputKey, userID ?: "")
 

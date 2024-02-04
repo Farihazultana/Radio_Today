@@ -99,6 +99,19 @@ interface ApiServices {
     ): Response<LoginResponse>
 
 
+    @FormUrlEncoded
+    @POST("api/register")
+    @Headers("Accept: application/json")
+    suspend fun postRegistrationData(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("phone") phone: String,
+        @Field("password") password: String,
+        @Field("password_confirmation") passwordConfirmation: String,
+
+        ): Response<LoginResponse>
+
+
 
 
 
