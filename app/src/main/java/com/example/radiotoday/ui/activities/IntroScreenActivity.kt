@@ -42,7 +42,7 @@ class IntroScreenActivity : AppCompatActivity() {
         binding.idBtnSkip.setOnClickListener {
             val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
             startActivity(i)
-            SharedPreferencesUtil.saveData(this@IntroScreenActivity, AppUtils.InroScreenStatus, true)
+            SharedPreferencesUtil.saveData(this@IntroScreenActivity, AppUtils.IntroScreenStatus, true)
             finish()
         }
 
@@ -84,7 +84,7 @@ class IntroScreenActivity : AppCompatActivity() {
                 viewPager.currentItem = nextItem
             } else {
                 val i = Intent(this@IntroScreenActivity, MainActivity::class.java)
-                SharedPreferencesUtil.saveData(this@IntroScreenActivity, AppUtils.InroScreenStatus, true)
+                SharedPreferencesUtil.saveData(this@IntroScreenActivity, AppUtils.IntroScreenStatus, true)
                 startActivity(i)
                 finish()
             }

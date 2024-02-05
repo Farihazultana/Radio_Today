@@ -11,7 +11,7 @@ object AppUtils {
     const val LogInStatus = "LOGIN_STATUS"
     const val LogInToken = "Authentication"
     const val LogInObj = "LogInResponseItem"
-    const val InroScreenStatus = "IntroScreenShown"
+    const val IntroScreenStatus = "IntroScreenShown"
 
     fun setDialog(context: Context, layoutId: Int): Dialog {
         val dialog = Dialog(context)

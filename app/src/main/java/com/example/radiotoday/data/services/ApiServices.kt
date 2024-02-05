@@ -1,8 +1,9 @@
 package com.example.radiotoday.data.services
 
+import com.example.radiotoday.data.models.MainResponse
 import com.example.radiotoday.data.models.audio.AudioResponse
 import com.example.radiotoday.data.models.home.HomeResponse
-import com.example.radiotoday.data.models.MainResponse
+import com.example.radiotoday.data.models.login.LogoutResponse
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.data.models.showDetails.ShowDetailsResponse
 import com.example.radiotoday.data.models.video.VideoResponse
@@ -120,8 +121,7 @@ interface ApiServices {
         @Header("Authorization") token: String,
         @Field("empty") empty: String
 
-        ): Response<MainResponse>
-
+        ): Response<LogoutResponse>
 
     @FormUrlEncoded
     @POST("api/settings/{type}")
@@ -131,10 +131,7 @@ interface ApiServices {
         @Path("type") type: String,
         @Field("empty") empty: String,
 
-    ): Response<MainResponse>
-
-
-
+        ): Response<MainResponse>
 
 
 

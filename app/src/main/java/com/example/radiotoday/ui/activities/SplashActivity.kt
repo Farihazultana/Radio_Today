@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivitySplashBinding
@@ -38,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             delay(splashDelay)
 
-            val introScreenShown = SharedPreferencesUtil.getData(this@SplashActivity, AppUtils.InroScreenStatus, false)
+            val introScreenShown = SharedPreferencesUtil.getData(this@SplashActivity, AppUtils.IntroScreenStatus, false)
 
             if (introScreenShown != true) {
                 val intent = Intent(this@SplashActivity, IntroScreenActivity::class.java)

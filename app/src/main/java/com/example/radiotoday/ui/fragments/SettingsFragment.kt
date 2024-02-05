@@ -16,10 +16,12 @@ import com.example.radiotoday.databinding.FragmentSettingsBinding
 import com.example.radiotoday.ui.activities.AlarmActivity
 import com.example.radiotoday.ui.activities.ContactActivity
 import com.example.radiotoday.ui.activities.LoginActivity
+import com.example.radiotoday.ui.activities.MainActivity
 import com.example.radiotoday.ui.activities.ProfileActivity
 import com.example.radiotoday.ui.activities.SettingsInfoActivity
 import com.example.radiotoday.ui.viewmodels.LogoutViewModel
 import com.example.radiotoday.utils.AppUtils
+import com.example.radiotoday.utils.AppUtils.IntroScreenStatus
 import com.example.radiotoday.utils.AppUtils.LogInStatus
 import com.example.radiotoday.utils.OnBackAction
 import com.example.radiotoday.utils.ResultType
@@ -39,22 +41,18 @@ class SettingsFragment : Fragment() {
 
     private val logoutViewModel by viewModels<LogoutViewModel>()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
         binding = FragmentSettingsBinding.inflate(layoutInflater, container, false)
 
+        observeLogout()
 
         binding.toolBarBackIcon.setOnClickListener {
             onBackAction.onBackListener()
         }
-
 
         binding.cvProfileImg.setOnClickListener {
             goToProfileActivity()
@@ -67,7 +65,6 @@ class SettingsFragment : Fragment() {
         binding.layoutContactUs.setOnClickListener {
             goToContactUsActivity()
         }
-
 
         binding.layoutAbout.setOnClickListener {
             goToSettingsInfoActivity("about_us")
@@ -85,63 +82,78 @@ class SettingsFragment : Fragment() {
             goToSettingsInfoActivity("faqs")
         }
 
-        observeLogout()
-
-        checkLogInStatus()
-
         binding.layoutLog.setOnClickListener {
-
-
-            if (binding.tvLog.text == "Logout") {
-                val dialog = AppUtils.setDialog(requireActivity(), R.layout.logout_dialog)
-
-                val btnLogout = dialog.findViewById<Button>(R.id.btnLogout)
-                val btnCancel = dialog.findViewById<Button>(R.id.btnCancel)
-
-
-                btnLogout.setOnClickListener {
-                    logout()
-
-                    dialog.dismiss()
-                }
-
-
-                btnCancel.setOnClickListener { dialog.dismiss() }
-
-            } else if (binding.tvLog.text == "Login") {
-
-                val intent = Intent(requireContext(), LoginActivity::class.java)
-
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(intent)
-                //binding.tvLog.text = "Logout"
-
-            }
-
+            actionLoginLogout()
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkLogInStatus()
+    }
+
+    private fun observeLogout() {
+        logoutViewModel.logoutData.observe(requireActivity()) {
+            when (it) {
+                is ResultType.Loading -> {
+
+                }
+
+                is ResultType.Success -> {
+                    SharedPreferencesUtil.clear(requireActivity())
+                    SharedPreferencesUtil.saveData(requireActivity(), IntroScreenStatus, true)
+                    goToMainActivity()
+                }
+
+                is ResultType.Error -> {
+                    val gson = Gson()
+                    val type: Type = object : TypeToken<ErrorResponse?>() {}.type
+                    val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
+
+                    Toast.makeText(requireContext(), errorResponse.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+    private fun checkLogInStatus() {
+        if (SharedPreferencesUtil.getData(requireActivity(), LogInStatus, false) as Boolean){
+            binding.tvLog.text = getString(R.string.logout)
+            binding.ivLog.setImageResource(R.drawable.ic_logout)
+            binding.cvProfileImg.visibility = View.VISIBLE
+        } else{
+            binding.tvLog.text = getString(R.string.login)
+            binding.ivLog.setImageResource(R.drawable.ic_login)
+            binding.cvProfileImg.visibility = View.GONE
+        }
+    }
+
+    private fun actionLoginLogout() {
+        if (SharedPreferencesUtil.getData(requireActivity(), LogInStatus, false) as Boolean) {
+            val dialog = AppUtils.setDialog(requireActivity(), R.layout.logout_dialog)
+
+            val btnLogout = dialog.findViewById<Button>(R.id.btnLogout)
+            val btnCancel = dialog.findViewById<Button>(R.id.btnCancel)
+
+            btnLogout.setOnClickListener {
+                logout()
+                dialog.dismiss()
+            }
+
+            btnCancel.setOnClickListener { dialog.dismiss() }
+
+        } else {
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
     }
 
     private fun goToSettingsInfoActivity(type: String) {
         val intent = Intent(requireContext(), SettingsInfoActivity::class.java)
         intent.putExtra("type", type)
         startActivity(intent)
-    }
-
-    private fun checkLogInStatus() {
-        val loginStatus =
-            SharedPreferencesUtil.getData(requireContext(), LogInStatus, false) as Boolean
-        Log.i("Login", "onCreateView: $loginStatus")
-        if (loginStatus) {
-            //now User is Logged in so, needs to Logout
-
-            binding.tvLog.text = "Logout"
-            binding.cvProfileImg.visibility = View.VISIBLE
-        } else {
-            binding.tvLog.text = "Login"
-            binding.cvProfileImg.visibility = View.GONE
-        }
     }
 
     private fun goToContactUsActivity() {
@@ -185,34 +197,10 @@ class SettingsFragment : Fragment() {
         LoginManager.getInstance().logOut()*/
     }
 
-    private fun observeLogout() {
-        logoutViewModel.logoutData.observe(requireActivity()) {
-            when (it) {
-                is ResultType.Loading -> {
-
-                }
-
-                is ResultType.Success -> {
-                    val logInResponse = it.data
-                    Toast.makeText(requireActivity(), logInResponse.message, Toast.LENGTH_SHORT)
-                        .show()
-
-                    binding.tvLog.text = "Login"
-                    binding.ivLog.setImageResource(R.drawable.ic_login)
-                }
-
-                is ResultType.Error -> {
-                    val gson = Gson()
-                    val type: Type = object : TypeToken<ErrorResponse?>() {}.type
-                    val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
-
-                    Toast.makeText(requireContext(), errorResponse.message, Toast.LENGTH_SHORT)
-                        .show()
-
-
-                }
-            }
-        }
+    private fun goToMainActivity() {
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun isSignInClientInitialized(): Boolean {
@@ -224,14 +212,14 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    companion object {
-
+    companion object{
         lateinit var onBackAction: OnBackAction
-        fun onBackAction(setBackAction: OnBackAction) {
+        fun onBackAction(setBackAction: OnBackAction){
             this.onBackAction = setBackAction
         }
-
     }
-
-
 }
+
+
+
+
