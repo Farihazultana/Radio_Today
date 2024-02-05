@@ -1,6 +1,5 @@
 package com.example.radiotoday.ui.fragments
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,18 +13,16 @@ import androidx.fragment.app.viewModels
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.ErrorResponse
 import com.example.radiotoday.databinding.FragmentSettingsBinding
-import com.example.radiotoday.databinding.LogoutDialogBinding
 import com.example.radiotoday.ui.activities.AlarmActivity
 import com.example.radiotoday.ui.activities.ContactActivity
 import com.example.radiotoday.ui.activities.LoginActivity
 import com.example.radiotoday.ui.activities.ProfileActivity
 import com.example.radiotoday.ui.viewmodels.LogoutViewModel
 import com.example.radiotoday.utils.AppUtils
+import com.example.radiotoday.utils.AppUtils.LogInStatus
 import com.example.radiotoday.utils.OnBackAction
-import com.example.radiotoday.utils.OnLoginSuccessListener
 import com.example.radiotoday.utils.ResultType
 import com.example.radiotoday.utils.SharedPreferencesUtil
-import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.gson.Gson
@@ -40,11 +37,7 @@ class SettingsFragment : Fragment() {
 
     private val logoutViewModel by viewModels<LogoutViewModel> ()
 
-    private var onLoginSuccessListener: OnLoginSuccessListener? = null
 
-    fun setOnLoginSuccessListener(listener: OnLoginSuccessListener) {
-        this.onLoginSuccessListener = listener
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -60,25 +53,20 @@ class SettingsFragment : Fragment() {
             onBackAction.onBackListener()
         }
 
-        binding.cvProfileImg.setOnClickListener {
-            val intent = Intent(requireContext(), ProfileActivity::class.java)
-            startActivity(intent)
-        }
+        profileImgClickOn()
 
-        binding.layoutSetAlarm.setOnClickListener {
-            val intent = Intent(requireContext(), AlarmActivity::class.java)
-            startActivity(intent)
-        }
+        setAlarmClickOn()
 
-        binding.layoutContactUs.setOnClickListener {
-            val intent = Intent(requireContext(), ContactActivity::class.java)
-            startActivity(intent)
-        }
+        contactUsClickOn()
 
         observeLogout()
+
+        checkLogInStatus()
+
         binding.layoutLog.setOnClickListener {
-            val logText = binding.tvLog.text
-            if (logText == "Logout"){
+
+
+            if (binding.tvLog.text == "Logout"){
                 val dialog =  AppUtils.setDialog(requireActivity(), R.layout.logout_dialog)
 
                 val btnLogout = dialog.findViewById<Button>(R.id.btnLogout)
@@ -93,9 +81,10 @@ class SettingsFragment : Fragment() {
 
 
                 btnCancel.setOnClickListener { dialog.dismiss() }
-            }else if (logText == "Login"){
+            }else if (binding.tvLog.text == "Login"){
+
                 val intent = Intent(requireContext(), LoginActivity::class.java)
-                onLoginSuccessListener?.onLoginSuccess()
+
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
                 //binding.tvLog.text = "Logout"
@@ -107,11 +96,46 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
+    private fun checkLogInStatus() {
+        val loginStatus =
+            SharedPreferencesUtil.getData(requireContext(), LogInStatus, false) as Boolean
+        Log.i("Login", "onCreateView: $loginStatus")
+        if (loginStatus) {
+            //now User is Logged in so, needs to Logout
+
+            binding.tvLog.text = "Logout"
+        } else {
+            binding.tvLog.text = "Login"
+        }
+    }
+
+    private fun contactUsClickOn() {
+        binding.layoutContactUs.setOnClickListener {
+            val intent = Intent(requireContext(), ContactActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun setAlarmClickOn() {
+        binding.layoutSetAlarm.setOnClickListener {
+            val intent = Intent(requireContext(), AlarmActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun profileImgClickOn() {
+        binding.cvProfileImg.setOnClickListener {
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun logout(){
         val token = SharedPreferencesUtil.getData(requireActivity(), AppUtils.LogInToken, "")
         Log.i("Login", "logout: $token")
         logoutViewModel.fetchLogoutData("Bearer $token")
 
+        //Google Logout
         /*if (isSignInClientInitialized()) {
 
             signInClient.signOut().addOnFailureListener {

@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +15,6 @@ import com.example.radiotoday.ui.viewmodels.RegistrationViewModel
 import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.AppUtils.LogInStatus
 import com.example.radiotoday.utils.AppUtils.LogInToken
-import com.example.radiotoday.utils.OnLoginSuccessListener
 import com.example.radiotoday.utils.ResultType
 import com.example.radiotoday.utils.SharedPreferencesUtil
 import com.facebook.AccessToken
@@ -42,7 +39,7 @@ import java.lang.reflect.Type
 
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity(), OnLoginSuccessListener {
+class LoginActivity : AppCompatActivity(){
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel by viewModels<LoginViewModel>()
     private val registrationViewModel by viewModels<RegistrationViewModel>()
@@ -178,11 +175,11 @@ class LoginActivity : AppCompatActivity(), OnLoginSuccessListener {
                     val logInResponse = it.data
                     Toast.makeText(this, logInResponse.message, Toast.LENGTH_SHORT).show()
 
-
+                    SharedPreferencesUtil.saveData(this, LogInStatus, true)
                     SharedPreferencesUtil.saveData(this, LogInToken, logInResponse.content.token)
                     Log.i("Login", "observeEmailLogin: ${logInResponse.content.token}")
 
-                    onLoginSuccess()
+
 
                     myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(myIntent)
@@ -201,13 +198,7 @@ class LoginActivity : AppCompatActivity(), OnLoginSuccessListener {
         }
     }
 
-    private fun logoutChanges() {
-        val log_txt = findViewById<TextView>(R.id.tv_Log)
-        val log_img = findViewById<ImageView>(R.id.iv_Log)
 
-        log_txt.text = "Logout"
-        log_img.setImageResource(R.drawable.ic_logout)
-    }
 
     private fun googleLogIn() {
         // Initialize GoogleSignInOptions
@@ -396,9 +387,6 @@ class LoginActivity : AppCompatActivity(), OnLoginSuccessListener {
         }
     }
 
-    override fun onLoginSuccess() {
-        logoutChanges()
-    }
 
 
 }
