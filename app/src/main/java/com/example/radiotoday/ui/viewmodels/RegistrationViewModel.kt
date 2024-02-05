@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.radiotoday.data.models.login.LoginResponse
+import com.example.radiotoday.data.models.MainResponse
 import com.example.radiotoday.data.repositories.RegistrationRepository
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(private val registrationRepository: RegistrationRepository): ViewModel(){
-    private val _registrationData = MutableLiveData<ResultType<LoginResponse>>(ResultType.Loading)
-    val registrationData: LiveData<ResultType<LoginResponse>> = _registrationData
+    private val _registrationData = MutableLiveData<ResultType<MainResponse>>(ResultType.Loading)
+    val registrationData: LiveData<ResultType<MainResponse>> = _registrationData
 
     fun fetchRegistrationData(name: String, email:String, phone: String, password: String, password_confirmation: String){
         viewModelScope.launch {

@@ -1,6 +1,6 @@
 package com.example.radiotoday.data.models
 
-data class ContentMain(
+data class MainContent(
     val current_page: Int,
     val first: String,
     val from: Int,
@@ -23,5 +23,8 @@ data class ContentMain(
     val catCode: String,
     val catName: String,
 
-    val token: String
+    val token: String,
+
+    val type: String,
+    val value: String
 )

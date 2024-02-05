@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.ContentMain
+import com.example.radiotoday.data.models.MainContent
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.ui.activities.SeeAllActivity
 
 class ParentHomeAdapter(private val listener: ItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildHomeAdapter.ItemClickListener {
 
-    var homeData: ArrayList<ContentMain> = ArrayList()
+    var homeData: ArrayList<MainContent> = ArrayList()
 
 
     private val TYPE_BANNER = 0

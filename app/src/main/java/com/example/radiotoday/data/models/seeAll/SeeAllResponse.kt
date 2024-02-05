@@ -1,10 +1,10 @@
 package com.example.radiotoday.data.models.seeAll
 
-import com.example.radiotoday.data.models.ContentMain
+import com.example.radiotoday.data.models.MainContent
 
 
 
 data class SeeAllResponse (
-    val content: ContentMain,
+    val content: MainContent,
     val message: String,
 )

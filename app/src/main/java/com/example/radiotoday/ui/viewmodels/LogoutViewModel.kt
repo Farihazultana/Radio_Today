@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.radiotoday.data.models.login.LoginResponse
+import com.example.radiotoday.data.models.MainResponse
 import com.example.radiotoday.data.repositories.LogoutRepository
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LogoutViewModel @Inject constructor(private val logoutRepository: LogoutRepository): ViewModel() {
-    private val _logoutData = MutableLiveData<ResultType<LoginResponse>>(ResultType.Loading)
-    val logoutData: LiveData<ResultType<LoginResponse>> = _logoutData
+    private val _logoutData = MutableLiveData<ResultType<MainResponse>>(ResultType.Loading)
+    val logoutData: LiveData<ResultType<MainResponse>> = _logoutData
 
     fun fetchLogoutData(token: String){
         viewModelScope.launch {

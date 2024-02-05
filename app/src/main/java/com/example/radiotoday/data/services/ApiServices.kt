@@ -2,7 +2,7 @@ package com.example.radiotoday.data.services
 
 import com.example.radiotoday.data.models.audio.AudioResponse
 import com.example.radiotoday.data.models.home.HomeResponse
-import com.example.radiotoday.data.models.login.LoginResponse
+import com.example.radiotoday.data.models.MainResponse
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.data.models.showDetails.ShowDetailsResponse
 import com.example.radiotoday.data.models.video.VideoResponse
@@ -96,7 +96,7 @@ interface ApiServices {
         @Field("email") email: String,
         @Field("password") password: String,
 
-    ): Response<LoginResponse>
+    ): Response<MainResponse>
 
 
     @FormUrlEncoded
@@ -109,7 +109,7 @@ interface ApiServices {
         @Field("password") password: String,
         @Field("password_confirmation") passwordConfirmation: String,
 
-        ): Response<LoginResponse>
+        ): Response<MainResponse>
 
 
     @FormUrlEncoded
@@ -120,7 +120,18 @@ interface ApiServices {
         @Header("Authorization") token: String,
         @Field("empty") empty: String
 
-        ): Response<LoginResponse>
+        ): Response<MainResponse>
+
+
+    @FormUrlEncoded
+    @POST("api/settings/{type}")
+    @Headers("Accept: application/json")
+    suspend fun postSettingsData(
+
+        @Path("type") type: String,
+        @Field("empty") empty: String,
+
+    ): Response<MainResponse>
 
 
 

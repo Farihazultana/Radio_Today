@@ -1,13 +1,12 @@
 package com.example.radiotoday.data.repositories
 
-import com.example.radiotoday.data.models.home.HomeResponse
-import com.example.radiotoday.data.models.login.LoginResponse
+import com.example.radiotoday.data.models.MainResponse
 import com.example.radiotoday.data.services.ApiServices
 import com.example.radiotoday.utils.ResultType
 import javax.inject.Inject
 
 class LogInRepository @Inject constructor(private val apiServices: ApiServices){
-    suspend fun getLogInData(email: String, password: String) : ResultType<LoginResponse>{
+    suspend fun getLogInData(email: String, password: String) : ResultType<MainResponse>{
         try {
 
             val response = apiServices.postLoginData(email, password)

@@ -17,6 +17,7 @@ import com.example.radiotoday.ui.activities.AlarmActivity
 import com.example.radiotoday.ui.activities.ContactActivity
 import com.example.radiotoday.ui.activities.LoginActivity
 import com.example.radiotoday.ui.activities.ProfileActivity
+import com.example.radiotoday.ui.activities.SettingsInfoActivity
 import com.example.radiotoday.ui.viewmodels.LogoutViewModel
 import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.AppUtils.LogInStatus
@@ -59,6 +60,22 @@ class SettingsFragment : Fragment() {
 
         contactUsClickOn()
 
+        binding.layoutAbout.setOnClickListener {
+            goToSettingsInfoActivity("about_us")
+        }
+
+        binding.layoutPrivacy.setOnClickListener {
+            goToSettingsInfoActivity("privacy_policy")
+        }
+
+        binding.layoutConditions.setOnClickListener {
+            goToSettingsInfoActivity("terms_condition")
+        }
+
+        binding.layoutFAQS.setOnClickListener {
+            goToSettingsInfoActivity("faqs")
+        }
+
         observeLogout()
 
         checkLogInStatus()
@@ -81,6 +98,7 @@ class SettingsFragment : Fragment() {
 
 
                 btnCancel.setOnClickListener { dialog.dismiss() }
+
             }else if (binding.tvLog.text == "Login"){
 
                 val intent = Intent(requireContext(), LoginActivity::class.java)
@@ -94,6 +112,12 @@ class SettingsFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun goToSettingsInfoActivity(type: String) {
+        val intent = Intent(requireContext(), SettingsInfoActivity::class.java)
+        intent.putExtra("type", type)
+        startActivity(intent)
     }
 
     private fun checkLogInStatus() {

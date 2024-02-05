@@ -91,6 +91,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view1">
 
@@ -118,134 +119,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-                <LinearLayout
-                    android:id="@+id/layoutStreamQuality"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    android:weightSum="4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_PlayerItems">
 
-                    <ImageView
-                        android:id="@+id/iv_Music"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="0.1"
-                        android:src="@drawable/ic_song" />
-
-                    <TextView
-                        android:id="@+id/tv_Stream"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="3"
-                        android:text="Stream Quality"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/tv_Quality"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="0.5"
-                        android:text="High"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/white" />
-
-                    <ImageView
-                        android:id="@+id/iv_arrow_right"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.4"
-                        android:src="@drawable/ic_arrow_right"
-                        app:tint="@color/white" />
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/horizontal_line"
-                    android:backgroundTint="@color/darkGrey"
-                    android:gravity="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/layout_Language"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    android:weightSum="4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layoutStreamQuality">
-
-                    <ImageView
-                        android:id="@+id/iv_Flag"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.1"
-                        android:src="@drawable/ic_language"
-                        app:layout_constraintBottom_toTopOf="@+id/iv_arrow_right_Language"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_Language"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="3"
-                        android:text="Languages"
-                        android:textColor="@color/white"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_Flag"
-                        app:layout_constraintStart_toEndOf="@+id/iv_Flag"
-                        app:layout_constraintTop_toTopOf="@+id/iv_Flag" />
-
-                    <TextView
-                        android:id="@+id/tv_SelectLanguage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="0.5"
-                        android:text="English"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/white" />
-
-                    <ImageView
-                        android:id="@+id/iv_arrow_right_Language"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.4"
-                        android:src="@drawable/ic_arrow_right"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_Language"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_Language"
-                        app:tint="@color/white" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/horizontal_line"
-                    android:backgroundTint="@color/darkGrey"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/layout_StartPlayer"
@@ -253,10 +127,11 @@
                     android:layout_height="35dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
                     android:weightSum="3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Language">
+                    app:layout_constraintTop_toBottomOf="@+id/tv_PlayerItems">
 
                     <ImageView
                         android:id="@+id/iv_Player"
@@ -359,53 +234,6 @@
                     android:background="@drawable/horizontal_line"
                     android:backgroundTint="@color/darkGrey" />
 
-                <LinearLayout
-                    android:id="@+id/layout_Notifications"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    android:weightSum="3">
-
-                    <ImageView
-                        android:id="@+id/iv_Notification"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.1"
-                        android:src="@drawable/ic_bell" />
-
-                    <TextView
-                        android:id="@+id/tv_Notification"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="2.6"
-                        android:text="Notifications"
-                        android:textColor="@color/white" />
-
-
-                    <ImageView
-                        android:id="@+id/iv_arrow_right_Notification"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.3"
-                        android:src="@drawable/ic_arrow_right"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_Notification"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_Notification"
-                        app:tint="@color/white" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view6"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/horizontal_line"
-                    android:backgroundTint="@color/darkGrey"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
 
                 <TextView
@@ -420,7 +248,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Notifications" />
+                    app:layout_constraintTop_toBottomOf="@+id/layout_SetAlarm" />
 
                 <LinearLayout
                     android:id="@+id/layout_About"
@@ -468,10 +296,67 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_About"
                         app:tint="@color/white" />
+
                 </LinearLayout>
 
                 <View
                     android:id="@+id/view7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/horizontal_line"
+                    android:backgroundTint="@color/darkGrey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/layout_FAQS"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical"
+                    android:weightSum="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_RateApp">
+
+                    <ImageView
+                        android:id="@+id/iv_FAQ"
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:src="@drawable/ic_version"
+                        app:layout_constraintBottom_toTopOf="@+id/iv_arrow_right_Version"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_FAQ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="2.6"
+                        android:text="FAQS"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_FAQ"
+                        app:layout_constraintStart_toEndOf="@+id/iv_FAQ"
+                        app:layout_constraintTop_toTopOf="@+id/iv_FAQ" />
+
+                    <ImageView
+                        android:id="@+id/iv_arrow_right_Version"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/ic_arrow_right"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_FAQ"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_FAQ"
+                        app:tint="@color/white" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view12"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_margin="16dp"
@@ -708,62 +593,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <LinearLayout
-                    android:id="@+id/layout_Version"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    android:weightSum="3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_RateApp">
 
-                    <ImageView
-                        android:id="@+id/iv_Version"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.1"
-                        android:src="@drawable/ic_version"
-                        app:layout_constraintBottom_toTopOf="@+id/iv_arrow_right_Version"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_Version"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="3"
-                        android:text="Version"
-                        android:textColor="@color/white"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_Version"
-                        app:layout_constraintStart_toEndOf="@+id/iv_Version"
-                        app:layout_constraintTop_toTopOf="@+id/iv_Version" />
-
-                    <TextView
-                        android:id="@+id/iv_arrow_right_Version"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_weight="0.1"
-                        android:text="4.6.9"
-                        android:textColor="@color/white"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_Version"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_Version" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view12"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/horizontal_line"
-                    android:backgroundTint="@color/darkGrey"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/layout_Log"
@@ -777,7 +607,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Version">
+                    app:layout_constraintTop_toBottomOf="@+id/layout_RateApp">
 
                     <ImageView
                         android:id="@+id/iv_Log"
