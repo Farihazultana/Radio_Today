@@ -97,15 +97,16 @@ class SettingsFragment : Fragment() {
     }
 
     private fun checkLogInStatus() {
-        val loginStatus =
-            SharedPreferencesUtil.getData(requireContext(), LogInStatus, false) as Boolean
+        val loginStatus = SharedPreferencesUtil.getData(requireContext(), LogInStatus, false) as Boolean
         Log.i("Login", "onCreateView: $loginStatus")
         if (loginStatus) {
             //now User is Logged in so, needs to Logout
 
             binding.tvLog.text = "Logout"
+            binding.cvProfileImg.visibility = View.VISIBLE
         } else {
             binding.tvLog.text = "Login"
+            binding.cvProfileImg.visibility = View.GONE
         }
     }
 
