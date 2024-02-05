@@ -30,13 +30,14 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.reflect.Type
+
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var signInClient: SignInClient
 
-    private val logoutViewModel by viewModels<LogoutViewModel> ()
+    private val logoutViewModel by viewModels<LogoutViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,18 +48,26 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSettingsBinding.inflate(layoutInflater,container, false)
+        binding = FragmentSettingsBinding.inflate(layoutInflater, container, false)
 
 
         binding.toolBarBackIcon.setOnClickListener {
             onBackAction.onBackListener()
         }
 
-        profileImgClickOn()
 
-        setAlarmClickOn()
+        binding.cvProfileImg.setOnClickListener {
+            goToProfileActivity()
+        }
 
-        contactUsClickOn()
+        binding.layoutSetAlarm.setOnClickListener {
+            goToAlarmActivity()
+        }
+
+        binding.layoutContactUs.setOnClickListener {
+            goToContactUsActivity()
+        }
+
 
         binding.layoutAbout.setOnClickListener {
             goToSettingsInfoActivity("about_us")
@@ -83,8 +92,8 @@ class SettingsFragment : Fragment() {
         binding.layoutLog.setOnClickListener {
 
 
-            if (binding.tvLog.text == "Logout"){
-                val dialog =  AppUtils.setDialog(requireActivity(), R.layout.logout_dialog)
+            if (binding.tvLog.text == "Logout") {
+                val dialog = AppUtils.setDialog(requireActivity(), R.layout.logout_dialog)
 
                 val btnLogout = dialog.findViewById<Button>(R.id.btnLogout)
                 val btnCancel = dialog.findViewById<Button>(R.id.btnCancel)
@@ -99,7 +108,7 @@ class SettingsFragment : Fragment() {
 
                 btnCancel.setOnClickListener { dialog.dismiss() }
 
-            }else if (binding.tvLog.text == "Login"){
+            } else if (binding.tvLog.text == "Login") {
 
                 val intent = Intent(requireContext(), LoginActivity::class.java)
 
@@ -121,7 +130,8 @@ class SettingsFragment : Fragment() {
     }
 
     private fun checkLogInStatus() {
-        val loginStatus = SharedPreferencesUtil.getData(requireContext(), LogInStatus, false) as Boolean
+        val loginStatus =
+            SharedPreferencesUtil.getData(requireContext(), LogInStatus, false) as Boolean
         Log.i("Login", "onCreateView: $loginStatus")
         if (loginStatus) {
             //now User is Logged in so, needs to Logout
@@ -134,28 +144,22 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun contactUsClickOn() {
-        binding.layoutContactUs.setOnClickListener {
-            val intent = Intent(requireContext(), ContactActivity::class.java)
-            startActivity(intent)
-        }
+    private fun goToContactUsActivity() {
+        val intent = Intent(requireContext(), ContactActivity::class.java)
+        startActivity(intent)
     }
 
-    private fun setAlarmClickOn() {
-        binding.layoutSetAlarm.setOnClickListener {
-            val intent = Intent(requireContext(), AlarmActivity::class.java)
-            startActivity(intent)
-        }
+    private fun goToAlarmActivity() {
+        val intent = Intent(requireContext(), AlarmActivity::class.java)
+        startActivity(intent)
     }
 
-    private fun profileImgClickOn() {
-        binding.cvProfileImg.setOnClickListener {
-            val intent = Intent(requireContext(), ProfileActivity::class.java)
-            startActivity(intent)
-        }
+    private fun goToProfileActivity() {
+        val intent = Intent(requireContext(), ProfileActivity::class.java)
+        startActivity(intent)
     }
 
-    private fun logout(){
+    private fun logout() {
         val token = SharedPreferencesUtil.getData(requireActivity(), AppUtils.LogInToken, "")
         Log.i("Login", "logout: $token")
         logoutViewModel.fetchLogoutData("Bearer $token")
@@ -202,7 +206,8 @@ class SettingsFragment : Fragment() {
                     val type: Type = object : TypeToken<ErrorResponse?>() {}.type
                     val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
 
-                    Toast.makeText(requireContext(), errorResponse.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), errorResponse.message, Toast.LENGTH_SHORT)
+                        .show()
 
 
                 }
@@ -219,10 +224,10 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    companion object{
+    companion object {
 
         lateinit var onBackAction: OnBackAction
-        fun onBackAction(setBackAction: OnBackAction){
+        fun onBackAction(setBackAction: OnBackAction) {
             this.onBackAction = setBackAction
         }
 
