@@ -20,12 +20,13 @@ import com.example.radiotoday.ui.fragments.SettingsFragment
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.VideoFragment
 import com.example.radiotoday.utils.OnBackAction
+import com.example.radiotoday.utils.OnLoginSuccessListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickListener {
+class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickListener{
 
     private lateinit var binding: ActivityMainBinding
 
@@ -157,4 +158,5 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
             }
         }
     }
+
 }

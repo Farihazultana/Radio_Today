@@ -22,6 +22,7 @@ import com.example.radiotoday.ui.activities.ProfileActivity
 import com.example.radiotoday.ui.viewmodels.LogoutViewModel
 import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.OnBackAction
+import com.example.radiotoday.utils.OnLoginSuccessListener
 import com.example.radiotoday.utils.ResultType
 import com.example.radiotoday.utils.SharedPreferencesUtil
 import com.facebook.login.LoginManager
@@ -38,6 +39,12 @@ class SettingsFragment : Fragment() {
     private lateinit var signInClient: SignInClient
 
     private val logoutViewModel by viewModels<LogoutViewModel> ()
+
+    private var onLoginSuccessListener: OnLoginSuccessListener? = null
+
+    fun setOnLoginSuccessListener(listener: OnLoginSuccessListener) {
+        this.onLoginSuccessListener = listener
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -47,6 +54,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSettingsBinding.inflate(layoutInflater,container, false)
+
 
         binding.toolBarBackIcon.setOnClickListener {
             onBackAction.onBackListener()
@@ -76,8 +84,10 @@ class SettingsFragment : Fragment() {
                 val btnLogout = dialog.findViewById<Button>(R.id.btnLogout)
                 val btnCancel = dialog.findViewById<Button>(R.id.btnCancel)
 
+
                 btnLogout.setOnClickListener {
                     logout()
+
                     dialog.dismiss()
                 }
 
@@ -85,8 +95,11 @@ class SettingsFragment : Fragment() {
                 btnCancel.setOnClickListener { dialog.dismiss() }
             }else if (logText == "Login"){
                 val intent = Intent(requireContext(), LoginActivity::class.java)
+                onLoginSuccessListener?.onLoginSuccess()
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
+                //binding.tvLog.text = "Logout"
+
             }
 
         }
@@ -99,7 +112,7 @@ class SettingsFragment : Fragment() {
         Log.i("Login", "logout: $token")
         logoutViewModel.fetchLogoutData("Bearer $token")
 
-        if (isSignInClientInitialized()) {
+        /*if (isSignInClientInitialized()) {
 
             signInClient.signOut().addOnFailureListener {
                 Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
@@ -116,7 +129,7 @@ class SettingsFragment : Fragment() {
         }
 
         //Facebook logout
-        LoginManager.getInstance().logOut()
+        LoginManager.getInstance().logOut()*/
     }
 
     private fun observeLogout() {
@@ -131,12 +144,18 @@ class SettingsFragment : Fragment() {
                     Toast.makeText(requireActivity(), logInResponse.message, Toast.LENGTH_SHORT)
                         .show()
 
+                    binding.tvLog.text = "Login"
+                    binding.ivLog.setImageResource(R.drawable.ic_login)
                 }
 
                 is ResultType.Error -> {
+                    val gson = Gson()
+                    val type: Type = object : TypeToken<ErrorResponse?>() {}.type
+                    val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
 
-                    Toast.makeText(requireContext(), "Something went wrong!", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), errorResponse.message, Toast.LENGTH_SHORT).show()
+
+
                 }
             }
         }
