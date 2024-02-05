@@ -104,7 +104,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
                     parentSeeAllPodcastAdapter.homeData = podcastData
                     this.parentSeeAllPodcastAdapter.notifyDataSetChanged()
 
-                    binding.tvToolBarTitle.text = sectionCode
+                    binding.tvToolBarTitle.text = seeAllTitle
 
                 }
 
