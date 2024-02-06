@@ -64,8 +64,8 @@ class LoginActivity : AppCompatActivity(){
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        observeEmailLogin()
         binding.btnLogin.setOnClickListener {
+            observeEmailLogin()
             handleLogin()
         }
 
@@ -86,8 +86,9 @@ class LoginActivity : AppCompatActivity(){
             binding.layoutRegistration.visibility = View.VISIBLE
         }
 
-        observeRegistration()
+
         binding.btnRegistration.setOnClickListener {
+            observeRegistration()
             handleRegistration()
         }
 
@@ -134,6 +135,8 @@ class LoginActivity : AppCompatActivity(){
                 }
 
                 is ResultType.Error -> {
+                    binding.pbRegistration.visibility = View.GONE
+
                     val gson = Gson()
                     val type: Type = object : TypeToken<ErrorResponse?>() {}.type
                     val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
@@ -186,6 +189,8 @@ class LoginActivity : AppCompatActivity(){
                 }
 
                 is ResultType.Error -> {
+                    binding.pbLogin.visibility = View.GONE
+
                     val gson = Gson()
                     val type: Type = object : TypeToken<ErrorResponse?>() {}.type
                     val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
