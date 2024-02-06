@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import com.example.radiotoday.databinding.ActivitySettingsInfoBinding
@@ -51,7 +52,7 @@ class SettingsInfoActivity : AppCompatActivity() {
                 }
 
                 is ResultType.Error -> {
-
+                        Toast.makeText(this, "Something Went Wrong!", Toast.LENGTH_SHORT).show()
                 }
             }
         }

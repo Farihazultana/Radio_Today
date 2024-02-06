@@ -119,10 +119,12 @@ class LoginActivity : AppCompatActivity(){
         registrationViewModel.registrationData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-
+                    binding.pbRegistration.visibility = View.VISIBLE
                 }
 
                 is ResultType.Success -> {
+                    binding.pbRegistration.visibility = View.GONE
+
                     val logInResponse = it.data
                     Toast.makeText(this, logInResponse.message, Toast.LENGTH_SHORT).show()
 
@@ -162,10 +164,12 @@ class LoginActivity : AppCompatActivity(){
         loginViewModel.loginData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-
+                    binding.pbLogin.visibility = View.VISIBLE
                 }
 
                 is ResultType.Success -> {
+                    binding.pbLogin.visibility = View.GONE
+
                     val logInResponse = it.data
                     Toast.makeText(this, logInResponse.message, Toast.LENGTH_SHORT).show()
 

@@ -19,9 +19,11 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            app:layout_constraintVertical_bias="1.0"
+            tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -196,6 +198,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvForget" />
 
+            <ProgressBar
+                android:id="@+id/pbLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_Login"
+                app:layout_constraintEnd_toEndOf="@+id/btn_Login"
+                app:layout_constraintHorizontal_bias="0.75"
+                app:layout_constraintStart_toStartOf="@+id/btn_Login"
+                app:layout_constraintTop_toTopOf="@+id/btn_Login" />
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -295,7 +308,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/ivBackgroundSignUp"
@@ -620,6 +633,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reEnter_passwordInputLayoutReg" />
+
+
+            <ProgressBar
+                android:id="@+id/pbRegistration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_Registration"
+                app:layout_constraintEnd_toEndOf="@+id/btn_Registration"
+                app:layout_constraintHorizontal_bias="0.75"
+                app:layout_constraintStart_toStartOf="@+id/btn_Registration"
+                app:layout_constraintTop_toTopOf="@+id/btn_Registration" />
 
 
             <TextView
