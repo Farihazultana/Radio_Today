@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -88,6 +88,7 @@
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
                     app:endIconMode="clear_text"
+                    app:endIconTint="@color/white"
                     app:hintTextColor="@color/grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -100,6 +101,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:inputType="textEmailAddress"
+                        android:maxLength="30"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
                         android:textColor="@color/white"
@@ -154,6 +156,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:inputType="textPassword"
+                        android:maxLength="15"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
                         android:textColor="@color/white"
@@ -292,7 +295,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/ivBackgroundSignUp"
@@ -358,6 +361,7 @@
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
                     app:endIconMode="clear_text"
+                    app:endIconTint="@color/white"
                     app:hintTextColor="@color/grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -370,6 +374,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:inputType="textPersonName"
+                        android:maxLength="30"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
                         android:textColor="@color/white"
@@ -424,6 +429,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:inputType="textEmailAddress"
+                        android:maxLength="30"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
                         android:textColor="@color/white"
@@ -532,6 +538,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:inputType="textPassword"
+                        android:maxLength="15"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
                         android:textColor="@color/white"
@@ -575,9 +582,7 @@
                     app:hintTextColor="@color/grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvLoginText"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/white">
+                    app:layout_constraintTop_toBottomOf="@+id/tvLoginText">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_Reg_reEnterPassword"
@@ -586,6 +591,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:inputType="textPassword"
+                        android:maxLength="15"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
                         android:textColor="@color/white"

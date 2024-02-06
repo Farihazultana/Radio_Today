@@ -49,7 +49,6 @@ class LoginActivity : AppCompatActivity(){
     private lateinit var enteredConfirmedpassword: String
     private lateinit var enteredName: String
     private lateinit var enteredEmail: String
-    private var phoneText: String? = null
 
     private val myIntent by lazy { Intent(this, MainActivity::class.java) }
 
@@ -68,7 +67,6 @@ class LoginActivity : AppCompatActivity(){
         observeEmailLogin()
         binding.btnLogin.setOnClickListener {
             handleLogin()
-            //val loginResult = SharedPreferencesUtil.getData(this,LogInStatus, "")
         }
 
         binding.btnLoginWithGoogle.setOnClickListener {
@@ -81,7 +79,6 @@ class LoginActivity : AppCompatActivity(){
             facebookLoginIntegration()
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile"))
         }
-
 
 
         binding.tvRegister.setOnClickListener {
@@ -116,8 +113,6 @@ class LoginActivity : AppCompatActivity(){
 
         registrationViewModel.fetchRegistrationData(enteredName, enteredEmail, enteredPhone, enteredPassword, enteredConfirmedpassword)
 
-
-
     }
 
     private fun observeRegistration() {
@@ -133,7 +128,6 @@ class LoginActivity : AppCompatActivity(){
 
                     binding.layoutRegistration.visibility = View.GONE
                     binding.layoutLogin.visibility = View.VISIBLE
-
 
                 }
 
