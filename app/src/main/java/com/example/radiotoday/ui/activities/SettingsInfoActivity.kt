@@ -41,8 +41,12 @@ class SettingsInfoActivity : AppCompatActivity() {
                     binding.tvToolBarTitle.text = it.data.content.type
 
                     if (content.isNotEmpty()){
-                        binding.tvInfoData.text = Html.fromHtml("<h2>Title</h2><br><p>$content</p>", Html.FROM_HTML_MODE_COMPACT)
+                        /*binding.tvInfoData.text = Html.fromHtml("<h2>Title</h2><br><p>$content</p>", Html.FROM_HTML_MODE_COMPACT)*/
+                        binding.infoDataWv.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
+                        binding.infoDataWv.setOnLongClickListener { true }
+                        binding.infoDataWv.isLongClickable = false
                         binding.progressbar.visibility = View.GONE
+
                     }
                 }
 
