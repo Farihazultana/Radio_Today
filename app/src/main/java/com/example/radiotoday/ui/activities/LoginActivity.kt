@@ -1,5 +1,6 @@
 package com.example.radiotoday.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -39,8 +40,9 @@ import java.lang.reflect.Type
 
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity(){
+class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+
     private val loginViewModel by viewModels<LoginViewModel>()
     private val registrationViewModel by viewModels<RegistrationViewModel>()
 
@@ -104,104 +106,81 @@ class LoginActivity : AppCompatActivity(){
 
     }
 
-    private fun handleRegistration() {
-        enteredName = binding.inputRegName.text.toString()
-        enteredEmail = binding.inputRegUsername.text.toString()
-        //val validationStatus = emailValidation(enteredEmail)
-        enteredPhone = binding.inputRegPhone.text.toString()
-        enteredPassword = binding.inputRegPassword.text.toString()
-        enteredConfirmedpassword = binding.inputRegReEnterPassword.text.toString()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-        registrationViewModel.fetchRegistrationData(enteredName, enteredEmail, enteredPhone, enteredPassword, enteredConfirmedpassword)
+        when (requestCode) {
+            _requestCodeSignIn -> {
+                if (resultCode == RESULT_OK) {
+                    // User successfully signed in
+                    val task = gsc!!.silentSignIn()
+                    task.addOnCompleteListener { task ->
+                        try {
+                            if (task.isSuccessful) {
+                                // Successful sign-in
+                                updateViewWithAccount()
+                                //Toast.makeText(this@LoginActivity, "Google Sign-In Successful!", Toast.LENGTH_LONG).show()
+                                //finish()
+                                SharedPreferencesUtil.saveData(this, LogInStatus, true)
 
-    }
+                                myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                startActivity(myIntent)
+                            } else {
+                                val exception = task.exception
+                                if (exception is ApiException) {
+                                    when (exception.statusCode) {
+                                        GoogleSignInStatusCodes.SIGN_IN_CANCELLED -> {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "Google Sign-In was canceled by the user",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
 
-    private fun observeRegistration() {
-        registrationViewModel.registrationData.observe(this) {
-            when (it) {
-                is ResultType.Loading -> {
-                    binding.pbRegistration.visibility = View.VISIBLE
-                }
+                                        GoogleSignInStatusCodes.SIGN_IN_FAILED -> {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "Google Sign-In failed. Please try again later.",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
 
-                is ResultType.Success -> {
-                    binding.pbRegistration.visibility = View.GONE
-
-                    val logInResponse = it.data
-                    Toast.makeText(this, logInResponse.message, Toast.LENGTH_SHORT).show()
-
-                    binding.layoutRegistration.visibility = View.GONE
-                    binding.layoutLogin.visibility = View.VISIBLE
-
-                }
-
-                is ResultType.Error -> {
-                    binding.pbRegistration.visibility = View.GONE
-
-                    val gson = Gson()
-                    val type: Type = object : TypeToken<ErrorResponse?>() {}.type
-                    val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
-
-                    Toast.makeText(this, errorResponse.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-
-        }
-    }
-
-    private fun handleLogin() {
-        enteredEmail = binding.inputUsername.text.toString()
-
-        enteredPassword = binding.inputPassword.text.toString()
-        loginViewModel.fetchLoginData(enteredEmail, enteredPassword)
-
-
-    }
-
-    private fun emailValidation(enteredEmail: String): Boolean {
-        val email = enteredEmail.trim()
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        return email.matches(emailPattern.toRegex())
-    }
-
-    private fun observeEmailLogin() {
-        loginViewModel.loginData.observe(this) {
-            when (it) {
-                is ResultType.Loading -> {
-                    binding.pbLogin.visibility = View.VISIBLE
-                }
-
-                is ResultType.Success -> {
-                    binding.pbLogin.visibility = View.GONE
-
-                    val logInResponse = it.data
-                    Toast.makeText(this, logInResponse.message, Toast.LENGTH_SHORT).show()
-
-                    SharedPreferencesUtil.saveData(this, LogInStatus, true)
-                    SharedPreferencesUtil.saveData(this, LogInToken, logInResponse.content.token)
-                    Log.i("Login", "observeEmailLogin: ${logInResponse.content.token}")
-
-
-
-                    myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(myIntent)
-
-
-                }
-
-                is ResultType.Error -> {
-                    binding.pbLogin.visibility = View.GONE
-
-                    val gson = Gson()
-                    val type: Type = object : TypeToken<ErrorResponse?>() {}.type
-                    val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
-
-                    Toast.makeText(this, errorResponse.message, Toast.LENGTH_SHORT).show()
+                                        else -> {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "Google Sign-In encountered an error. Please try again later.",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (apiException: ApiException) {
+                            Log.e(
+                                "GoogleSignIn",
+                                "Error during Google Sign-In: ${apiException.statusCode}",
+                                apiException
+                            )
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "An error occurred during Google Sign-In. Please try again.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Google Sign-In failed. Please try again later.",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
+
+        //facebook
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
-
 
     private fun googleLogIn() {
         // Initialize GoogleSignInOptions
@@ -216,6 +195,33 @@ class LoginActivity : AppCompatActivity(){
         // gsc to get the sign-in intent
         val signInIntent = gsc!!.signInIntent
         startActivityForResult(signInIntent, _requestCodeSignIn)
+    }
+
+    private fun updateViewWithAccount() {
+        val acct = GoogleSignIn.getLastSignedInAccount(this)
+        if (acct != null) {
+            val displayName = acct.displayName
+            val personEmail = acct.email
+            val firstname = acct.givenName
+            val lastname = acct.familyName
+            val imageUri = acct.photoUrl
+            val userID = acct.id
+
+            //val loginData = SocialLoginData(personEmail.toString(), firstname.toString(), lastname.toString(), imageUri.toString(), displayName.toString())
+
+            Log.i(
+                "SignIn",
+                "onActivityResult: $displayName $personEmail, $userID, $firstname, $lastname, $imageUri"
+            )
+
+            //SharedPreferencesUtil.saveData(this@LoginActivity, UsernameInputKey, userID ?: "")
+
+            //SharedPreferencesUtil.saveSocialLogInData(this, loginData)
+
+            //SocialmediaLoginUtil().fetchSocialLogInData(this, "google", userID!!, firstname!!, lastname!!, personEmail!!, imageUri.toString())
+
+
+        }
     }
 
     private fun facebookLoginIntegration() {
@@ -279,117 +285,113 @@ class LoginActivity : AppCompatActivity(){
                     request.parameters = parameters
                     request.executeAsync()
 
+                    SharedPreferencesUtil.saveData(this@LoginActivity, LogInStatus, true)
+
+                    myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(myIntent)
+
                 }
             }
         })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun handleLogin() {
+        enteredEmail = binding.inputUsername.text.toString()
 
-        when (requestCode) {
-            _requestCodeSignIn -> {
-                if (resultCode == RESULT_OK) {
-                    // User successfully signed in
-                    val task = gsc!!.silentSignIn()
-                    task.addOnCompleteListener { task ->
-                        try {
-                            if (task.isSuccessful) {
-                                // Successful sign-in
-                                updateViewWithAccount()
-                                Toast.makeText(
-                                    this@LoginActivity,
-                                    "Google Sign-In Successful!",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                //finish()
-                                myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                startActivity(myIntent)
-                            } else {
-                                val exception = task.exception
-                                if (exception is ApiException) {
-                                    when (exception.statusCode) {
-                                        GoogleSignInStatusCodes.SIGN_IN_CANCELLED -> {
-                                            Toast.makeText(
-                                                this@LoginActivity,
-                                                "Google Sign-In was canceled by the user",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
+        enteredPassword = binding.inputPassword.text.toString()
+        loginViewModel.fetchLoginData(enteredEmail, enteredPassword)
 
-                                        GoogleSignInStatusCodes.SIGN_IN_FAILED -> {
-                                            Toast.makeText(
-                                                this@LoginActivity,
-                                                "Google Sign-In failed. Please try again later.",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
+    }
 
-                                        else -> {
-                                            Toast.makeText(
-                                                this@LoginActivity,
-                                                "Google Sign-In encountered an error. Please try again later.",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
-                                    }
-                                }
-                            }
-                        } catch (apiException: ApiException) {
-                            Log.e(
-                                "GoogleSignIn",
-                                "Error during Google Sign-In: ${apiException.statusCode}",
-                                apiException
-                            )
-                            Toast.makeText(
-                                this@LoginActivity,
-                                "An error occurred during Google Sign-In. Please try again.",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    }
-                } else {
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "Google Sign-In failed. Please try again later.",
-                        Toast.LENGTH_LONG
-                    ).show()
+    private fun observeEmailLogin() {
+        loginViewModel.loginData.observe(this) {
+            when (it) {
+                is ResultType.Loading -> {
+                    binding.pbLogin.visibility = View.VISIBLE
+                }
+
+                is ResultType.Success -> {
+                    binding.pbLogin.visibility = View.GONE
+
+                    val logInResponse = it.data
+                    //Toast.makeText(this, logInResponse.message, Toast.LENGTH_SHORT).show()
+
+                    SharedPreferencesUtil.saveData(this, LogInStatus, true)
+                    SharedPreferencesUtil.saveData(this, LogInToken, logInResponse.content.token)
+                    Log.i("Login", "observeEmailLogin: ${logInResponse.content.token}")
+
+
+                    myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(myIntent)
+
+                }
+
+                is ResultType.Error -> {
+                    binding.pbLogin.visibility = View.GONE
+
+                    val gson = Gson()
+                    val type: Type = object : TypeToken<ErrorResponse?>() {}.type
+                    val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
+
+                    Toast.makeText(this, errorResponse.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
-        //facebook
-        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    private fun handleRegistration() {
+        enteredName = binding.inputRegName.text.toString()
+        enteredEmail = binding.inputRegUsername.text.toString()
+        enteredPhone = binding.inputRegPhone.text.toString()
+        enteredPassword = binding.inputRegPassword.text.toString()
+        enteredConfirmedpassword = binding.inputRegReEnterPassword.text.toString()
 
-    private fun updateViewWithAccount() {
-        val acct = GoogleSignIn.getLastSignedInAccount(this)
-        if (acct != null) {
-            val displayName = acct.displayName
-            val personEmail = acct.email
-            val firstname = acct.givenName
-            val lastname = acct.familyName
-            val imageUri = acct.photoUrl
-            val userID = acct.id
+        registrationViewModel.fetchRegistrationData(
+            enteredName,
+            enteredEmail,
+            enteredPhone,
+            enteredPassword,
+            enteredConfirmedpassword
+        )
 
-            //val loginData = SocialLoginData(personEmail.toString(), firstname.toString(), lastname.toString(), imageUri.toString(), displayName.toString())
+    }
 
-            Log.i(
-                "SignIn",
-                "onActivityResult: $displayName $personEmail, $userID, $firstname, $lastname, $imageUri"
-            )
+    private fun observeRegistration() {
+        registrationViewModel.registrationData.observe(this) {
+            when (it) {
+                is ResultType.Loading -> {
+                    binding.pbRegistration.visibility = View.VISIBLE
+                }
 
-            //SharedPreferencesUtil.saveData(this@LoginActivity, UsernameInputKey, userID ?: "")
+                is ResultType.Success -> {
+                    binding.pbRegistration.visibility = View.GONE
 
-            //SharedPreferencesUtil.saveSocialLogInData(this, loginData)
+                    val logInResponse = it.data
+                    Toast.makeText(this, logInResponse.message, Toast.LENGTH_SHORT).show()
 
-            //SocialmediaLoginUtil().fetchSocialLogInData(this, "google", userID!!, firstname!!, lastname!!, personEmail!!, imageUri.toString())
+                    binding.layoutRegistration.visibility = View.GONE
+                    binding.layoutLogin.visibility = View.VISIBLE
 
+                }
+
+                is ResultType.Error -> {
+                    binding.pbRegistration.visibility = View.GONE
+
+                    val gson = Gson()
+                    val type: Type = object : TypeToken<ErrorResponse?>() {}.type
+                    val errorResponse = gson.fromJson<ErrorResponse>(it.exception.message, type)
+
+                    Toast.makeText(this, errorResponse.message, Toast.LENGTH_SHORT).show()
+                }
+            }
 
         }
     }
 
-
+    private fun emailValidation(enteredEmail: String): Boolean {
+        val email = enteredEmail.trim()
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return email.matches(emailPattern.toRegex())
+    }
 
 }

@@ -26,6 +26,7 @@ import com.example.radiotoday.utils.AppUtils.LogInStatus
 import com.example.radiotoday.utils.OnBackAction
 import com.example.radiotoday.utils.ResultType
 import com.example.radiotoday.utils.SharedPreferencesUtil
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.gson.Gson
@@ -172,29 +173,39 @@ class SettingsFragment : Fragment() {
     }
 
     private fun logout() {
+        //for email login
         val token = SharedPreferencesUtil.getData(requireActivity(), AppUtils.LogInToken, "")
         Log.i("Login", "logout: $token")
-        logoutViewModel.fetchLogoutData("Bearer $token")
+
+        if (token.toString().isNotEmpty()){
+            logoutViewModel.fetchLogoutData("Bearer $token")
+        }
+
 
         //Google Logout
-        /*if (isSignInClientInitialized()) {
+        else if (isSignInClientInitialized()) {
 
             signInClient.signOut().addOnFailureListener {
                 Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
             }.addOnCompleteListener {
-                Toast.makeText(context, "Logout completed!", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Logout completed!", Toast.LENGTH_SHORT).show()
+
+                SharedPreferencesUtil.clear(requireActivity())
+                SharedPreferencesUtil.saveData(requireActivity(), IntroScreenStatus, true)
+                goToMainActivity()
+
                 binding.tvLog.text = "Login"
                 binding.ivLog.setImageResource(R.drawable.ic_login)
             }
 
 
         } else {
-            Toast.makeText(requireContext(), "OneTapClient is not initialized", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(requireContext(), "OneTapClient is not initialized", Toast.LENGTH_SHORT).show()
         }
 
         //Facebook logout
-        LoginManager.getInstance().logOut()*/
+        LoginManager.getInstance().logOut()
+
     }
 
     private fun goToMainActivity() {
