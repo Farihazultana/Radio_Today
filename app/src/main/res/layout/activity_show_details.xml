@@ -160,7 +160,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screenBackgroundColor"
-    tools:context=".ui.activities.ShowDetailsDescriptionActivity">
+    tools:context=".ui.activities.ShowDetailsActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvBannerAudio"

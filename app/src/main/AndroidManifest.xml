@@ -26,9 +26,7 @@
         <activity
             android:name=".ui.activities.PodcastActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.activities.ShowDetailsDescriptionActivity"
-            android:exported="false" />
+
         <activity
             android:name=".ui.activities.IntroScreenActivity"
             android:exported="false"
