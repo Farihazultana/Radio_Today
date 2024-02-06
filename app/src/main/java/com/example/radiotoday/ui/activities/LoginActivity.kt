@@ -61,13 +61,16 @@ class LoginActivity : AppCompatActivity() {
     private val callbackManager = CallbackManager.Factory.create()
 
 
+    private var loginObserve = false
+    private var signUpObserve = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        observeEmailLogin()
         binding.btnLogin.setOnClickListener {
-            observeEmailLogin()
             handleLogin()
         }
 
@@ -88,9 +91,8 @@ class LoginActivity : AppCompatActivity() {
             binding.layoutRegistration.visibility = View.VISIBLE
         }
 
-
+        observeRegistration()
         binding.btnRegistration.setOnClickListener {
-            observeRegistration()
             handleRegistration()
         }
 
@@ -301,13 +303,18 @@ class LoginActivity : AppCompatActivity() {
         enteredPassword = binding.inputPassword.text.toString()
         loginViewModel.fetchLoginData(enteredEmail, enteredPassword)
 
+        loginObserve = true
+
     }
 
     private fun observeEmailLogin() {
         loginViewModel.loginData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-                    binding.pbLogin.visibility = View.VISIBLE
+                    if (loginObserve){
+                        binding.pbLogin.visibility = View.VISIBLE
+                    }
+
                 }
 
                 is ResultType.Success -> {
@@ -354,13 +361,18 @@ class LoginActivity : AppCompatActivity() {
             enteredConfirmedpassword
         )
 
+        signUpObserve = true
+
     }
 
     private fun observeRegistration() {
         registrationViewModel.registrationData.observe(this) {
             when (it) {
                 is ResultType.Loading -> {
-                    binding.pbRegistration.visibility = View.VISIBLE
+                    if (signUpObserve){
+                        binding.pbRegistration.visibility = View.VISIBLE
+                    }
+
                 }
 
                 is ResultType.Success -> {
