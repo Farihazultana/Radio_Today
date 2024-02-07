@@ -21,12 +21,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.PodcastDetailByCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.SettingsInfoActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.PodcastActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.activities.IntroScreenActivity"
             android:exported="false"

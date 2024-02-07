@@ -1,5 +1,6 @@
 package com.example.radiotoday.data.models
 
+
 data class MainContent(
     val current_page: Int,
     val first: String,
@@ -27,4 +28,5 @@ data class MainContent(
 
     val type: String,
     val value: String
+
 )

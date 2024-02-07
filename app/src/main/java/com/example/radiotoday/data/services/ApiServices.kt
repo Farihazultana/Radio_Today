@@ -68,7 +68,28 @@ interface ApiServices {
         @Path("section_code") section_code: String,
         @Field("empty") empty: String,
 
+
     ): Response<HomeResponse>
+
+
+    @FormUrlEncoded
+    @POST("api/podcasts/type")
+    @Headers("Accept: application/json")
+    suspend fun postPosdcastDetailByCategoryData(
+        /*@Header("fromsrc") fromsrc : String,
+        @Header("deviceId") deviceId : String,
+        @Header("softwareVersion") softwareVersion : String,
+        @Header("brand") brand : String,
+        @Header("model") model : String,
+        @Header("sdkVersion") sdkVersion : String,
+        @Header("versionCode") versionCode : String,
+        @Header("release") release : String,*/
+
+        @Field("type") category: String,
+        @Field("page") page: String,
+
+        ): Response<MainResponse>
+
 
     @FormUrlEncoded
     @POST("api/{section_code}/{id}")

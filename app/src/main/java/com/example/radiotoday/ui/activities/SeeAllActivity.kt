@@ -31,7 +31,6 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
     private val podcastViewModel by viewModels<SeeAllPodcastViewModel>()
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var sectionCode: String
-    private var id: String? = null
     private lateinit var seeAllTitle: String
     private lateinit var contentType: String
 
@@ -56,9 +55,9 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
         //SeeAll Adapter & recyclerview
         seeAllAdapter = SeeAllAdapter(this, this, sectionCode)
         if (sectionCode == "promotions") {
-            binding.rvSeeAll.layoutManager = CustomGridLayoutManager(2)
+            binding.rvSeeAll.layoutManager = customGridLayoutManager(2)
         } else {
-            binding.rvSeeAll.layoutManager = CustomGridLayoutManager(3)
+            binding.rvSeeAll.layoutManager = customGridLayoutManager(3)
         }
         binding.rvSeeAll.adapter = seeAllAdapter
 
@@ -80,7 +79,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
             if(sectionCode == "podcasts"){
                 showSeeAllPodcast()
             }else{
-                showSeeAlll()
+                showSeeAll()
             }
 
         }
@@ -113,7 +112,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
         }
     }
 
-    private fun showSeeAlll() {
+    private fun showSeeAll() {
         loadSeeAllData()  //Initial data load
 
         binding.rvSeeAll.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -137,7 +136,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
         })
     }
 
-    private fun CustomGridLayoutManager(span: Int): GridLayoutManager {
+    private fun customGridLayoutManager(span: Int): GridLayoutManager {
         layoutManager = GridLayoutManager(this, span)
         return layoutManager
     }
@@ -174,17 +173,13 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
                     if (currentPage == 1) {
                         seeAllAdapter.seeAllPlaylistData = playlistContent as ArrayList<SubContent>
 
-                        for (item in playlistContent){
-                            id = item.id
-                        }
+
                     } else {
                         if (!seeAllAdapter.seeAllPlaylistData.containsAll(playlistContent)) {
 
                             seeAllAdapter.seeAllPlaylistData = seeAllAdapter.seeAllPlaylistData.plus(playlistContent) as ArrayList<SubContent>
 
-                            for (item in playlistContent){
-                                id = item.id
-                            }
+
 
                         }
                     }
@@ -223,11 +218,12 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
 
     }
 
-    override fun onItemClickListener(
-        position: Int,
-        currentItem: SubContent,
-        currentSection: String
-    ) {
+    override fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
+        val intent = Intent(this, ShowDetailsActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.putExtra("section_code", sectionCode)
+        intent.putExtra("id", currentItem.id)
+        startActivity(intent)
 
     }
 

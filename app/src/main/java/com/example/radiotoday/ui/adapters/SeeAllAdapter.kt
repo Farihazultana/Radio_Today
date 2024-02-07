@@ -18,6 +18,7 @@ class SeeAllAdapter (private val context: Context, private val listener: ItemCli
     val TYPE_CONTENT = 1
     val TYPE_PROMOTIONS = 2
     val TYPE_ANNOUNCERS = 3
+
     inner class SeeAllViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val posterImage: ImageView = itemView.findViewById(R.id.iv_ChildContent)
         val title: TextView = itemView.findViewById(R.id.title_textView)
