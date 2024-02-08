@@ -353,13 +353,12 @@ class LoginActivity : AppCompatActivity() {
         enteredPassword = binding.inputRegPassword.text.toString()
         enteredConfirmedpassword = binding.inputRegReEnterPassword.text.toString()
 
-        registrationViewModel.fetchRegistrationData(
-            enteredName,
-            enteredEmail,
-            enteredPhone,
-            enteredPassword,
-            enteredConfirmedpassword
-        )
+        if(enteredName.length != 3){
+            Toast.makeText(this, "Please Enter a Valid Name", Toast.LENGTH_LONG).show()
+        }else{
+            registrationViewModel.fetchRegistrationData(enteredName, enteredEmail, enteredPhone, enteredPassword, enteredConfirmedpassword)
+        }
+
 
         signUpObserve = true
 
