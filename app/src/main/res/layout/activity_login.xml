@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -307,7 +307,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/ivBackgroundSignUp"
@@ -429,6 +429,7 @@
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
                     app:endIconMode="clear_text"
+                    app:endIconTint="@color/white"
                     app:hintTextColor="@color/grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -483,6 +484,7 @@
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
                     app:endIconMode="clear_text"
+                    app:endIconTint="@color/white"
                     app:hintTextColor="@color/grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
