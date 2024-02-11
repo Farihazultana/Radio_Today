@@ -15,10 +15,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.radiotoday.R
 import com.example.radiotoday.audioPlayer.MusicService
 import com.example.radiotoday.audioPlayer.PlayerController
+import com.example.radiotoday.data.models.MainResponse
+import com.example.radiotoday.data.models.SubContent
+import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.FragmentAudioBinding
 import com.example.radiotoday.ui.activities.LoginActivity
 import com.example.radiotoday.ui.adapters.AudioPlaylistAdapter
@@ -32,9 +37,16 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
     private lateinit var binding: FragmentAudioBinding
     private lateinit var audioAdapter: AudioPlaylistAdapter
     private val audioViewModel by viewModels<AudioViewModel>()
+    private lateinit var layoutManager: GridLayoutManager
+
+    private lateinit var playlistData: SeeAllResponse
 
     var mPlayerController: PlayerController? = null
     private var mMusicService: MusicService? = null
+
+    private var isLoading = false
+    private var isLastpage = false
+    private var currentPage = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,53 +74,32 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         binding.tvAudioIntroDescription.setShowLessTextColor(Color.RED)
 
         audioAdapter = AudioPlaylistAdapter(requireContext(), this)
-        binding.rvPlaylist.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvPlaylist.layoutManager = customGridLayoutManager(1)
         binding.rvPlaylist.adapter = audioAdapter
 
-        audioViewModel.fetchAudioPlaylistData("")
-        audioViewModel.audioPlaylistData.observe(requireActivity()){
-            when(it){
-                is ResultType.Loading -> {
-                    binding.shimmerFrameLayout.visibility = View.VISIBLE
-                }
-                is ResultType.Success -> {
-                    val playlistData = it.data
-                    audioAdapter.audioPlaylistData = playlistData.contents
-                    audioAdapter.notifyDataSetChanged()
-                    binding.shimmerFrameLayout.visibility  = View.GONE
-                }
+        observeSeeAllData()
 
-                else -> {}
-            }
-        }
 
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.playitem_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+    override fun onResume() {
+        isLoading = false
+        isLastpage = false
+        currentPage = 1
 
-            R.id.item_share ->{
-                return true
-            }
-            R.id.item_download ->{
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+        showSeeAll()
+
+        super.onResume()
     }
 
     override fun onCardClickListener(position: Int) {
         Log.d("AudioFragment", "Clicked on position: $position")
 
         if (position >= 0 && position < audioAdapter.itemCount) {
-            val intent = Intent(requireContext(), LoginActivity::class.java)
+            /*val intent = Intent(requireContext(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            startActivity(intent)*/
         } else {
             Log.e("AudioFragment", "Invalid position: $position")
         }
@@ -116,6 +107,82 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         audioAdapter.notifyDataSetChanged()
     }
 
+    private fun loadSeeAllData() {
+        audioViewModel.fetchAudioPlaylistData(currentPage.toString())
+    }
+
+    private fun showSeeAll() {
+        loadSeeAllData()  //Initial data load
+
+        binding.rvPlaylist.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                if (!isLoading && !isLastpage) {
+                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
+                        isLoading = true
+                        //currentPage++
+                        loadSeeAllData()
+                    }
+                }
+            }
+        })
+    }
+
+    private fun observeSeeAllData() {
+        audioViewModel.audioPlaylistData.observe(viewLifecycleOwner) {
+            when (it) {
+                is ResultType.Loading -> {
+
+                    binding.shimmerFrameLayout.visibility = View.VISIBLE
+
+                }
+
+                is ResultType.Success -> {
+                    binding.shimmerFrameLayout.visibility = View.GONE
+                    playlistData = it.data
+
+                    val playlistContent = playlistData.content.content
+
+                    if (currentPage == 1) {
+                        audioAdapter.audioPlaylistData = playlistContent
+
+
+                    } else {
+                        if (!audioAdapter.audioPlaylistData.containsAll(playlistContent)) {
+
+                            audioAdapter.audioPlaylistData  =
+                                audioAdapter.audioPlaylistData .plus(playlistContent) as ArrayList<SubContent>
+
+
+                        }
+                    }
+
+
+                    isLoading = false
+                    //checking last page
+                    isLastpage = playlistContent.isEmpty()
+                    currentPage++
+                    audioAdapter.notifyDataSetChanged()
+                }
+
+                is ResultType.Error -> {
+                    val errorMessage = it.exception.message
+                    Log.e("AudioFragment", "Error fetching playlist data: $errorMessage")
+                }
+
+            }
+        }
+    }
+
+    private fun customGridLayoutManager(span: Int): GridLayoutManager {
+        layoutManager = GridLayoutManager(requireActivity(), span)
+        return layoutManager
+    }
     companion object{
 
         lateinit var onBackAction: OnBackAction

@@ -162,10 +162,10 @@ interface ApiServices {
 
 
     @FormUrlEncoded
-    @POST("bangladhol_json_app.php")
+    @POST("api/songs")
     suspend fun postAudioPlaylistData(
-        @Field("userId") userId: String
-    ): Response<AudioResponse>
+        @Field("page") page: String,
+    ): Response<SeeAllResponse>
 
 
     @FormUrlEncoded
