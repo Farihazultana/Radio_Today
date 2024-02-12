@@ -58,18 +58,24 @@
             </androidx.cardview.widget.CardView>
 
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="165dp" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvIntroAudio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="52dp"
-                android:layout_marginEnd="52dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:backgroundTint="@color/baseThemeColor"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/cvBannerAudio"
                 app:layout_constraintEnd_toEndOf="@+id/cvBannerAudio"
                 app:layout_constraintStart_toStartOf="@+id/cvBannerAudio"
-                app:layout_constraintTop_toBottomOf="@+id/cvBannerAudio">
+                app:layout_constraintTop_toBottomOf="@+id/guideline">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -105,7 +111,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvAudioIntroTitle" />
-
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
