@@ -1,6 +1,7 @@
 package com.example.radiotoday.ui.fragments
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class SongsFragment : BottomSheetDialogFragment() {
 
     lateinit var binding: FragmentSongsBinding
+
+    var dismissListener: SongDismissListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -106,6 +109,16 @@ class SongsFragment : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireContext(), theme)
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        dismissListener?.onSongDismissListener()
+        super.onDismiss(dialog)
+    }
+
+    interface SongDismissListener {
+        fun onSongDismissListener()
+
     }
 
 

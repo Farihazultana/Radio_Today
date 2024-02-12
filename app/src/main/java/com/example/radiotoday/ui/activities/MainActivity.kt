@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickListener{
+class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickListener, SongsFragment.SongDismissListener{
 
     private lateinit var binding: ActivityMainBinding
 
@@ -35,11 +35,12 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
     private var videoFragment = VideoFragment()
     private var newsFragment = NewsFragment()
     private var settingsFragment = SettingsFragment()
-    private var songsFragment = SongsFragment()
 
     private var doubleBackToExitPressedOnce = true
 
     private lateinit var fragmentManager: FragmentManager
+
+    private var playerClicked = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -61,7 +62,9 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
 
 
         binding.layoutMiniPlayer.setOnClickListener {
-            gotoPlayer()
+            if (!playerClicked){
+                gotoPlayer()
+            }
         }
 
         getFCMToken()
@@ -133,14 +136,20 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
                 finish()
             }
         }
+
     }
 
     override fun onSongClickListener() {
-        gotoPlayer()
+        if (!playerClicked){
+            gotoPlayer()
+        }
+
     }
 
     private fun gotoPlayer() {
+        playerClicked = true
         val songsFragment = SongsFragment()
+        songsFragment.dismissListener = this
         songsFragment.show(supportFragmentManager, songsFragment.tag)
     }
 
@@ -156,6 +165,10 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
 
             }
         }
+    }
+
+    override fun onSongDismissListener() {
+        playerClicked = false
     }
 
 }
