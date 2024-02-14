@@ -1,5 +1,6 @@
 package com.example.radiotoday.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -71,12 +72,30 @@ class ShowDetailsActivity : AppCompatActivity(), ShowDetailsAdapter.CardClickLis
 
                     binding.shimmerFrameLayout.visibility = View.GONE
 
+                    binding.ivShare.setOnClickListener {
+                        shareData(playlistData)
+                    }
+
                 }
 
                 else -> {}
             }
         }
 
+    }
+
+    private fun shareData(playlistData: SubContent) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            if (playlistData.schedule != null){
+                putExtra(Intent.EXTRA_TEXT, playlistData.title + "\n" + playlistData.description + "\n" + playlistData.schedule)
+            }else{
+                putExtra(Intent.EXTRA_TEXT, playlistData.title + "\n" + playlistData.description + " ")
+            }
+
+            type = "text/plain"
+        }
+        startActivity(sendIntent)
     }
 
     override fun onCardClickListener(position: Int, playlistItem: SubContent) {
