@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivitySplashBinding
@@ -25,6 +26,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val type  = intent.getStringExtra("FCM")
+        Log.i("FCM", "onNewIntent Splash: $type")
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
@@ -50,4 +54,12 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        val type  = intent.getStringExtra("FCM")
+        Log.i("FCM", "onNewIntent Splash: $type")
+    }
+
 }

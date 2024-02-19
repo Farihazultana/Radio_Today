@@ -1,13 +1,17 @@
 package com.example.radiotoday
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.net.ConnectivityManager
+import android.os.Build
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class RadioTodayApplication : Application() {
 
+    val FCM_CHANNEL_ID = "Notify"
     private val applicationName: String
         get() {
             val stringId = this.applicationInfo.labelRes
@@ -21,6 +25,16 @@ class RadioTodayApplication : Application() {
         }
         Companion.applicationContext = applicationContext
         val appName = applicationName
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val fcmChannel = NotificationChannel(
+                FCM_CHANNEL_ID,
+                "FCM_Channel",
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(fcmChannel)
+        }
     }
 
     private val isNetworkConnected: Boolean

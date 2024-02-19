@@ -61,7 +61,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAudioBinding.inflate(layoutInflater,container,false)
+        binding = FragmentAudioBinding.inflate(layoutInflater, container, false)
 
         binding.ivBack.setOnClickListener {
             onBackAction.onBackListener()
@@ -93,19 +93,6 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         super.onResume()
     }
 
-    override fun onCardClickListener(position: Int) {
-        Log.d("AudioFragment", "Clicked on position: $position")
-
-        if (position >= 0 && position < audioAdapter.itemCount) {
-            /*val intent = Intent(requireContext(), LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)*/
-        } else {
-            Log.e("AudioFragment", "Invalid position: $position")
-        }
-
-        audioAdapter.notifyDataSetChanged()
-    }
 
     private fun loadSeeAllData() {
         audioViewModel.fetchAudioPlaylistData(currentPage.toString())
@@ -155,8 +142,8 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
                     } else {
                         if (!audioAdapter.audioPlaylistData.containsAll(playlistContent)) {
 
-                            audioAdapter.audioPlaylistData  =
-                                audioAdapter.audioPlaylistData .plus(playlistContent) as ArrayList<SubContent>
+                            audioAdapter.audioPlaylistData =
+                                audioAdapter.audioPlaylistData.plus(playlistContent) as ArrayList<SubContent>
 
 
                         }
@@ -183,10 +170,26 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         layoutManager = GridLayoutManager(requireActivity(), span)
         return layoutManager
     }
-    companion object{
+
+    override fun onCardClickListener(position: Int) {
+        Log.d("AudioFragment", "Clicked on position: $position")
+
+        if (position >= 0 && position < audioAdapter.itemCount) {
+            /*val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)*/
+
+        } else {
+            Log.e("AudioFragment", "Invalid position: $position")
+        }
+
+        audioAdapter.notifyDataSetChanged()
+    }
+
+    companion object {
 
         lateinit var onBackAction: OnBackAction
-        fun onBackAction(setBackAction: OnBackAction){
+        fun onBackAction(setBackAction: OnBackAction) {
             this.onBackAction = setBackAction
         }
 

@@ -26,7 +26,6 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
     private lateinit var parentHomeAdapter: ParentHomeAdapter
     private val homeViewModel by viewModels<HomeViewModel>()
     private lateinit var binding: FragmentHomeBinding
-    lateinit var sectionCode: String
 
     var songClickListener: SongClickListener? = null
 
@@ -37,7 +36,6 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
 
-        val currentHour = Calendar.getInstance().get(Calendar.AM)
 
         val greeting = ShowGreetingsMsg()
         Log.i("Greeting", "onCreateView: $greeting")

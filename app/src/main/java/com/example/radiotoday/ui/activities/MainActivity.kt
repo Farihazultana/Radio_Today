@@ -1,9 +1,11 @@
 package com.example.radiotoday.ui.activities
 
+import android.R.attr.type
+import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -67,9 +69,12 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
             }
         }
 
-        getFCMToken()
+        getFCMToken(intent)
+        val value = intent.getStringExtra("FCM")
+        Log.i("FCM", "getFCMToken value Main: $value")
 
     }
+
 
     private fun handleNavigation(it: MenuItem) {
         when (it.itemId) {
@@ -153,13 +158,21 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
         songsFragment.show(supportFragmentManager, songsFragment.tag)
     }
 
-    private fun getFCMToken() {
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        val type  = intent.getStringExtra("FCM")
+        Log.i("FCM", "onNewIntent Main: $type")
+    }
+
+    private fun getFCMToken(intent: Intent?) {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val token = task.result
                 Log.i("NotificationFCM", "getFCMToken: $token")
                 var deviceID = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
                 Log.i("NotificationFCM", "Device ID: $deviceID ")
+
 
             } else {
 
