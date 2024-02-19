@@ -5,10 +5,12 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.radiotoday.R
+import com.example.radiotoday.ui.activities.AlarmActivity
 import com.example.radiotoday.ui.activities.MainActivity
 import com.example.radiotoday.ui.activities.ProfileActivity
 import com.example.radiotoday.ui.activities.SplashActivity
@@ -37,10 +39,11 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         Log.i("FCM", "getFirebaseMessage: $type")
 
         val intent = when (type) {
-            "podcast" -> Intent(applicationContext, ProfileActivity::class.java)
-            "announcers" -> Intent(applicationContext, SplashActivity::class.java)
+            "profile" -> Intent(applicationContext, ProfileActivity::class.java)
+            "alarm" -> Intent(applicationContext, AlarmActivity::class.java)
             else -> Intent(applicationContext, SplashActivity::class.java)
         }
+
 
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,

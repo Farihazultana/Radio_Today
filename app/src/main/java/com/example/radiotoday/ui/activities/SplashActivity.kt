@@ -2,9 +2,9 @@ package com.example.radiotoday.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivitySplashBinding
@@ -27,8 +27,16 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val type  = intent.getStringExtra("FCM")
+        val type  = intent.getStringExtra("section")
         Log.i("FCM", "onNewIntent Splash: $type")
+
+        val intent = when (type) {
+            "profile" -> Intent(applicationContext, ProfileActivity::class.java)
+            "alarm" -> Intent(applicationContext, AlarmActivity::class.java)
+            else -> Intent(applicationContext, SplashActivity::class.java)
+        }
+
+        startActivity(intent)
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
