@@ -3,6 +3,8 @@ package com.example.radiotoday.ui.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -30,15 +32,15 @@ class SplashActivity : AppCompatActivity() {
         val type  = intent.getStringExtra("section")
         Log.i("FCM", "onNewIntent Splash: $type")
 
-        val intent = when (type) {
-            "profile" -> Intent(applicationContext, ProfileActivity::class.java)
-            "alarm" -> Intent(applicationContext, AlarmActivity::class.java)
-            else -> Intent(applicationContext, SplashActivity::class.java)
+        if (!type.isNullOrEmpty()) {
+            val intent = when (type) {
+                "profile" -> Intent(applicationContext, ProfileActivity::class.java)
+                "alarm" -> Intent(applicationContext, AlarmActivity::class.java)
+                else -> Intent(applicationContext, SplashActivity::class.java)
+            }
+
+            startActivity(intent)
         }
-
-        startActivity(intent)
-
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         calendar = Calendar.getInstance()
         val year: Int = calendar.get(Calendar.YEAR)
@@ -46,9 +48,7 @@ class SplashActivity : AppCompatActivity() {
 
         binding.footer.text = getString(R.string.footer_text, year.toString())
 
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(splashDelay)
-
+        Handler(Looper.getMainLooper()).postDelayed({
             val introScreenShown = SharedPreferencesUtil.getData(this@SplashActivity, AppUtils.IntroScreenStatus, false)
 
             if (introScreenShown != true) {
@@ -56,11 +56,12 @@ class SplashActivity : AppCompatActivity() {
 
                 startActivity(intent)
             } else {
+
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
                 startActivity(intent)
             }
             finish()
-        }
+        }, splashDelay)
     }
 
     override fun onNewIntent(intent: Intent) {

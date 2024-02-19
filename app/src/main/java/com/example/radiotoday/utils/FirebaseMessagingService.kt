@@ -5,13 +5,11 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.radiotoday.R
 import com.example.radiotoday.ui.activities.AlarmActivity
-import com.example.radiotoday.ui.activities.MainActivity
 import com.example.radiotoday.ui.activities.ProfileActivity
 import com.example.radiotoday.ui.activities.SplashActivity
 import com.google.firebase.messaging.FirebaseMessagingService
