@@ -194,4 +194,9 @@ class AlarmActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }

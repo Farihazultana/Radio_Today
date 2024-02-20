@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
         }
 
         getFCMToken(intent)
-        val value = intent.getStringExtra("FCM")
+        val value = intent.getStringExtra("section")
         Log.i("FCM", "getFCMToken value Main: $value")
 
     }
@@ -126,9 +126,10 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        if (activeFragment != homeFragment){
+        if (activeFragment != homeFragment ){
             replaceFragment(homeFragment)
             binding.bottomNavigationView.selectedItemId = R.id.home
+
         } else{
             if (doubleBackToExitPressedOnce) {
                 doubleBackToExitPressedOnce = false
@@ -156,13 +157,6 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
         val songsFragment = SongsFragment()
         songsFragment.dismissListener = this
         songsFragment.show(supportFragmentManager, songsFragment.tag)
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        val type  = intent.getStringExtra("FCM")
-        Log.i("FCM", "onNewIntent Main: $type")
     }
 
     private fun getFCMToken(intent: Intent?) {

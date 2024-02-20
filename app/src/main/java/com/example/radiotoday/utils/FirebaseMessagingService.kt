@@ -52,7 +52,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
 
-        intent.putExtra("FCM", type)
+        intent.putExtra("section", type)
 
         val builder = NotificationCompat.Builder(this, "Notify")
             .setSmallIcon(R.drawable.ic_notification)

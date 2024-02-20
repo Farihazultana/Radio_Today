@@ -32,19 +32,8 @@ class SplashActivity : AppCompatActivity() {
         val type  = intent.getStringExtra("section")
         Log.i("FCM", "onNewIntent Splash: $type")
 
-        if (!type.isNullOrEmpty()) {
-            val intent = when (type) {
-                "profile" -> Intent(applicationContext, ProfileActivity::class.java)
-                "alarm" -> Intent(applicationContext, AlarmActivity::class.java)
-                else -> Intent(applicationContext, SplashActivity::class.java)
-            }
-
-            startActivity(intent)
-        }
-
         calendar = Calendar.getInstance()
         val year: Int = calendar.get(Calendar.YEAR)
-
 
         binding.footer.text = getString(R.string.footer_text, year.toString())
 
@@ -53,16 +42,27 @@ class SplashActivity : AppCompatActivity() {
 
             if (introScreenShown != true) {
                 val intent = Intent(this@SplashActivity, IntroScreenActivity::class.java)
-
                 startActivity(intent)
             } else {
 
-                val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                startActivity(intent)
+                if (!type.isNullOrEmpty()) {
+                    val intent = when (type) {
+                        "profile" -> Intent(applicationContext, ProfileActivity::class.java)
+                        "alarm" -> Intent(applicationContext, AlarmActivity::class.java)
+                        else -> Intent(applicationContext, MainActivity::class.java)
+                    }
+                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                    startActivity(intent)
+                }
             }
+
             finish()
         }, splashDelay)
     }
+
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)

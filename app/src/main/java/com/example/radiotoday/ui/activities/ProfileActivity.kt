@@ -1,17 +1,23 @@
 package com.example.radiotoday.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityProfileBinding
+import com.example.radiotoday.ui.fragments.HomeFragment
+import com.example.radiotoday.utils.OnBackAction
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity(){
     private lateinit var binding: ActivityProfileBinding
     lateinit var name : String
     private lateinit var email : String
     private lateinit var phone : String
     private lateinit var address : String
+
+    private var homeFragment = HomeFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -83,4 +89,24 @@ class ProfileActivity : AppCompatActivity() {
         Log.i("profile", "onCreate: $name")
 
     }
+
+    override fun onBackPressed() {
+
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        startActivity(intent)
+        finish()
+        super.onBackPressed()
+    }
+
+
+    companion object {
+
+        lateinit var onBackAction: OnBackAction
+        fun onBackAction(setBackAction: OnBackAction) {
+            this.onBackAction = setBackAction
+        }
+
+    }
+
 }
