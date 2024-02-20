@@ -1,6 +1,5 @@
 package com.example.radiotoday.ui.activities
 
-import android.R.attr.type
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -48,6 +47,19 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val type  = intent.getStringExtra("FCMType")
+        Log.i("FCMType", "onNewIntent Main: $type")
+        if (!type.isNullOrEmpty()) {
+            val intent = when (type) {
+                "profile" -> Intent(applicationContext, ProfileActivity::class.java)
+                "alarm" -> Intent(applicationContext, AlarmActivity::class.java)
+                else -> Intent(applicationContext, MainActivity::class.java)
+            }
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+            finish()
+        }
+
         AudioFragment.onBackAction(this)
         VideoFragment.onBackAction(this)
         SettingsFragment.onBackAction(this)
@@ -73,6 +85,22 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
         val value = intent.getStringExtra("section")
         Log.i("FCM", "getFCMToken value Main: $value")
 
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        val type = intent.getStringExtra("FCMType")
+        Log.i("FCMType", "onNewIntent Main: $type")
+        if (!type.isNullOrEmpty()) {
+            val redirectIntent = when (type) {
+                "profile" -> Intent(applicationContext, ProfileActivity::class.java)
+                "alarm" -> Intent(applicationContext, AlarmActivity::class.java)
+                else -> Intent(applicationContext, MainActivity::class.java)
+            }
+            redirectIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(redirectIntent)
+            finish()
+        }
     }
 
 

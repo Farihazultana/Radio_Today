@@ -99,14 +99,4 @@ class ProfileActivity : AppCompatActivity(){
         super.onBackPressed()
     }
 
-
-    companion object {
-
-        lateinit var onBackAction: OnBackAction
-        fun onBackAction(setBackAction: OnBackAction) {
-            this.onBackAction = setBackAction
-        }
-
-    }
-
 }

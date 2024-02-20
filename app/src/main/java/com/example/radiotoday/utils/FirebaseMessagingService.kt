@@ -10,6 +10,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.radiotoday.R
 import com.example.radiotoday.ui.activities.AlarmActivity
+import com.example.radiotoday.ui.activities.MainActivity
 import com.example.radiotoday.ui.activities.ProfileActivity
 import com.example.radiotoday.ui.activities.SplashActivity
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -36,23 +37,25 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         val type = data["section"]
         Log.i("FCM", "getFirebaseMessage: $type")
 
-        val intent = when (type) {
-            "profile" -> Intent(applicationContext, ProfileActivity::class.java)
-            "alarm" -> Intent(applicationContext, AlarmActivity::class.java)
-            else -> Intent(applicationContext, SplashActivity::class.java)
-        }
+        /*val intent = when (type) {
+            "profile" -> Intent(applicationContext, MainActivity::class.java)
+            "alarm" -> Intent(applicationContext, MainActivity::class.java)
+            else -> Intent(applicationContext, MainActivity::class.java)
+        }*/
 
+        val intent = Intent(applicationContext, MainActivity::class.java).apply {
+            putExtra("FCMType", type)
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
 
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
             0,
             intent,
-            PendingIntent.FLAG_MUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
 
-        intent.putExtra("section", type)
 
         val builder = NotificationCompat.Builder(this, "Notify")
             .setSmallIcon(R.drawable.ic_notification)

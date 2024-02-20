@@ -83,7 +83,6 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="false"
-            android:launchMode="singleTop"
             android:screenOrientation="sensorPortrait" />
 
         <receiver android:name=".utils.AlarmReceiver" />

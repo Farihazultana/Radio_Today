@@ -51,24 +51,17 @@ class SplashActivity : AppCompatActivity() {
                         "alarm" -> Intent(applicationContext, AlarmActivity::class.java)
                         else -> Intent(applicationContext, MainActivity::class.java)
                     }
-                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    intent.putExtra("FCMType", type)
                     startActivity(intent)
                 } else {
                     val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                    intent.putExtra("FCMType", type)
                     startActivity(intent)
                 }
             }
 
             finish()
         }, splashDelay)
-    }
-
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        val type  = intent.getStringExtra("FCM")
-        Log.i("FCM", "onNewIntent Splash: $type")
     }
 
 }
