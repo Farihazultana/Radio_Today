@@ -119,11 +119,15 @@ class SettingsFragment : Fragment() {
         }
     }
     private fun checkLogInStatus() {
-        if (SharedPreferencesUtil.getData(requireActivity(), LogInStatus, false) as Boolean){
+        val logInStatusString = SharedPreferencesUtil.getData(requireActivity(), LogInStatus, "false") as String
+        val isLoggedIn = logInStatusString.toBoolean()
+
+
+        if (isLoggedIn) {
             binding.tvLog.text = getString(R.string.logout)
             binding.ivLog.setImageResource(R.drawable.ic_logout)
             binding.cvProfileImg.visibility = View.VISIBLE
-        } else{
+        } else {
             binding.tvLog.text = getString(R.string.login)
             binding.ivLog.setImageResource(R.drawable.ic_login)
             binding.cvProfileImg.visibility = View.GONE
@@ -131,7 +135,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun actionLoginLogout() {
-        if (SharedPreferencesUtil.getData(requireActivity(), LogInStatus, false) as Boolean) {
+        val logInStatusString = SharedPreferencesUtil.getData(requireActivity(), LogInStatus, "false") as String
+        val isLoggedIn = logInStatusString.toBoolean()
+        if (isLoggedIn) {
             val dialog = AppUtils.setDialog(requireActivity(), R.layout.logout_dialog)
 
             val btnLogout = dialog.findViewById<Button>(R.id.btnLogout)
