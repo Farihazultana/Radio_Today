@@ -39,11 +39,13 @@ class SongsFragment : BottomSheetDialogFragment() {
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.ivPlayerBG)*/
 
-        Glide.with(this)
+        /*Glide.with(this)
             .load(R.drawable.album_cover)
             .placeholder(R.drawable.album_cover)
             .transform(RoundedCorners(16))
-            .into(binding.imageView)
+            .into(binding.imageView)*/
+
+
 
         binding.ivPlay.setOnClickListener {
             binding.seekbarLive.visibility = View.VISIBLE

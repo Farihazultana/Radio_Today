@@ -49,6 +49,7 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-messaging:23.4.0")
+    implementation("androidx.media3:media3-ui:1.3.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -89,11 +90,11 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.15.1")
 
     // exo player
-    implementation ("com.google.android.exoplayer:exoplayer:2.16.0")
-    implementation ("com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14")
-    implementation ("com.google.android.exoplayer:extension-mediasession:2.16.0")
-    implementation ("com.google.android.exoplayer:extension-cronet:2.16.0")
-    implementation ("com.google.android.exoplayer:extension-ima:2.16.0")
+    implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
+
+    implementation ("androidx.media3:media3-exoplayer:1.2.0")
+    implementation ("androidx.media3:media3-exoplayer-dash:1.2.0")
+    implementation ("androidx.media3:media3-ui:1.2.0")
 
     //Google Sign In
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
