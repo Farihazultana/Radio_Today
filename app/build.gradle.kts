@@ -62,13 +62,13 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.44.1")
+    implementation("com.google.dagger:hilt-android:2.44.2")
     kapt("com.google.dagger:hilt-android-compiler:2.44.1")
 
     //retrofit, gson
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
@@ -76,14 +76,14 @@ dependencies {
     implementation ("com.facebook.shimmer:shimmer:0.5.0")
 
     //ViewModel , livedata
-    val lifecycle_version = "2.6.2"
+    val lifecycle_version = "2.7.0"
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     // dependency for slider view
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
 
-    implementation ("androidx.activity:activity-ktx:1.8.0")
+    implementation ("androidx.activity:activity-ktx:1.8.2")
     implementation ("androidx.fragment:fragment-ktx:1.6.2")
 
     //Glide
@@ -91,13 +91,18 @@ dependencies {
 
     // exo player
     implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
+    implementation ("com.google.android.exoplayer:exoplayer-core:2.19.1")
+    implementation ("androidx.media3:media3-exoplayer:1.3.0")
+    implementation ("androidx.media3:media3-exoplayer-dash:1.3.0")
+    implementation ("androidx.media3:media3-ui:1.3.0")
 
-    implementation ("androidx.media3:media3-exoplayer:1.2.0")
-    implementation ("androidx.media3:media3-exoplayer-dash:1.2.0")
-    implementation ("androidx.media3:media3-ui:1.2.0")
+    implementation ("com.google.android.exoplayer:exoplayer-core:2.19.1")
+    implementation ("com.google.android.exoplayer:extension-cronet:2.19.1")
+
+
 
     //Google Sign In
-    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation ("com.google.android.gms:play-services-auth:21.0.0")
 
     //Facebook Sign In
     implementation ("com.facebook.android:facebook-login:latest.release")

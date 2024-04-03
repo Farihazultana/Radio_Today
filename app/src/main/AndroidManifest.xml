@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
@@ -26,9 +30,7 @@
         <activity
             android:name=".ui.activities.SettingsInfoActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.activities.PodcastActivity"
-            android:exported="false" />
+
         <activity
             android:name=".ui.activities.IntroScreenActivity"
             android:exported="false"
@@ -53,10 +55,7 @@
             android:name=".ui.activities.ContactActivity"
             android:exported="false"
             android:screenOrientation="sensorPortrait" />
-        <activity
-            android:name=".ui.activities.SeeMoreActivity"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+
         <activity
             android:name=".ui.activities.SeeAllActivity"
             android:exported="false"
@@ -95,6 +94,30 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+
+        <service
+            android:name=".data.services.MusicPlayerService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" >
+
+        </service>
+
+        <receiver
+            android:name=".utils.NotificationController"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="Previous" />
+                <action android:name="Pause" />
+                <action android:name="Play" />
+                <action android:name="Next" />
+                <category android:name="com.example.exoplayer" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

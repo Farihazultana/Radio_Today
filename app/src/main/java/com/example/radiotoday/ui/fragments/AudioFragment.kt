@@ -19,8 +19,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.radiotoday.R
-import com.example.radiotoday.audioPlayer.MusicService
-import com.example.radiotoday.audioPlayer.PlayerController
 import com.example.radiotoday.data.models.MainResponse
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
@@ -41,8 +39,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
 
     private lateinit var playlistData: SeeAllResponse
 
-    var mPlayerController: PlayerController? = null
-    private var mMusicService: MusicService? = null
+
 
     private var isLoading = false
     private var isLastpage = false
@@ -51,8 +48,6 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
-        mPlayerController = MusicService.getMediaPlayerHolder()
 
 
     }

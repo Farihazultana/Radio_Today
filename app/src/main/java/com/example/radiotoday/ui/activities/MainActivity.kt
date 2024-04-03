@@ -1,8 +1,13 @@
 package com.example.radiotoday.ui.activities
 
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.IBinder
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
@@ -10,9 +15,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.radiotoday.R
+import com.example.radiotoday.data.services.MusicPlayerService
 import com.example.radiotoday.databinding.ActivityMainBinding
 import com.example.radiotoday.ui.fragments.AudioFragment
 import com.example.radiotoday.ui.fragments.HomeFragment
@@ -29,6 +36,21 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickListener, SongsFragment.SongDismissListener{
 
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var service: MusicPlayerService
+    private var isServiceBound = false
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val musicPlayerBinder = service as MusicPlayerService.MusicPlayerBinder
+            this@MainActivity.service = musicPlayerBinder.getService()
+            isServiceBound = true
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            isServiceBound = false
+        }
+
+    }
 
     private lateinit var activeFragment: Fragment
     private var homeFragment = HomeFragment()
@@ -101,6 +123,25 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
             startActivity(redirectIntent)
             finish()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        bindService(Intent(this, MusicPlayerService::class.java), serviceConnection, Context.BIND_AUTO_CREATE)
+        startMusicPlayerService()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (isServiceBound) {
+            unbindService(serviceConnection)
+            isServiceBound = false
+        }
+    }
+
+    override fun onDestroy() {
+        stopService(intent)
+        super.onDestroy()
     }
 
 
@@ -178,6 +219,16 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
             gotoPlayer()
         }
 
+    }
+
+    private fun startMusicPlayerService() {
+        intent = Intent(this, MusicPlayerService::class.java)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ContextCompat.startForegroundService(this, intent)
+        } else {
+            stopService(intent)
+        }
     }
 
     private fun gotoPlayer() {
