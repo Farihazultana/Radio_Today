@@ -57,7 +57,6 @@ class SongsFragment : BottomSheetDialogFragment() {
         override fun onReceive(context: Context?, intent: Intent?) {
             context?.let {
                 if (it is Activity) {
-                    // Access activity-related methods here
                     val isPlaying = intent?.getBooleanExtra("isPlaying", false) ?: false
                     updatePlayPauseButton(isPlaying)
                     NotificationUtils.updateNotification(it, onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
@@ -67,12 +66,6 @@ class SongsFragment : BottomSheetDialogFragment() {
     }
 
     var dismissListener: SongDismissListener? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,25 +73,7 @@ class SongsFragment : BottomSheetDialogFragment() {
     ): View? {
         binding = FragmentSongsBinding.inflate(inflater, container, false)
 
-
-
         return binding.root
-
-        /*Glide.with(this)
-            .load(R.drawable.album_cover)
-            .apply(bitmapTransform(BlurTransformation(25, 3)))
-            .placeholder(R.drawable.album_cover)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(binding.ivPlayerBG)*/
-
-        /*Glide.with(this)
-            .load(R.drawable.album_cover)
-            .placeholder(R.drawable.album_cover)
-            .transform(RoundedCorners(16))
-            .into(binding.imageView)*/
-
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -234,7 +209,6 @@ class SongsFragment : BottomSheetDialogFragment() {
 
     override fun onStop() {
         super.onStop()
-
         handler.removeCallbacks(updateProgressTask)
     }
 
@@ -249,10 +223,13 @@ class SongsFragment : BottomSheetDialogFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-
-        requireActivity().unregisterReceiver(notificationReceiver)
+        //requireActivity().unregisterReceiver(notificationReceiver)
         requireActivity().unregisterReceiver(playbackStateReceiver)
-        onPlayAction.releasePlayer()
+    }
+
+    override fun onDestroyView() {
+        //onPlayAction.releasePlayer()
+        super.onDestroyView()
     }
 
     interface SongDismissListener {
@@ -279,8 +256,6 @@ class SongsFragment : BottomSheetDialogFragment() {
         binding.seekBar.max = duration.toInt()
         binding.seekBarStart.text = String.format("%02d:%02d", currentMinutes, currentSeconds)
         binding.seekbarEnd.text = String.format("%02d:%02d", totalMinutes, totalSeconds)
-
-
 
     }
 

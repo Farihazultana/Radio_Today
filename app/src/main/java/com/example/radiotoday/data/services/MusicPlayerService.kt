@@ -3,7 +3,6 @@ package com.example.radiotoday.data.services
 
 import android.app.NotificationManager
 import android.app.Service
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
@@ -20,17 +19,12 @@ import androidx.annotation.OptIn
 import androidx.annotation.RequiresApi
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
-import com.bumptech.glide.load.DataSource
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.utils.NotificationController
 import com.example.radiotoday.utils.NotificationUtils
 import com.example.radiotoday.utils.PlayAction
-import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import java.io.FileDescriptor
 
 

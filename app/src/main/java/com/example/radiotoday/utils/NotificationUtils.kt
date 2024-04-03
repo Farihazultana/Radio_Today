@@ -16,6 +16,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import androidx.core.app.NotificationCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.example.radiotoday.R
+import com.example.radiotoday.ui.activities.MainActivity
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.ui.fragments.SongsFragment.Companion.onPlayAction
 
@@ -40,7 +41,8 @@ object NotificationUtils {
         currentPosition: Long,
         duration: Long
     ): Notification {
-        val intent = Intent(context, SongsFragment::class.java)
+        val intent = Intent(context, MainActivity::class.java)
+        intent.putExtra("fragment", "songs")
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_MUTABLE)
 
 

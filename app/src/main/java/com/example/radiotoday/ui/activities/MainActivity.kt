@@ -26,7 +26,9 @@ import com.example.radiotoday.ui.fragments.HomeFragment
 import com.example.radiotoday.ui.fragments.NewsFragment
 import com.example.radiotoday.ui.fragments.SettingsFragment
 import com.example.radiotoday.ui.fragments.SongsFragment
+import com.example.radiotoday.ui.fragments.SongsFragment.Companion.onPlayAction
 import com.example.radiotoday.ui.fragments.VideoFragment
+import com.example.radiotoday.utils.NotificationController
 import com.example.radiotoday.utils.OnBackAction
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +38,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickListener, SongsFragment.SongDismissListener{
 
     private lateinit var binding: ActivityMainBinding
+
+    private val notificationReceiver: NotificationController = NotificationController()
+
 
     private lateinit var service: MusicPlayerService
     private var isServiceBound = false
@@ -58,6 +63,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
     private var videoFragment = VideoFragment()
     private var newsFragment = NewsFragment()
     private var settingsFragment = SettingsFragment()
+    private val songsFragment = SongsFragment()
 
     private var doubleBackToExitPressedOnce = true
 
@@ -96,7 +102,6 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
             true
         }
 
-
         binding.layoutMiniPlayer.setOnClickListener {
             if (!playerClicked){
                 gotoPlayer()
@@ -123,6 +128,18 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
             startActivity(redirectIntent)
             finish()
         }
+
+        if (intent.hasExtra("fragment")) {
+            val fragmentType = intent.getStringExtra("fragment")
+            Log.i("FType", "onCreate: $fragmentType")
+            if (fragmentType == "songs") {
+                playerClicked = true
+
+                songsFragment.dismissListener = this
+                //supportFragmentManager.beginTransaction().replace(R.id.frameLayout, songsFragment).commitNow()
+                replaceFragment(songsFragment)
+            }
+        }
     }
 
     override fun onStart() {
@@ -141,6 +158,10 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
 
     override fun onDestroy() {
         stopService(intent)
+        unregisterReceiver(notificationReceiver)
+        if (onPlayAction.isPlaying()){
+            onPlayAction.releasePlayer()
+        }
         super.onDestroy()
     }
 
@@ -233,7 +254,6 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
 
     private fun gotoPlayer() {
         playerClicked = true
-        val songsFragment = SongsFragment()
         songsFragment.dismissListener = this
         songsFragment.show(supportFragmentManager, songsFragment.tag)
     }
