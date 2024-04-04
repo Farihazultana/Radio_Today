@@ -18,6 +18,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.media.app.NotificationCompat.MediaStyle
+import com.bumptech.glide.Glide
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.MediaPlayerData
 import com.example.radiotoday.ui.activities.MainActivity
@@ -173,7 +174,7 @@ object NotificationUtils {
             .setContentTitle(currentMediaItem.title)
             .setContentText("Playing Music")
             .setSmallIcon(R.drawable.ic_music)
-            .setLargeIcon(getBitmapFromFilePath(currentMediaItem.img) ?: BitmapFactory.decodeResource(context.resources, R.drawable.album_cover))
+            .setLargeIcon(getBitmapFromUrl(context,currentMediaItem.img) ?: BitmapFactory.decodeResource(context.resources, R.drawable.album_cover))
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setStyle(mediaStyle)
@@ -199,11 +200,17 @@ object NotificationUtils {
         notificationManager.notify(1, createNotification(context,mediaSession, isPlaying, currentPosition, duration, mediaPlayerDataList))
     }
 
-    private fun getBitmapFromFilePath(filePath: String): Bitmap? {
-        return if (filePath != null) {
-            BitmapFactory.decodeFile(filePath)
-        } else {
+    private fun getBitmapFromUrl(context: Context, url: String): Bitmap? {
+        return try {
+            Glide.with(context)
+                .asBitmap()
+                .load(url)
+                .submit()
+                .get()
+        } catch (e: Exception) {
+            e.printStackTrace()
             null
         }
     }
+
 }
