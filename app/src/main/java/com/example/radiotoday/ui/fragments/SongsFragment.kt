@@ -109,17 +109,7 @@ class SongsFragment : BottomSheetDialogFragment() {
         mediaSession = MediaSessionCompat(requireActivity(), "MusicPlayerService")
 
 
-        val songsUrls = arrayListOf(
-            "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-            "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
-            "https://github.com/rafaelreis-hotmart/Audio-Sample-files/raw/master/sample.mp3",
-            "https://github.com/SergLam/Audio-Sample-files/raw/master/sample.m4a",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-        )
-        onPlayAction.initializePlayer(songsUrls)
+
         binding.playerView.player = onPlayAction.getPlayer()
 
 
