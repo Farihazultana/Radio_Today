@@ -21,6 +21,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import com.example.radiotoday.data.models.MediaPlayerData
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.utils.NotificationController
 import com.example.radiotoday.utils.NotificationUtils
@@ -31,11 +32,11 @@ import java.io.FileDescriptor
 @OptIn(UnstableApi::class)
 class MusicPlayerService : Service(), IBinder, PlayAction {
     private val notificationReceiver: NotificationController = NotificationController()
-    private val CHANNEL_ID = "Music Service Channel ID"
-    private val UPDATE_INTERVAL_MILLIS = 1000
-    private lateinit var notificationManager: NotificationManager
-    private lateinit var updateProgressRunnable: Runnable
-    private lateinit var updateProgressHandler: Handler
+
+    companion object{
+        var mediaPlayerDataList = mutableListOf<MediaPlayerData>()
+    }
+
 
     private lateinit var mediaSession: MediaSessionCompat
 
@@ -65,35 +66,64 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         registerReceiver(notificationReceiver, filter)
         mediaSession = MediaSessionCompat(this, "MusicPlayerService")
 
-        updateProgressHandler = Handler(Looper.getMainLooper())
-        updateProgressRunnable = object : Runnable {
-            override fun run() {
-                //NotificationUtils.updateNotification(this@MusicPlayerService, isPlaying(), mediaSession, currentPosition, duration, "hello")
-                //updateProgressHandler.postDelayed(this, UPDATE_INTERVAL_MILLIS.toLong())
-            }
-        }
-        updateProgressHandler.postDelayed(updateProgressRunnable, UPDATE_INTERVAL_MILLIS.toLong())
 
-        //initializePlayer()
-        //player = ExoPlayer.Builder(this).build()
-        val songsUrls = arrayListOf(
-            "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-            "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
-            "https://github.com/rafaelreis-hotmart/Audio-Sample-files/raw/master/sample.mp3",
-            "https://github.com/SergLam/Audio-Sample-files/raw/master/sample.m4a",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-        )
-        initializePlayer(songsUrls)
+        mediaPlayerDataList.add(MediaPlayerData(
+            title = "Title 1",
+            description = "Description 1",
+            img = "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg",
+            url = "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
+        ))
+        mediaPlayerDataList.add(MediaPlayerData(
+            title = "Title 2",
+            description = "Description 2",
+            img = "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg",
+            url = "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3"
+        ))
+        mediaPlayerDataList.add(MediaPlayerData(
+            title = "Title 3",
+            description = "Description 1",
+            img = "https://www.kasandbox.org/programming-images/avatars/old-spice-man.png",
+            url = "https://github.com/rafaelreis-hotmart/Audio-Sample-files/raw/master/sample.mp3"
+        ))
+        mediaPlayerDataList.add(MediaPlayerData(
+            title = "Title 4",
+            description = "Description 2",
+            img = "https://www.kasandbox.org/programming-images/avatars/mr-pants-green.png",
+            url = "https://github.com/SergLam/Audio-Sample-files/raw/master/sample.m4a"
+        ))
+        mediaPlayerDataList.add(MediaPlayerData(
+            title = "Title 5",
+            description = "Description 1",
+            img = "https://www.kasandbox.org/programming-images/avatars/marcimus-purple.png",
+            url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+        ))
+        mediaPlayerDataList.add(MediaPlayerData(
+            title = "Title 6",
+            description = "Description 2",
+            img = "https://www.kasandbox.org/programming-images/avatars/marcimus-orange.png",
+            url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+        ))
+        mediaPlayerDataList.add(MediaPlayerData(
+            title = "Title 7",
+            description = "Description 1",
+            img = "https://www.kasandbox.org/programming-images/avatars/mr-pants-purple.png",
+            url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+        ))
+        mediaPlayerDataList.add(MediaPlayerData(
+            title = "Title 8",
+            description = "Description 2",
+            img = "https://www.kasandbox.org/programming-images/avatars/mr-pants-green.png",
+            url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+        ))
+
+        initializePlayer(mediaPlayerDataList)
         SongsFragment.setOnPlayAction(this)
 
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        startForeground(1, NotificationUtils.createNotification(this, mediaSession, isPlaying, currentPosition, duration, "hi"),FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
+        startForeground(1, NotificationUtils.createNotification(this, mediaSession, isPlaying, currentPosition, duration, mediaPlayerDataList),FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
 
         intent?.getStringExtra("action")?.let { action ->
             when (action) {
@@ -132,7 +162,6 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         super.onDestroy()
         unregisterReceiver(notificationReceiver)
         releasePlayer()
-        updateProgressHandler.removeCallbacks(updateProgressRunnable)
     }
 
     override fun getInterfaceDescriptor(): String? {
@@ -297,16 +326,15 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         )*/
     }
 
-    override fun initializePlayer(songsUrls : ArrayList<String>) {
+    override fun initializePlayer(mediaPlayerDataList: List<MediaPlayerData>) {
         player = ExoPlayer.Builder(this).build()
 
         player.clearMediaItems()
 
-        for (url in songsUrls){
-            val mediaItem = MediaItem.fromUri(url)
+        for (item in mediaPlayerDataList){
+            val mediaItem = MediaItem.fromUri(item.url)
             player.addMediaItem(mediaItem)
         }
-
 
         player.prepare()
 
@@ -320,8 +348,6 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         val intent = Intent("PlaybackState")
         intent.putExtra("isPlaying", isPlaying)
         sendBroadcast(intent)
-        //NotificationUtils.updateNotification(this, isPlaying(), mediaSession, currentPosition, duration)
-
     }
 
 

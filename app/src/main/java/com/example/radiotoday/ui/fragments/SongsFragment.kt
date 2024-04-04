@@ -22,6 +22,8 @@ import androidx.core.content.ContextCompat.registerReceiver
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import com.example.radiotoday.data.models.MediaPlayerData
+import com.example.radiotoday.data.services.MusicPlayerService
 import com.example.radiotoday.databinding.FragmentSongsBinding
 import com.example.radiotoday.utils.NotificationController
 import com.example.radiotoday.utils.NotificationUtils
@@ -60,7 +62,7 @@ class SongsFragment : BottomSheetDialogFragment() {
                     val isPlaying = intent?.getBooleanExtra("isPlaying", false) ?: false
                     updatePlayPauseButton(isPlaying)
 
-                    NotificationUtils.updateNotification(requireActivity(), onPlayAction.isPlaying(), mediaSession, currentPosition, duration, "kk")
+                    NotificationUtils.updateNotification(requireActivity(), onPlayAction.isPlaying(), mediaSession, currentPosition, duration, MusicPlayerService.mediaPlayerDataList)
                 }
             }
         }
@@ -121,6 +123,7 @@ class SongsFragment : BottomSheetDialogFragment() {
 
                 binding.tvSong.text = mediaMetadata.title.toString()
                 binding.tvSinger.text = mediaMetadata.albumArtist.toString()
+
             }
         })
 
