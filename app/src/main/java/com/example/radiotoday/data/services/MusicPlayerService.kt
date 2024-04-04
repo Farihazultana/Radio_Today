@@ -68,8 +68,8 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         updateProgressHandler = Handler(Looper.getMainLooper())
         updateProgressRunnable = object : Runnable {
             override fun run() {
-                NotificationUtils.updateNotification(this@MusicPlayerService, isPlaying(), mediaSession, currentPosition, duration)
-                updateProgressHandler.postDelayed(this, UPDATE_INTERVAL_MILLIS.toLong())
+                //NotificationUtils.updateNotification(this@MusicPlayerService, isPlaying(), mediaSession, currentPosition, duration, "hello")
+                //updateProgressHandler.postDelayed(this, UPDATE_INTERVAL_MILLIS.toLong())
             }
         }
         updateProgressHandler.postDelayed(updateProgressRunnable, UPDATE_INTERVAL_MILLIS.toLong())
@@ -93,7 +93,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        startForeground(1, NotificationUtils.createNotification(this, mediaSession, isPlaying, currentPosition, duration),FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
+        startForeground(1, NotificationUtils.createNotification(this, mediaSession, isPlaying, currentPosition, duration, "hi"),FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
 
         intent?.getStringExtra("action")?.let { action ->
             when (action) {
@@ -320,7 +320,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         val intent = Intent("PlaybackState")
         intent.putExtra("isPlaying", isPlaying)
         sendBroadcast(intent)
-        NotificationUtils.updateNotification(this, isPlaying(), mediaSession, currentPosition, duration)
+        //NotificationUtils.updateNotification(this, isPlaying(), mediaSession, currentPosition, duration)
 
     }
 

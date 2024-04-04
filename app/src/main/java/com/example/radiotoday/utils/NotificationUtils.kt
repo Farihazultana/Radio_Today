@@ -39,7 +39,8 @@ object NotificationUtils {
         mediaSession: MediaSessionCompat,
         isPlaying: Boolean,
         currentPosition: Long,
-        duration: Long
+        duration: Long,
+        title: String
     ): Notification {
         val intent = Intent(context, MainActivity::class.java)
         intent.putExtra("fragment", "songs")
@@ -162,7 +163,7 @@ object NotificationUtils {
         val playPause = if (isPlaying) "Pause" else "Play"
 
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle("Music Player")
+            .setContentTitle(title)
             .setContentText("Playing Music")
             .setSmallIcon(R.drawable.ic_music)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.album_cover))
@@ -186,8 +187,8 @@ object NotificationUtils {
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_MUTABLE)
     }
 
-    fun updateNotification(context: Context, isPlaying: Boolean, mediaSession: MediaSessionCompat,currentPosition: Long, duration: Long) {
+    fun updateNotification(context: Context, isPlaying: Boolean, mediaSession: MediaSessionCompat,currentPosition: Long, duration: Long, title: String) {
         val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(1, createNotification(context,mediaSession, isPlaying, currentPosition, duration))
+        notificationManager.notify(1, createNotification(context,mediaSession, isPlaying, currentPosition, duration, title))
     }
 }

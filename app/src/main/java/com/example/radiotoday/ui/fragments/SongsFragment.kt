@@ -59,7 +59,8 @@ class SongsFragment : BottomSheetDialogFragment() {
                 if (it is Activity) {
                     val isPlaying = intent?.getBooleanExtra("isPlaying", false) ?: false
                     updatePlayPauseButton(isPlaying)
-                    NotificationUtils.updateNotification(it, onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
+
+                    NotificationUtils.updateNotification(requireActivity(), onPlayAction.isPlaying(), mediaSession, currentPosition, duration, "kk")
                 }
             }
         }
@@ -136,7 +137,6 @@ class SongsFragment : BottomSheetDialogFragment() {
             binding.ivLoop.visibility = View.GONE
 
             onPlayAction.playMusic()
-            NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
         }
 
         binding.ivPause.setOnClickListener {
@@ -150,25 +150,22 @@ class SongsFragment : BottomSheetDialogFragment() {
             binding.ivLoop.visibility = View.VISIBLE
 
             onPlayAction.pauseMusic()
-            NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
         }
 
         binding.ivPlayNext.setOnClickListener {
             onPlayAction.nextMusic()
 
-            NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
+            //NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
         }
 
         binding.ivPlayPrev.setOnClickListener {
             onPlayAction.previousMusic()
 
-            NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
         }
 
         binding.ivShuffle.setOnClickListener {
             onPlayAction.shuffleMusic()
 
-            NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
         }
 
         binding.ivFavorite.setOnClickListener {
@@ -185,7 +182,7 @@ class SongsFragment : BottomSheetDialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
+        //NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
         updatePlayPauseButton(onPlayAction.isPlaying())
     }
 
