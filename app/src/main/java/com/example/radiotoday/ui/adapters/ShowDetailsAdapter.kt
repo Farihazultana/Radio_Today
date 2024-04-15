@@ -37,11 +37,11 @@ class ShowDetailsAdapter(private val context: Context, private val cardClickList
     override fun onBindViewHolder(holder: ShowDetailsAdapter.ShowDetailsPlaylistViewHolder, position: Int) {
         val playlistItem = showDetailsPlaylistData[position]
 
-        Glide.with(context)
-            .load(playlistItem.img)
+        /*Glide.with(context)
+            .load(playlistItem.image)
             .placeholder(R.drawable.no_img)
             .error(R.drawable.no_img)
-            .into(holder.poster)
+            .into(holder.poster)*/
 
         holder.title.text = playlistItem.title
         holder.duration.text = playlistItem.schedule

@@ -9,7 +9,6 @@ data class MainContent(
     val last_page: Int,
     val nextPageUrl: String,
     val prevPageUrl: String,
-    val contents: ArrayList<SubContent>,
     val total: Int,
     val android: String,
     val content: ArrayList<SubContent>,

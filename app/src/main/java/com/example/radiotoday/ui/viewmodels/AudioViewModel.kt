@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.radiotoday.data.models.audio.AudioResponse
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.data.repositories.AudioRepository
 import com.example.radiotoday.utils.ResultType

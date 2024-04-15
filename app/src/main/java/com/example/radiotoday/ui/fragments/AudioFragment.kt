@@ -1,29 +1,19 @@
 package com.example.radiotoday.ui.fragments
 
-import android.content.ComponentName
-import android.content.Intent
-import android.content.ServiceConnection
+
 import android.graphics.Color
 import android.os.Bundle
-import android.os.IBinder
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.radiotoday.R
-import com.example.radiotoday.data.models.MainResponse
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.FragmentAudioBinding
-import com.example.radiotoday.ui.activities.LoginActivity
 import com.example.radiotoday.ui.adapters.AudioPlaylistAdapter
 import com.example.radiotoday.ui.viewmodels.AudioViewModel
 import com.example.radiotoday.utils.OnBackAction

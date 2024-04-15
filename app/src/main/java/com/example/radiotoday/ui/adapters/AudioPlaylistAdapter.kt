@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.SubContent
-import com.example.radiotoday.data.models.audio.Content
 
 class AudioPlaylistAdapter(private val context: Context, private val cardClickListener : CardClickListener):
     RecyclerView.Adapter<AudioPlaylistAdapter.AudioPlaylistViewHolder>() {

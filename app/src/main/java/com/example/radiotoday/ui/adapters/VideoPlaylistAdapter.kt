@@ -10,12 +10,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.audio.Content
+import com.example.radiotoday.data.models.SubContent
 
-class VideoPlaylistAdapter(private val context: Context, private val cardClickListener : VideoPlaylistAdapter.CardClickListener):
+class VideoPlaylistAdapter(private val context: Context, private val cardClickListener : CardClickListener):
     RecyclerView.Adapter<VideoPlaylistAdapter.VideoPlaylistViewHolder>()  {
 
-    var videoPlaylistData : ArrayList<Content> = ArrayList()
+    var videoPlaylistData : ArrayList<SubContent> = ArrayList()
     inner class VideoPlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val posterImage : ImageView = itemView.findViewById(R.id.iv_playerPoster)
         val title : TextView = itemView.findViewById(R.id.tv_AudioTitle)
@@ -44,12 +44,12 @@ class VideoPlaylistAdapter(private val context: Context, private val cardClickLi
         Log.i("TAG", "onBindViewHolder: $playlistItem")
 
         Glide.with(context)
-            .load(playlistItem.image_location)
+            .load(playlistItem.image)
             .placeholder(R.drawable.player_logo)
             .error(R.drawable.no_img)
             .into(holder.posterImage)
-        holder.title.text = playlistItem.albumname
-        holder.description.text = playlistItem.artistname
+        holder.title.text = playlistItem.title
+        holder.description.text = playlistItem.artists
     }
 
     override fun getItemCount(): Int {

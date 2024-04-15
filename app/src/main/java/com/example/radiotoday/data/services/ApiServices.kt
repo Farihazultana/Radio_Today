@@ -1,12 +1,10 @@
 package com.example.radiotoday.data.services
 
 import com.example.radiotoday.data.models.MainResponse
-import com.example.radiotoday.data.models.audio.AudioResponse
 import com.example.radiotoday.data.models.home.HomeResponse
 import com.example.radiotoday.data.models.login.LogoutResponse
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.data.models.showDetails.ShowDetailsResponse
-import com.example.radiotoday.data.models.video.VideoResponse
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -169,10 +167,10 @@ interface ApiServices {
 
 
     @FormUrlEncoded
-    @POST("bangladhol_json_app.php")
+    @POST("api/videos")
     suspend fun postVideoPlaylistData(
-        @Field("userId") userId: String
-    ): Response<VideoResponse>
+        @Field("page") page: String,
+    ): Response<SeeAllResponse>
 
 
 
