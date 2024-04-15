@@ -36,8 +36,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 @OptIn(UnstableApi::class)
 class SongsFragment : BottomSheetDialogFragment() {
-    private val notificationReceiver: NotificationController = NotificationController()
-
     private lateinit var mediaSession: MediaSessionCompat
 
     lateinit var binding: FragmentSongsBinding
@@ -107,7 +105,7 @@ class SongsFragment : BottomSheetDialogFragment() {
             addAction("Next")
             addAction("Previous")
         }
-        registerReceiver(requireActivity(),notificationReceiver, filter, RECEIVER_EXPORTED)
+        //registerReceiver(requireActivity(),notificationReceiver, filter, RECEIVER_EXPORTED)
         registerReceiver(requireActivity(),playbackStateReceiver, IntentFilter("PlaybackState"), RECEIVER_EXPORTED)
         mediaSession = MediaSessionCompat(requireActivity(), "MusicPlayerService")
 
