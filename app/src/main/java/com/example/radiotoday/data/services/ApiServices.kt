@@ -173,6 +173,11 @@ interface ApiServices {
     ): Response<SeeAllResponse>
 
 
+    @FormUrlEncoded
+    @POST("api/news")
+    suspend fun postNewsData(
+        @Field("page") page: String,
+    ): Response<SeeAllResponse>
 
 
 }
