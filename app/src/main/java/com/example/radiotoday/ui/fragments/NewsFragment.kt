@@ -1,20 +1,36 @@
 package com.example.radiotoday.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.radiotoday.data.models.SubContent
+import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.FragmentNewsBinding
+import com.example.radiotoday.ui.adapters.NewsAdapter
+import com.example.radiotoday.ui.viewmodels.NewsViewModel
 import com.example.radiotoday.utils.OnBackAction
-import com.facebook.login.LoginManager
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
+import com.example.radiotoday.utils.ResultType
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class NewsFragment : Fragment() {
+@AndroidEntryPoint
+class NewsFragment : Fragment(), NewsAdapter.CardClickListener{
     private lateinit var binding: FragmentNewsBinding
+
+    private lateinit var newsAdapter: NewsAdapter
+    private val newsViewModel by viewModels<NewsViewModel>()
+
+    private lateinit var layoutManager: GridLayoutManager
+    private lateinit var playlistData: SeeAllResponse
+
+    private var isLoading = false
+    private var isLastpage = false
+    private var currentPage = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +48,92 @@ class NewsFragment : Fragment() {
             onBackAction.onBackListener()
         }
 
+        newsAdapter = NewsAdapter(requireContext(), this)
+        binding.rvPlaylist.layoutManager = customGridLayoutManager(1)
+        binding.rvPlaylist.adapter = newsAdapter
+
+        observeNewsData()
+
         return binding.root
+    }
+
+    override fun onResume() {
+        isLoading = false
+        isLastpage = false
+        currentPage = 1
+
+        showSeeAll()
+
+        super.onResume()
+    }
+
+    private fun loadSeeAllData() {
+        newsViewModel.fetchNewsData(currentPage.toString())
+    }
+
+    private fun showSeeAll() {
+        loadSeeAllData()  //Initial data load
+
+        binding.rvPlaylist.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                if (!isLoading && !isLastpage) {
+                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
+                        isLoading = true
+                        //currentPage++
+                        loadSeeAllData()
+                    }
+                }
+            }
+        })
+    }
+
+    private fun observeNewsData() {
+        newsViewModel.newsData.observe(requireActivity()) {
+            when (it) {
+                is ResultType.Loading -> {
+                    //binding.shimmerFrameLayout.visibility = View.VISIBLE
+                }
+
+                is ResultType.Success -> {
+                    playlistData = it.data
+                    val playlistContent= playlistData.content.content
+
+                    if (currentPage == 1) {
+                        newsAdapter.newsData = playlistContent
+
+
+                    } else {
+                        if (!newsAdapter.newsData.containsAll(playlistContent)) {
+
+                            newsAdapter.newsData =
+                                newsAdapter.newsData.plus(playlistContent) as ArrayList<SubContent>
+
+
+                        }
+                    }
+
+                    isLoading = false
+                    //checking last page
+                    isLastpage = playlistContent.isEmpty()
+                    currentPage++
+                    newsAdapter.notifyDataSetChanged()
+                    //binding.shimmerFrameLayout.visibility = View.GONE
+                }
+
+                else -> {}
+            }
+        }
+    }
+
+    private fun customGridLayoutManager(span: Int): GridLayoutManager {
+        layoutManager = GridLayoutManager(requireActivity(), span)
+        return layoutManager
     }
 
     companion object{
@@ -42,6 +143,20 @@ class NewsFragment : Fragment() {
             this.onBackAction = setBackAction
         }
 
+    }
+
+    override fun onCardClickListener(position: Int) {
+        Log.d("VideoFragment", "Clicked on position: $position")
+
+        if (position >= 0 && position < newsAdapter.itemCount) {
+            /*val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)*/
+        } else {
+            Log.e("VideoFragment", "Invalid position: $position")
+        }
+
+        newsAdapter.notifyDataSetChanged()
     }
 
 

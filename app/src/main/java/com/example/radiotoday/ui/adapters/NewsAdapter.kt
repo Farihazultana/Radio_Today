@@ -24,7 +24,7 @@ class NewsAdapter (private val context: Context, private val cardClickListener: 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_audio, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
 
         val viewHolder = NewsViewHolder(itemView)
 
@@ -43,11 +43,11 @@ class NewsAdapter (private val context: Context, private val cardClickListener: 
         val playlistItem = newsData[position]
         Log.i("TAG", "onBindViewHolder: $playlistItem")
 
-        Glide.with(context)
+        /*Glide.with(context)
             .load(playlistItem.image)
             .placeholder(R.drawable.player_logo)
             .error(R.drawable.no_img)
-            .into(holder.posterImage)
+            .into(holder.posterImage)*/
         holder.date.text = playlistItem.date
         holder.description.text = playlistItem.description
     }
