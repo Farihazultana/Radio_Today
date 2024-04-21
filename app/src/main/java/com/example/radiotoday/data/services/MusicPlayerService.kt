@@ -1,17 +1,14 @@
 package com.example.radiotoday.data.services
 
 
-import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
 import android.os.Binder
 import android.os.Build
-import android.os.Handler
 import android.os.IBinder
 import android.os.IInterface
-import android.os.Looper
 import android.os.Parcel
 import android.support.v4.media.session.MediaSessionCompat
 import android.widget.Toast
@@ -21,7 +18,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
-import com.example.radiotoday.data.models.MediaPlayerData
+import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.utils.NotificationController
 import com.example.radiotoday.utils.NotificationUtils
@@ -34,7 +31,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
     private val notificationReceiver: NotificationController = NotificationController()
 
     companion object{
-        var mediaPlayerDataList = mutableListOf<MediaPlayerData>()
+        var mediaPlayerDataList = listOf<SubContent>()
     }
 
 
@@ -67,7 +64,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         mediaSession = MediaSessionCompat(this, "MusicPlayerService")
 
 
-        mediaPlayerDataList.add(MediaPlayerData(
+        /*mediaPlayerDataList.add(MediaPlayerData(
             title = "Title 1",
             description = "Description 1",
             img = "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg",
@@ -114,7 +111,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
             description = "Description 2",
             img = "https://www.kasandbox.org/programming-images/avatars/mr-pants-green.png",
             url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
-        ))
+        ))*/
 
         initializePlayer(mediaPlayerDataList)
         SongsFragment.setOnPlayAction(this)
@@ -326,14 +323,16 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         )*/
     }
 
-    override fun initializePlayer(mediaPlayerDataList: List<MediaPlayerData>) {
+    override fun initializePlayer(mediaPlayerDataList: List<SubContent>) {
         player = ExoPlayer.Builder(this).build()
 
         player.clearMediaItems()
 
         for (item in mediaPlayerDataList){
-            val mediaItem = MediaItem.fromUri(item.url)
-            player.addMediaItem(mediaItem)
+            val mediaItem = item.url?.let { MediaItem.fromUri(it) }
+            if (mediaItem != null) {
+                player.addMediaItem(mediaItem)
+            }
         }
 
         player.prepare()

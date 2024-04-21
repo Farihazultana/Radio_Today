@@ -21,6 +21,7 @@ import com.example.radiotoday.ui.adapters.VideoPlaylistAdapter
 import com.example.radiotoday.ui.viewmodels.VideoViewModel
 import com.example.radiotoday.utils.OnBackAction
 import com.example.radiotoday.utils.ResultType
+import com.example.radiotoday.utils.SongClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +32,8 @@ class VideoFragment : Fragment(), VideoPlaylistAdapter.CardClickListener {
 
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var playlistData: SeeAllResponse
+
+    var songClickListener: SongClickListener? = null
 
     private var isLoading = false
     private var isLastpage = false
@@ -150,9 +153,7 @@ class VideoFragment : Fragment(), VideoPlaylistAdapter.CardClickListener {
         Log.d("VideoFragment", "Clicked on position: $position")
 
         if (position >= 0 && position < videoAdapter.itemCount) {
-            /*val intent = Intent(requireContext(), LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)*/
+            songClickListener?.onSongClickListener()
         } else {
             Log.e("VideoFragment", "Invalid position: $position")
         }

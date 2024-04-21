@@ -51,6 +51,7 @@ class AudioPlaylistAdapter(private val context: Context, private val cardClickLi
             .into(holder.posterImage)
         holder.title.text = playlistItem.title
         holder.description.text = playlistItem.artists
+        playlistItem.url
     }
 
     override fun getItemCount(): Int {

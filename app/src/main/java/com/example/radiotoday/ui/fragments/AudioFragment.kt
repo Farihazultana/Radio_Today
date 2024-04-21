@@ -18,6 +18,7 @@ import com.example.radiotoday.ui.adapters.AudioPlaylistAdapter
 import com.example.radiotoday.ui.viewmodels.AudioViewModel
 import com.example.radiotoday.utils.OnBackAction
 import com.example.radiotoday.utils.ResultType
+import com.example.radiotoday.utils.SongClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +30,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
 
     private lateinit var playlistData: SeeAllResponse
 
-
+    var songClickListener: SongClickListener? = null
 
     private var isLoading = false
     private var isLastpage = false
@@ -160,9 +161,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         Log.d("AudioFragment", "Clicked on position: $position")
 
         if (position >= 0 && position < audioAdapter.itemCount) {
-            /*val intent = Intent(requireContext(), LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)*/
+            songClickListener?.onSongClickListener()
 
         } else {
             Log.e("AudioFragment", "Invalid position: $position")
@@ -179,5 +178,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         }
 
     }
+
+
 
 }

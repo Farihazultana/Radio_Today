@@ -18,6 +18,7 @@ import com.example.radiotoday.ui.activities.ShowDetailsActivity
 import com.example.radiotoday.ui.adapters.ParentHomeAdapter
 import com.example.radiotoday.ui.viewmodels.HomeViewModel
 import com.example.radiotoday.utils.ResultType
+import com.example.radiotoday.utils.SongClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
@@ -104,10 +105,10 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
         }
     }
 
-    interface SongClickListener {
+    /*interface SongClickListener {
         fun onSongClickListener()
 
-    }
+    }*/
 
 
 }

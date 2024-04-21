@@ -30,12 +30,13 @@ import com.example.radiotoday.ui.fragments.SongsFragment.Companion.onPlayAction
 import com.example.radiotoday.ui.fragments.VideoFragment
 import com.example.radiotoday.utils.NotificationController
 import com.example.radiotoday.utils.OnBackAction
+import com.example.radiotoday.utils.SongClickListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickListener, SongsFragment.SongDismissListener{
+class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, SongsFragment.SongDismissListener{
 
     private lateinit var binding: ActivityMainBinding
 
@@ -94,6 +95,9 @@ class MainActivity : AppCompatActivity(), OnBackAction, HomeFragment.SongClickLi
         NewsFragment.onBackAction(this)
 
         homeFragment.songClickListener = this
+        audioFragment.songClickListener = this
+        videoFragment.songClickListener = this
+        newsFragment.songClickListener = this
 
         replaceFragment(homeFragment)
         binding.bottomNavigationView.itemIconTintList=null

@@ -1,12 +1,12 @@
 package com.example.radiotoday.utils
 
 import androidx.media3.exoplayer.ExoPlayer
-import com.example.radiotoday.data.models.MediaPlayerData
+import com.example.radiotoday.data.models.SubContent
 
 interface PlayAction {
 
     fun getPlayer() : ExoPlayer
-    fun initializePlayer(mediaPlayerDataList: List<MediaPlayerData>)
+    fun initializePlayer(mediaPlayerDataList: List<SubContent>)
     fun playMusic()
 
     fun pauseMusic()
