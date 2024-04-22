@@ -153,12 +153,6 @@ interface ApiServices {
         ): Response<MainResponse>
 
 
-
-
-
-
-
-
     @FormUrlEncoded
     @POST("api/songs")
     suspend fun postAudioPlaylistData(
@@ -178,6 +172,13 @@ interface ApiServices {
     suspend fun postNewsData(
         @Field("page") page: String,
     ): Response<SeeAllResponse>
+
+
+    @FormUrlEncoded
+    @POST("api/forgot-password")
+    suspend fun postForgetPasswordData(
+        @Field("email") email: String
+    ): Response<MainResponse>
 
 
 }
