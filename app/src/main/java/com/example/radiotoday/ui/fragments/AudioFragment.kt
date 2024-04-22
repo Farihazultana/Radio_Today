@@ -1,8 +1,14 @@
 package com.example.radiotoday.ui.fragments
 
 
+import android.app.Service
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.graphics.Color
 import android.os.Bundle
+import android.os.IBinder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +19,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
+import com.example.radiotoday.data.services.MusicPlayerService
 import com.example.radiotoday.databinding.FragmentAudioBinding
+import com.example.radiotoday.ui.activities.MainActivity
 import com.example.radiotoday.ui.adapters.AudioPlaylistAdapter
 import com.example.radiotoday.ui.viewmodels.AudioViewModel
 import com.example.radiotoday.utils.OnBackAction
@@ -121,6 +129,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
 
                     val playlistContent = playlistData.content.content
 
+
                     if (currentPage == 1) {
                         audioAdapter.audioPlaylistData = playlistContent
 
@@ -135,6 +144,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
                         }
                     }
 
+                    (requireActivity() as MainActivity).initializePlayerService(playlistContent)
 
                     isLoading = false
                     //checking last page

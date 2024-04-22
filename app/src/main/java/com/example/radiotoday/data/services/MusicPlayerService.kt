@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.IBinder
 import android.os.IInterface
 import android.os.Parcel
+import android.os.Parcelable
 import android.support.v4.media.session.MediaSessionCompat
 import android.widget.Toast
 import androidx.annotation.OptIn
@@ -123,6 +124,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         startForeground(1, NotificationUtils.createNotification(this, mediaSession, isPlaying, currentPosition, duration, mediaPlayerDataList),FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
 
         intent?.getStringExtra("action")?.let { action ->
+            initializePlayer(mediaPlayerDataList)
             when (action) {
                 "Previous" -> {
                     Toast.makeText(this, "Play Previous", Toast.LENGTH_SHORT).show()
@@ -141,6 +143,14 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
                     Toast.makeText(this, "Play Next", Toast.LENGTH_SHORT).show()
                     nextMusic()
                 }
+                "initializePlayer" -> {
+                    val playlistContent = intent.getParcelableArrayListExtra<Parcelable>("playlistContent")
+                    if (!playlistContent.isNullOrEmpty()) {
+                        val subContentList = playlistContent.filterIsInstance<SubContent>()
+                        initializePlayer(subContentList)
+                    }
+                }
+
 
                 else -> {}
             }

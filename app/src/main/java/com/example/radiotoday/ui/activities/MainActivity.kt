@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.radiotoday.R
+import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.services.MusicPlayerService
 import com.example.radiotoday.databinding.ActivityMainBinding
 import com.example.radiotoday.ui.fragments.AudioFragment
@@ -260,6 +261,13 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
         playerClicked = true
         songsFragment.dismissListener = this
         songsFragment.show(supportFragmentManager, songsFragment.tag)
+    }
+
+    fun initializePlayerService(playlistContent: List<SubContent>) {
+        val serviceIntent = Intent(this, MusicPlayerService::class.java)
+        serviceIntent.action = "initializePlayer"
+        serviceIntent.putExtra("playlistContent", ArrayList(playlistContent))
+        startService(serviceIntent)
     }
 
     private fun getFCMToken(intent: Intent?) {
