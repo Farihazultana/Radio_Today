@@ -1,16 +1,20 @@
 package com.example.radiotoday.ui.activities
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.ErrorResponse
 import com.example.radiotoday.databinding.ActivityLoginBinding
+import com.example.radiotoday.ui.viewmodels.ForgetPasswordViewModel
 import com.example.radiotoday.ui.viewmodels.LoginViewModel
 import com.example.radiotoday.ui.viewmodels.RegistrationViewModel
 import com.example.radiotoday.utils.AppUtils
@@ -32,9 +36,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.Result
+import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.json.JSONException
 import java.lang.reflect.Type
 
@@ -45,12 +52,15 @@ class LoginActivity : AppCompatActivity() {
 
     private val loginViewModel by viewModels<LoginViewModel>()
     private val registrationViewModel by viewModels<RegistrationViewModel>()
+    private val forgetPasswordViewModel by viewModels<ForgetPasswordViewModel>()
 
     private lateinit var enteredPhone: String
     private lateinit var enteredPassword: String
     private lateinit var enteredConfirmedpassword: String
     private lateinit var enteredName: String
     private lateinit var enteredEmail: String
+
+    private lateinit var dialog: Dialog
 
     private val myIntent by lazy { Intent(this, MainActivity::class.java) }
 
@@ -101,11 +111,41 @@ class LoginActivity : AppCompatActivity() {
             binding.layoutRegistration.visibility = View.GONE
         }
 
-
+        forgetPasswordObserve()
         binding.tvForget.setOnClickListener {
             AppUtils.setDialog(this, R.layout.dialog_forget_password)
+            val btnSenRequest = dialog.findViewById<Button>(R.id.btnSendRequest)
+            btnSenRequest.setOnClickListener {
+                val enteredEmail = dialog.findViewById<TextInputEditText>(androidx.core.R.id.edit_text_id).text.toString()
+                if (enteredEmail.isNotEmpty()){
+                    forgetPasswordApiCall(enteredEmail)
+                }
+            }
         }
 
+    }
+
+    private fun forgetPasswordApiCall(emailText: String){
+        forgetPasswordViewModel.fetchForgetPasswordData(emailText)
+    }
+
+    private fun forgetPasswordObserve(){
+        lifecycleScope.launch {
+            forgetPasswordViewModel.forgetPasswordData.observe(this@LoginActivity){
+                when(it){
+                    is ResultType.Success -> {
+                        val result = it.data
+                        Toast.makeText(this@LoginActivity, result.message, Toast.LENGTH_SHORT).show()
+                    }
+                    is ResultType.Error -> {
+
+                    }
+                    else ->{
+
+                    }
+                }
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
