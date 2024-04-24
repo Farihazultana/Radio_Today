@@ -20,6 +20,7 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.radiotoday.data.models.SubContent
+import com.example.radiotoday.ui.fragments.AudioFragment
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.utils.NotificationController
 import com.example.radiotoday.utils.NotificationUtils
@@ -28,7 +29,7 @@ import java.io.FileDescriptor
 
 
 @OptIn(UnstableApi::class)
-class MusicPlayerService : Service(), IBinder, PlayAction {
+class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSelectionListener {
     private val notificationReceiver: NotificationController = NotificationController()
 
     companion object{
@@ -114,7 +115,8 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
             url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
         ))*/
 
-        initializePlayer(mediaPlayerDataList)
+        //initializePlayer(mediaPlayerDataList)
+        player = ExoPlayer.Builder(this).build()
         SongsFragment.setOnPlayAction(this)
 
     }
@@ -123,41 +125,44 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         startForeground(1, NotificationUtils.createNotification(this, mediaSession, isPlaying, currentPosition, duration, mediaPlayerDataList),FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
 
-        intent?.getStringExtra("action")?.let { action ->
-            initializePlayer(mediaPlayerDataList)
-            when (action) {
-                "Previous" -> {
-                    Toast.makeText(this, "Play Previous", Toast.LENGTH_SHORT).show()
-                    previousMusic()
-                }
-                "Pause" -> {
-                    Toast.makeText(this, "Pause", Toast.LENGTH_SHORT).show()
-                    pauseMusic()
-                }
-                "Play" -> {
-                    Toast.makeText(this, "Play", Toast.LENGTH_SHORT).show()
-                    //playMusic()
+        if(player != null){
+            intent?.getStringExtra("action")?.let { action ->
 
-                    val selectedSong =  intent.getParcelableArrayListExtra<Parcelable>("selectedSong")?.filterIsInstance<SubContent>()
-                    playSelectyedSong(selectedSong)
-
-                }
-                "Next" -> {
-                    Toast.makeText(this, "Play Next", Toast.LENGTH_SHORT).show()
-                    nextMusic()
-                }
-                /*"initializePlayer" -> {
-                    val playlistContent = intent.getParcelableArrayListExtra<Parcelable>("playlistContent")
-                    if (!playlistContent.isNullOrEmpty()) {
-                        val subContentList = playlistContent.filterIsInstance<SubContent>()
-                        initializePlayer(subContentList)
+                when (action) {
+                    "Previous" -> {
+                        Toast.makeText(this, "Play Previous", Toast.LENGTH_SHORT).show()
+                        previousMusic()
                     }
-                }*/
+                    "Pause" -> {
+                        Toast.makeText(this, "Pause", Toast.LENGTH_SHORT).show()
+                        pauseMusic()
+                    }
+                    "Play" -> {
+                        Toast.makeText(this, "Play", Toast.LENGTH_SHORT).show()
+                        playMusic()
+
+                        /*val selectedSong =  intent.getParcelableArrayListExtra<Parcelable>("selectedSong")?.filterIsInstance<SubContent>()
+                        playSelectyedSong(selectedSong)*/
+
+                    }
+                    "Next" -> {
+                        Toast.makeText(this, "Play Next", Toast.LENGTH_SHORT).show()
+                        nextMusic()
+                    }
+                    /*"initializePlayer" -> {
+                        val playlistContent = intent.getParcelableArrayListExtra<Parcelable>("playlistContent")
+                        if (!playlistContent.isNullOrEmpty()) {
+                            val subContentList = playlistContent.filterIsInstance<SubContent>()
+                            initializePlayer(subContentList)
+                        }
+                    }*/
 
 
-                else -> {}
+                    else -> {}
+                }
             }
         }
+
 
         return START_NOT_STICKY
     }
@@ -217,12 +222,12 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         notifyPlaybackStateChanged()
     }
 
-    private fun playSelectyedSong(song: List<SubContent>?){
+    /*private fun playSelectyedSong(song: List<SubContent>?){
         if (song != null){
             initializePlayer(song)
             playMusic()
         }
-    }
+    }*/
 
     override fun pauseMusic() {
         player.pause()
@@ -343,17 +348,21 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         )*/
     }
 
-    override fun initializePlayer(mediaPlayerDataList: List<SubContent>) {
-        player = ExoPlayer.Builder(this).build()
+    override fun initializePlayer(songUrl: SubContent) {
+
 
         player.clearMediaItems()
+        val mediaItem = songUrl.url?.let { MediaItem.fromUri(it) }
+        if (mediaItem != null) {
+            player.addMediaItem(mediaItem)
+        }
 
-        for (item in mediaPlayerDataList){
+        /*for (item in mediaPlayerDataList){
             val mediaItem = item.url?.let { MediaItem.fromUri(it) }
             if (mediaItem != null) {
                 player.addMediaItem(mediaItem)
             }
-        }
+        }*/
 
         player.prepare()
 
@@ -367,6 +376,10 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         val intent = Intent("PlaybackState")
         intent.putExtra("isPlaying", isPlaying)
         sendBroadcast(intent)
+    }
+
+    override fun onSongSelected(song: SubContent) {
+        initializePlayer(song)
     }
 
 

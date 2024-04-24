@@ -37,7 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, AudioFragment.SongSelectionListener, SongsFragment.SongDismissListener{
+class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, SongsFragment.SongDismissListener{
 
     private lateinit var binding: ActivityMainBinding
 
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Audio
         videoFragment.songClickListener = this
         newsFragment.songClickListener = this
 
-        audioFragment.setSongSelectionListener(this)
+        //audioFragment.setSongSelectionListener(this)
 
         replaceFragment(homeFragment)
         binding.bottomNavigationView.itemIconTintList=null
@@ -291,7 +291,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Audio
         playerClicked = false
     }
 
-    override fun onSongSelected(song: SubContent) {
+    /*override fun onSongSelected(song: SubContent) {
         val intent = Intent(this, MusicPlayerService::class.java)
         intent.action = "Play"
         intent.putExtra("selectedSong", song)
@@ -300,6 +300,6 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Audio
         } else {
             startService(intent)
         }
-    }
+    }*/
 
 }

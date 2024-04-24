@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.radiotoday.data.models.SongList
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.data.services.MusicPlayerService
@@ -171,9 +172,13 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
     override fun onCardClickListener(position: Int) {
         Log.d("AudioFragment", "Clicked on position: $position")
 
+        SongList.setSongList(audioAdapter.audioPlaylistData, position)
+
+
         if (position >= 0 && position < audioAdapter.itemCount) {
             songClickListener?.onSongClickListener()
             songSelectionListener?.onSongSelected(audioAdapter.audioPlaylistData[position])
+
 
         } else {
             Log.e("AudioFragment", "Invalid position: $position")
@@ -182,9 +187,9 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         audioAdapter.notifyDataSetChanged()
     }
 
-    fun setSongSelectionListener(listener: SongSelectionListener) {
+    /*fun setSongSelectionListener(listener: SongSelectionListener) {
         this.songSelectionListener = listener
-    }
+    }*/
 
     companion object {
 
@@ -194,7 +199,6 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         }
 
     }
-
     interface SongSelectionListener {
         fun onSongSelected(song: SubContent)
     }
