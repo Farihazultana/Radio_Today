@@ -37,7 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, SongsFragment.SongDismissListener{
+class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, AudioFragment.SongSelectionListener, SongsFragment.SongDismissListener{
 
     private lateinit var binding: ActivityMainBinding
 
@@ -99,6 +99,8 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
         audioFragment.songClickListener = this
         videoFragment.songClickListener = this
         newsFragment.songClickListener = this
+
+        audioFragment.setSongSelectionListener(this)
 
         replaceFragment(homeFragment)
         binding.bottomNavigationView.itemIconTintList=null
@@ -263,12 +265,12 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
         songsFragment.show(supportFragmentManager, songsFragment.tag)
     }
 
-    fun initializePlayerService(playlistContent: List<SubContent>) {
+    /*fun initializePlayerService(playlistContent: List<SubContent>) {
         val serviceIntent = Intent(this, MusicPlayerService::class.java)
         serviceIntent.action = "initializePlayer"
         serviceIntent.putExtra("playlistContent", ArrayList(playlistContent))
         startService(serviceIntent)
-    }
+    }*/
 
     private fun getFCMToken(intent: Intent?) {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
@@ -287,6 +289,17 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
 
     override fun onSongDismissListener() {
         playerClicked = false
+    }
+
+    override fun onSongSelected(song: SubContent) {
+        val intent = Intent(this, MusicPlayerService::class.java)
+        intent.action = "Play"
+        intent.putExtra("selectedSong", song)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ContextCompat.startForegroundService(this, intent)
+        } else {
+            startService(intent)
+        }
     }
 
 }

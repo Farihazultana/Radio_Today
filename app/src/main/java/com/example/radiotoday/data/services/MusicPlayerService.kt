@@ -136,20 +136,23 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
                 }
                 "Play" -> {
                     Toast.makeText(this, "Play", Toast.LENGTH_SHORT).show()
-                    playMusic()
+                    //playMusic()
+
+                    val selectedSong =  intent.getParcelableArrayListExtra<Parcelable>("selectedSong")?.filterIsInstance<SubContent>()
+                    playSelectyedSong(selectedSong)
 
                 }
                 "Next" -> {
                     Toast.makeText(this, "Play Next", Toast.LENGTH_SHORT).show()
                     nextMusic()
                 }
-                "initializePlayer" -> {
+                /*"initializePlayer" -> {
                     val playlistContent = intent.getParcelableArrayListExtra<Parcelable>("playlistContent")
                     if (!playlistContent.isNullOrEmpty()) {
                         val subContentList = playlistContent.filterIsInstance<SubContent>()
                         initializePlayer(subContentList)
                     }
-                }
+                }*/
 
 
                 else -> {}
@@ -212,6 +215,13 @@ class MusicPlayerService : Service(), IBinder, PlayAction {
         player.play()
         isPlaying = true
         notifyPlaybackStateChanged()
+    }
+
+    private fun playSelectyedSong(song: List<SubContent>?){
+        if (song != null){
+            initializePlayer(song)
+            playMusic()
+        }
     }
 
     override fun pauseMusic() {

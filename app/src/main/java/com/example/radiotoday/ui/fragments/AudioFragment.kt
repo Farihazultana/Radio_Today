@@ -39,6 +39,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
     private lateinit var playlistData: SeeAllResponse
 
     var songClickListener: SongClickListener? = null
+    var songSelectionListener: SongSelectionListener? = null
 
     private var isLoading = false
     private var isLastpage = false
@@ -144,7 +145,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
                         }
                     }
 
-                    (requireActivity() as MainActivity).initializePlayerService(playlistContent)
+                    //(requireActivity() as MainActivity).initializePlayerService(playlistContent)
 
                     isLoading = false
                     //checking last page
@@ -172,12 +173,17 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
 
         if (position >= 0 && position < audioAdapter.itemCount) {
             songClickListener?.onSongClickListener()
+            songSelectionListener?.onSongSelected(audioAdapter.audioPlaylistData[position])
 
         } else {
             Log.e("AudioFragment", "Invalid position: $position")
         }
 
         audioAdapter.notifyDataSetChanged()
+    }
+
+    fun setSongSelectionListener(listener: SongSelectionListener) {
+        this.songSelectionListener = listener
     }
 
     companion object {
@@ -187,6 +193,10 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
             this.onBackAction = setBackAction
         }
 
+    }
+
+    interface SongSelectionListener {
+        fun onSongSelected(song: SubContent)
     }
 
 
