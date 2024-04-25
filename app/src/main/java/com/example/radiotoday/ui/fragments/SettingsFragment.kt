@@ -1,6 +1,8 @@
 package com.example.radiotoday.ui.fragments
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -29,6 +31,9 @@ import com.example.radiotoday.utils.SharedPreferencesUtil
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.play.core.review.ReviewException
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.review.model.ReviewErrorCode
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +46,8 @@ class SettingsFragment : Fragment() {
     private lateinit var signInClient: SignInClient
 
     private val logoutViewModel by viewModels<LogoutViewModel>()
+
+    private val PACKAGE_NAME = "com.example.radiotoday"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,8 +94,27 @@ class SettingsFragment : Fragment() {
             actionLoginLogout()
         }
 
+        binding.layoutRateApp.setOnClickListener {
+            actionRatingApp()
+        }
+
         return binding.root
     }
+
+    private fun actionRatingApp() {
+        val marketUri = Uri.parse("market://details?id=$PACKAGE_NAME")
+        val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
+        try {
+            startActivity(marketIntent)
+        } catch (e: ActivityNotFoundException) {
+            // If Play Store app is not available, open the app link in a browser
+            val webUri =
+                Uri.parse("https://play.google.com/store/apps/details?id=$PACKAGE_NAME")
+            val webIntent = Intent(Intent.ACTION_VIEW, webUri)
+            startActivity(webIntent)
+        }
+    }
+
 
     override fun onResume() {
         super.onResume()

@@ -112,6 +112,10 @@ dependencies {
     //show more text
     implementation ("com.github.mahimrocky:ShowMoreText:1.0.2")
 
+    //rate this app
+    implementation ("com.google.android.play:review:2.0.1")
+    implementation ("com.google.android.play:review-ktx:2.0.1")
+
 }
 
 kapt {
