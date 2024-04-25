@@ -112,17 +112,16 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
             true
         }
 
-        val miniPlayer = binding.layoutMiniPlayer
-        miniPlayer.setOnClickListener {
+        binding.layoutMiniPlayer.cvMiniPlayer.setOnClickListener {
             if (!playerClicked){
                 gotoPlayer()
             }
         }
 
-        val playBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_playMini)
-        val pauseBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_pauseMini)
-        val nextBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_playNextMini)
-        val prevBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_playPrevMini)
+        val playBtnMini = binding.layoutMiniPlayer.ivPlayMini
+        //val pauseBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_pauseMini)
+        //val nextBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_playNextMini)
+        //val prevBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_playPrevMini)
 
 
         getFCMToken(intent)
@@ -186,27 +185,27 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
     private fun handleNavigation(it: MenuItem) {
         when (it.itemId) {
             R.id.home -> {
-                binding.layoutMiniPlayer.visibility = View.VISIBLE
+                binding.layoutMiniPlayer.cvMiniPlayer.visibility = View.VISIBLE
                 replaceFragment(homeFragment)
             }
 
             R.id.audio -> {
-                binding.layoutMiniPlayer.visibility = View.VISIBLE
+                binding.layoutMiniPlayer.cvMiniPlayer.visibility = View.VISIBLE
                 replaceFragment(audioFragment)
             }
 
             R.id.video -> {
-                binding.layoutMiniPlayer.visibility = View.VISIBLE
+                binding.layoutMiniPlayer.cvMiniPlayer.visibility = View.VISIBLE
                 replaceFragment(videoFragment)
             }
 
             R.id.news -> {
-                binding.layoutMiniPlayer.visibility = View.VISIBLE
+                binding.layoutMiniPlayer.cvMiniPlayer.visibility = View.VISIBLE
                 replaceFragment(newsFragment)
             }
 
             R.id.settings -> {
-                binding.layoutMiniPlayer.visibility = View.GONE
+                binding.layoutMiniPlayer.cvMiniPlayer.visibility = View.GONE
                 replaceFragment(settingsFragment)
             }
 
