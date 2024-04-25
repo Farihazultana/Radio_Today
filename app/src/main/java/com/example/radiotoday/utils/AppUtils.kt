@@ -13,6 +13,8 @@ object AppUtils {
     const val LogInObj = "LogInResponseItem"
     const val IntroScreenStatus = "IntroScreenShown"
 
+    const val SWITCH = "true"
+
     fun setDialog(context: Context, layoutId: Int): Dialog {
         val dialog = Dialog(context)
         dialog.setContentView(layoutId)

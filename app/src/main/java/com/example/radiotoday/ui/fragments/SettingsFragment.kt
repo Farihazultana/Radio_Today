@@ -25,6 +25,7 @@ import com.example.radiotoday.ui.viewmodels.LogoutViewModel
 import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.AppUtils.IntroScreenStatus
 import com.example.radiotoday.utils.AppUtils.LogInStatus
+import com.example.radiotoday.utils.AppUtils.SWITCH
 import com.example.radiotoday.utils.OnBackAction
 import com.example.radiotoday.utils.ResultType
 import com.example.radiotoday.utils.SharedPreferencesUtil
@@ -96,6 +97,19 @@ class SettingsFragment : Fragment() {
 
         binding.layoutRateApp.setOnClickListener {
             actionRatingApp()
+        }
+
+        val switchStartPlayer = binding.ivSwitchStartPlayer
+
+        switchStartPlayer.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (isChecked) {
+                Log.d("Switch", "Switch is turned on")
+                SharedPreferencesUtil.saveData(requireActivity(), SWITCH, isChecked)
+            } else {
+                Log.d("Switch", "Switch is turned off")
+                SharedPreferencesUtil.saveData(requireActivity(), SWITCH, isChecked)
+            }
         }
 
         return binding.root

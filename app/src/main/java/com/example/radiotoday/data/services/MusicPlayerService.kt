@@ -22,9 +22,11 @@ import androidx.media3.exoplayer.ExoPlayer
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.ui.fragments.AudioFragment
 import com.example.radiotoday.ui.fragments.SongsFragment
+import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.NotificationController
 import com.example.radiotoday.utils.NotificationUtils
 import com.example.radiotoday.utils.PlayAction
+import com.example.radiotoday.utils.SharedPreferencesUtil
 import java.io.FileDescriptor
 
 
@@ -117,6 +119,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
 
         //initializePlayer(mediaPlayerDataList)
         player = ExoPlayer.Builder(this).build()
+        
         SongsFragment.setOnPlayAction(this)
 
     }
@@ -163,6 +166,30 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
             }
         }
 
+        val startPlayerStatus = SharedPreferencesUtil.getData(applicationContext, AppUtils.SWITCH, false)
+
+        if (startPlayerStatus == true) {
+            // Start playing music if the switch is on
+            startForeground(
+                1,
+                NotificationUtils.createNotification(
+                    this,
+                    mediaSession,
+                    isPlaying,
+                    currentPosition,
+                    duration,
+                    mediaPlayerDataList
+                ),
+                FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
+            )
+            // Start playing the live stream URL
+            initializePlayer("http://stream.zeno.fm/8wv4d8g4344tv")
+            isPlaying = true
+            playMusic()
+        } else {
+            // Stop playing music if the switch is off
+            pauseMusic()
+        }
 
         return START_NOT_STICKY
     }
@@ -348,11 +375,11 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
         )*/
     }
 
-    override fun initializePlayer(songUrl: SubContent) {
+    override fun initializePlayer(songUrl: String) {
 
 
         player.clearMediaItems()
-        val mediaItem = songUrl.url?.let { MediaItem.fromUri(it) }
+        val mediaItem = MediaItem.fromUri(songUrl)
         if (mediaItem != null) {
             player.addMediaItem(mediaItem)
         }
@@ -379,7 +406,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
     }
 
     override fun onSongSelected(song: SubContent) {
-        initializePlayer(song)
+        song.url?.let { initializePlayer(it) }
     }
 
 

@@ -139,7 +139,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.1"
                         android:src="@drawable/ic_play_button"
-                        app:layout_constraintBottom_toTopOf="@+id/iv_arrow_right_Player"
+                        app:layout_constraintBottom_toTopOf="@+id/iv_switch_Start_Player"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -157,7 +157,7 @@
 
 
                     <Switch
-                        android:id="@+id/iv_arrow_right_Player"
+                        android:id="@+id/iv_switch_Start_Player"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
