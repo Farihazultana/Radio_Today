@@ -13,11 +13,14 @@ import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.findFragment
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.services.MusicPlayerService
@@ -109,11 +112,18 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
             true
         }
 
-        binding.layoutMiniPlayer.setOnClickListener {
+        val miniPlayer = binding.layoutMiniPlayer
+        miniPlayer.setOnClickListener {
             if (!playerClicked){
                 gotoPlayer()
             }
         }
+
+        val playBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_playMini)
+        val pauseBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_pauseMini)
+        val nextBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_playNextMini)
+        val prevBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_playPrevMini)
+
 
         getFCMToken(intent)
         val value = intent.getStringExtra("section")
