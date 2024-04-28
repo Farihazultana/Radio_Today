@@ -40,18 +40,11 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
     private lateinit var playlistData: SeeAllResponse
 
     var songClickListener: SongClickListener? = null
-    var songSelectionListener: SongSelectionListener? = null
+
 
     private var isLoading = false
     private var isLastpage = false
     private var currentPage = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +67,6 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         binding.rvPlaylist.adapter = audioAdapter
 
         observeSeeAllData()
-
 
         return binding.root
     }
@@ -146,8 +138,6 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
                         }
                     }
 
-                    //(requireActivity() as MainActivity).initializePlayerService(playlistContent)
-
                     isLoading = false
                     //checking last page
                     isLastpage = playlistContent.isEmpty()
@@ -177,7 +167,6 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
 
         if (position >= 0 && position < audioAdapter.itemCount) {
             songClickListener?.onSongClickListener()
-            songSelectionListener?.onSongSelected(audioAdapter.audioPlaylistData[position])
 
 
         } else {
@@ -187,10 +176,6 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         audioAdapter.notifyDataSetChanged()
     }
 
-    /*fun setSongSelectionListener(listener: SongSelectionListener) {
-        this.songSelectionListener = listener
-    }*/
-
     companion object {
 
         lateinit var onBackAction: OnBackAction
@@ -198,9 +183,6 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
             this.onBackAction = setBackAction
         }
 
-    }
-    interface SongSelectionListener {
-        fun onSongSelected(song: SubContent)
     }
 
 

@@ -13,16 +13,12 @@ import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.findFragment
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.services.MusicPlayerService
 import com.example.radiotoday.databinding.ActivityMainBinding
 import com.example.radiotoday.ui.fragments.AudioFragment
@@ -274,13 +270,6 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
         songsFragment.show(supportFragmentManager, songsFragment.tag)
     }
 
-    /*fun initializePlayerService(playlistContent: List<SubContent>) {
-        val serviceIntent = Intent(this, MusicPlayerService::class.java)
-        serviceIntent.action = "initializePlayer"
-        serviceIntent.putExtra("playlistContent", ArrayList(playlistContent))
-        startService(serviceIntent)
-    }*/
-
     private fun getFCMToken(intent: Intent?) {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -299,16 +288,5 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
     override fun onSongDismissListener() {
         playerClicked = false
     }
-
-    /*override fun onSongSelected(song: SubContent) {
-        val intent = Intent(this, MusicPlayerService::class.java)
-        intent.action = "Play"
-        intent.putExtra("selectedSong", song)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            ContextCompat.startForegroundService(this, intent)
-        } else {
-            startService(intent)
-        }
-    }*/
 
 }

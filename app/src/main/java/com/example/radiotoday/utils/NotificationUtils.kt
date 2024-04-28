@@ -43,15 +43,15 @@ object NotificationUtils {
         isPlaying: Boolean,
         currentPosition: Long,
         duration: Long,
-        mediaPlayerDataList: List<SubContent>
+        songList: List<SubContent>
     ): Notification {
-        if (mediaPlayerDataList.isEmpty()) {
+        if (songList.isEmpty()) {
 
             return createDefaultNotification(context)
         }
 
         val currentMediaItemIndex = onPlayAction.getPlayer().currentMediaItemIndex
-        val currentMediaItem = mediaPlayerDataList[currentMediaItemIndex]
+        val currentMediaItem = songList[currentMediaItemIndex]
 
         val intent = Intent(context, MainActivity::class.java)
         intent.putExtra("fragment", "songs")
@@ -207,9 +207,12 @@ object NotificationUtils {
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_MUTABLE)
     }
 
-    fun updateNotification(context: Context, isPlaying: Boolean, mediaSession: MediaSessionCompat,currentPosition: Long, duration: Long, mediaPlayerDataList: List<SubContent>) {
+    fun updateNotification(
+        context: Context, isPlaying: Boolean, mediaSession: MediaSessionCompat,
+        currentPosition: Long, duration: Long, songList: List<SubContent>
+    ) {
         val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(1, createNotification(context,mediaSession, isPlaying, currentPosition, duration, mediaPlayerDataList))
+        notificationManager.notify(1, createNotification(context,mediaSession, isPlaying, currentPosition, duration, songList))
     }
 
     private fun getBitmapFromUrl(context: Context, url: String): Bitmap? {

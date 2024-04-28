@@ -10,8 +10,8 @@ import android.os.Build
 import android.os.IBinder
 import android.os.IInterface
 import android.os.Parcel
-import android.os.Parcelable
 import android.support.v4.media.session.MediaSessionCompat
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.OptIn
 import androidx.annotation.RequiresApi
@@ -20,7 +20,6 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.radiotoday.data.models.SubContent
-import com.example.radiotoday.ui.fragments.AudioFragment
 import com.example.radiotoday.ui.fragments.SongsFragment
 import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.NotificationController
@@ -31,7 +30,7 @@ import java.io.FileDescriptor
 
 
 @OptIn(UnstableApi::class)
-class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSelectionListener {
+class MusicPlayerService : Service(), IBinder, PlayAction{
     private val notificationReceiver: NotificationController = NotificationController()
 
     companion object{
@@ -53,6 +52,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
     inner class MusicPlayerBinder : Binder() {
         fun getService(): MusicPlayerService = this@MusicPlayerService
     }
+
 
     override fun onCreate() {
         super.onCreate()
@@ -152,14 +152,6 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
                         Toast.makeText(this, "Play Next", Toast.LENGTH_SHORT).show()
                         nextMusic()
                     }
-                    /*"initializePlayer" -> {
-                        val playlistContent = intent.getParcelableArrayListExtra<Parcelable>("playlistContent")
-                        if (!playlistContent.isNullOrEmpty()) {
-                            val subContentList = playlistContent.filterIsInstance<SubContent>()
-                            initializePlayer(subContentList)
-                        }
-                    }*/
-
 
                     else -> {}
                 }
@@ -168,7 +160,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
 
         val startPlayerStatus = SharedPreferencesUtil.getData(applicationContext, AppUtils.SWITCH, false)
 
-        if (startPlayerStatus == true) {
+        /*if (startPlayerStatus == true) {
             // Start playing music if the switch is on
             startForeground(
                 1,
@@ -182,14 +174,15 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
                 ),
                 FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
             )
-            // Start playing the live stream URL
-            initializePlayer("http://stream.zeno.fm/8wv4d8g4344tv")
+
+            val liveUrls = listOf("http://stream.zeno.fm/8wv4d8g4344tv", "http://stream.zeno.fm/8wv4d8g4344tv")
+            //initializePlayer()
             isPlaying = true
             playMusic()
         } else {
             // Stop playing music if the switch is off
             pauseMusic()
-        }
+        }*/
 
         return START_NOT_STICKY
     }
@@ -249,13 +242,6 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
         notifyPlaybackStateChanged()
     }
 
-    /*private fun playSelectyedSong(song: List<SubContent>?){
-        if (song != null){
-            initializePlayer(song)
-            playMusic()
-        }
-    }*/
-
     override fun pauseMusic() {
         player.pause()
         isPlaying = false
@@ -303,95 +289,28 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
         }
     }
 
-    override fun trackSelector() {
-        /*player.addListener(
-            object : Player.Listener {
-                override fun onTracksChanged(tracks: Tracks) {
-                    val audioList = mutableListOf<String>()
-                    var language: String = ""
-                    for (trackGroup in tracks.groups) {
-                        val trackType = trackGroup.type
+    override fun initializePlayer(songList: ArrayList<SubContent>, position : Int) {
 
-                        if (trackType == C.TRACK_TYPE_AUDIO) {
-                            for (i in 0 until trackGroup.length) {
-                                val trackFormat = trackGroup.getTrackFormat(i)
-                                language =
-                                    trackFormat.language ?: "und"
+        if (songList.isNotEmpty()){
+            player.clearMediaItems()
 
-                                audioList.add("${audioList.size + 1}. " + Locale(language).displayLanguage)
-                            }
-                        }
-                    }
-
-                    if (audioList.isEmpty()) {
-                        // No audio tracks available
-                        return
-                    }
-
-                    if (audioList[0].contains("null")) {
-                        audioList[0] = "1. Default Tracks"
-                    }
-
-                    val tempTracks = audioList.toTypedArray()
-
-                    val audioDialog = MaterialAlertDialogBuilder(
-                        this@MusicPlayerService,
-                        R.style.Base_Theme_ExoPlayer
-                    )
-                        .setTitle("Select Language")
-                        .setOnCancelListener { player.play() }
-                        .setPositiveButton("Off Audio") { self, _ ->
-                            // Handle turning off audio if needed
-                            player.trackSelectionParameters =
-                                player.trackSelectionParameters
-                                    .buildUpon()
-                                    .setMaxVideoSizeSd()
-                                    .build()
-                            self.dismiss()
-                        }
-                        .setItems(tempTracks) { _, position ->
-                            // Handle selecting audio track
-                            Toast.makeText(
-                                this@MusicPlayerService,
-                                audioList[position] + " Selected",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                            val selectedLanguage = Locale(language).language
-                            player.trackSelectionParameters =
-                                player.trackSelectionParameters
-                                    .buildUpon()
-                                    .setMaxVideoSizeSd()
-                                    .setPreferredAudioLanguage(selectedLanguage)
-                                    .build()
-                        }
-                        .create()
-
-                    audioDialog.show()
-                    audioDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GREEN)
-                    audioDialog.window?.setBackgroundDrawable(ColorDrawable(0x99000000.toInt()))
-                }
-            }
-        )*/
-    }
-
-    override fun initializePlayer(songUrl: String) {
-
-
-        player.clearMediaItems()
-        val mediaItem = MediaItem.fromUri(songUrl)
-        if (mediaItem != null) {
-            player.addMediaItem(mediaItem)
-        }
-
-        /*for (item in mediaPlayerDataList){
-            val mediaItem = item.url?.let { MediaItem.fromUri(it) }
+            val mediaItem = songList[position].url?.let { MediaItem.fromUri(it) }
             if (mediaItem != null) {
                 player.addMediaItem(mediaItem)
             }
-        }*/
+            player.prepare()
+        }else{
+            Log.i("DPlayer", "initializePlayer: SongList is empty!")
+        }
+        
+            /*for (item in songList){
+                val mediaItem = item.url?.let { MediaItem.fromUri(it) }
+                if (mediaItem != null) {
+                    player.addMediaItem(mediaItem)
+                }
+            }*/
 
-        player.prepare()
+        
 
     }
 
@@ -405,9 +324,11 @@ class MusicPlayerService : Service(), IBinder, PlayAction, AudioFragment.SongSel
         sendBroadcast(intent)
     }
 
-    override fun onSongSelected(song: SubContent) {
+    /*override fun onSongSelected(song: SubContent) {
+        releasePlayer()
+        Log.i("DPlayer", "onSongSelected: ${song.url}")
         song.url?.let { initializePlayer(it) }
-    }
+    }*/
 
 
 }

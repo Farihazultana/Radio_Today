@@ -23,6 +23,7 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import com.example.radiotoday.data.models.MediaPlayerData
+import com.example.radiotoday.data.models.SongList
 import com.example.radiotoday.data.services.MusicPlayerService
 import com.example.radiotoday.databinding.FragmentSongsBinding
 import com.example.radiotoday.utils.NotificationController
@@ -109,7 +110,9 @@ class SongsFragment : BottomSheetDialogFragment() {
         registerReceiver(requireActivity(),playbackStateReceiver, IntentFilter("PlaybackState"), RECEIVER_EXPORTED)
         mediaSession = MediaSessionCompat(requireActivity(), "MusicPlayerService")
 
-
+        val songList = SongList.getSongsList()
+        val songPosition = SongList.getCurrentPosition()
+        onPlayAction.initializePlayer(songList, songPosition)
 
         binding.playerView.player = onPlayAction.getPlayer()
 
