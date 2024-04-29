@@ -1,4 +1,4 @@
-package com.example.radiotoday.utils
+package com.example.radiotoday.ui.interfaces
 
 /**
  * Created by Estiak on 12/24/23

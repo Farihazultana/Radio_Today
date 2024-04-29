@@ -14,13 +14,14 @@ import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.FragmentNewsBinding
 import com.example.radiotoday.ui.adapters.NewsAdapter
 import com.example.radiotoday.ui.viewmodels.NewsViewModel
-import com.example.radiotoday.utils.OnBackAction
+import com.example.radiotoday.ui.interfaces.ItemClickListener
+import com.example.radiotoday.ui.interfaces.OnBackAction
 import com.example.radiotoday.utils.ResultType
-import com.example.radiotoday.utils.SongClickListener
+import com.example.radiotoday.ui.interfaces.PlayerClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewsFragment : Fragment(), NewsAdapter.CardClickListener{
+class NewsFragment : Fragment(), ItemClickListener {
     private lateinit var binding: FragmentNewsBinding
 
     private lateinit var newsAdapter: NewsAdapter
@@ -29,7 +30,7 @@ class NewsFragment : Fragment(), NewsAdapter.CardClickListener{
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var playlistData: SeeAllResponse
 
-    var songClickListener: SongClickListener? = null
+    var playerClickListener: PlayerClickListener? = null
 
     private var isLoading = false
     private var isLastpage = false
@@ -148,11 +149,11 @@ class NewsFragment : Fragment(), NewsAdapter.CardClickListener{
 
     }
 
-    override fun onCardClickListener(position: Int) {
+    override fun onItemClickListener(position: Int) {
         Log.d("VideoFragment", "Clicked on position: $position")
 
         if (position >= 0 && position < newsAdapter.itemCount) {
-            songClickListener?.onSongClickListener()
+            playerClickListener?.onPlayerClickListener()
         } else {
             Log.e("VideoFragment", "Invalid position: $position")
         }

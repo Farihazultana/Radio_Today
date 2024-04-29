@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.SubContent
-import org.w3c.dom.Text
+import com.example.radiotoday.ui.interfaces.ItemClickListener
 
-class NewsAdapter (private val context: Context, private val cardClickListener: CardClickListener): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(){
+class NewsAdapter (private val context: Context, private val itemClickListener: ItemClickListener): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(){
 
     var newsData : ArrayList<SubContent> = ArrayList()
 
@@ -29,7 +28,7 @@ class NewsAdapter (private val context: Context, private val cardClickListener: 
         val viewHolder = NewsViewHolder(itemView)
 
         itemView.setOnClickListener {
-            cardClickListener.onCardClickListener(viewHolder.adapterPosition)
+            itemClickListener.onItemClickListener(viewHolder.adapterPosition)
         }
 
         return viewHolder
@@ -52,7 +51,4 @@ class NewsAdapter (private val context: Context, private val cardClickListener: 
         holder.description.text = playlistItem.description
     }
 
-    interface CardClickListener {
-        fun onCardClickListener(position: Int)
-    }
 }

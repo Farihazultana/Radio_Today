@@ -1,14 +1,8 @@
 package com.example.radiotoday.ui.fragments
 
 
-import android.app.Service
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
 import android.graphics.Color
 import android.os.Bundle
-import android.os.IBinder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,18 +14,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.radiotoday.data.models.SongList
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
-import com.example.radiotoday.data.services.MusicPlayerService
 import com.example.radiotoday.databinding.FragmentAudioBinding
-import com.example.radiotoday.ui.activities.MainActivity
 import com.example.radiotoday.ui.adapters.AudioPlaylistAdapter
 import com.example.radiotoday.ui.viewmodels.AudioViewModel
-import com.example.radiotoday.utils.OnBackAction
+import com.example.radiotoday.ui.interfaces.ItemClickListener
+import com.example.radiotoday.ui.interfaces.OnBackAction
 import com.example.radiotoday.utils.ResultType
-import com.example.radiotoday.utils.SongClickListener
+import com.example.radiotoday.ui.interfaces.PlayerClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
+class AudioFragment : Fragment(), ItemClickListener {
     private lateinit var binding: FragmentAudioBinding
     private lateinit var audioAdapter: AudioPlaylistAdapter
     private val audioViewModel by viewModels<AudioViewModel>()
@@ -39,7 +32,7 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
 
     private lateinit var playlistData: SeeAllResponse
 
-    var songClickListener: SongClickListener? = null
+    var playerClickListener: PlayerClickListener? = null
 
 
     private var isLoading = false
@@ -159,14 +152,14 @@ class AudioFragment : Fragment(), AudioPlaylistAdapter.CardClickListener {
         return layoutManager
     }
 
-    override fun onCardClickListener(position: Int) {
+    override fun onItemClickListener(position: Int) {
         Log.d("AudioFragment", "Clicked on position: $position")
 
         SongList.setSongList(audioAdapter.audioPlaylistData, position)
 
 
         if (position >= 0 && position < audioAdapter.itemCount) {
-            songClickListener?.onSongClickListener()
+            playerClickListener?.onPlayerClickListener()
 
 
         } else {

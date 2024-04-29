@@ -8,27 +8,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.radiotoday.R
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.databinding.FragmentHomeBinding
 import com.example.radiotoday.ui.activities.ShowDetailsActivity
 import com.example.radiotoday.ui.adapters.ParentHomeAdapter
+import com.example.radiotoday.ui.interfaces.HomeItemClickListener
 import com.example.radiotoday.ui.viewmodels.HomeViewModel
 import com.example.radiotoday.utils.ResultType
-import com.example.radiotoday.utils.SongClickListener
+import com.example.radiotoday.ui.interfaces.PlayerClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
+class HomeFragment : Fragment(), HomeItemClickListener {
     private lateinit var parentHomeAdapter: ParentHomeAdapter
     private val homeViewModel by viewModels<HomeViewModel>()
     private lateinit var binding: FragmentHomeBinding
 
-    var songClickListener: SongClickListener? = null
+    var playerClickListener: PlayerClickListener? = null
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -38,7 +37,7 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
 
 
-        val greeting = ShowGreetingsMsg()
+        val greeting = showGreetingsMsg()
         Log.i("Greeting", "onCreateView: $greeting")
         binding.tvGreeting.text = greeting
 
@@ -55,7 +54,7 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
                 is ResultType.Success -> {
                     binding.shimmerFrameLayoutHome.visibility = View.GONE
                     val homeData= it.data.content
-                    parentHomeAdapter.homeData = ArrayList(homeData + homeData + homeData + homeData + homeData + homeData + homeData + homeData + homeData + homeData)
+                    parentHomeAdapter.homeData = ArrayList(homeData + homeData )
                     this.parentHomeAdapter.notifyDataSetChanged()
 
 
@@ -68,16 +67,10 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
         return binding.root
     }
 
-    override fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
+    override fun onHomeItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
 
         if (currentSection == "songs"){
-
-            /*val songsFragment = SongsFragment()
-            requireActivity().supportFragmentManager.beginTransaction()
-                .add(R.id.frameLayout, songsFragment)
-                .commit()*/
-
-            songClickListener?.onSongClickListener()
+            playerClickListener?.onPlayerClickListener()
 
         }else{
 
@@ -91,7 +84,7 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
 
     }
 
-    private fun ShowGreetingsMsg() : String {
+    private fun showGreetingsMsg() : String {
         val cal = Calendar.getInstance()
 
         return when(cal.get(Calendar.HOUR_OF_DAY)){
@@ -104,11 +97,6 @@ class HomeFragment : Fragment(), ParentHomeAdapter.ItemClickListener {
             else -> "Hello"
         }
     }
-
-    /*interface SongClickListener {
-        fun onSongClickListener()
-
-    }*/
 
 
 }

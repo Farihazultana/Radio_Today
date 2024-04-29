@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.SubContent
+import com.example.radiotoday.ui.interfaces.ItemClickListener
 
-class AudioPlaylistAdapter(private val context: Context, private val cardClickListener : CardClickListener):
+class AudioPlaylistAdapter(private val context: Context, private val itemClickListener : ItemClickListener):
     RecyclerView.Adapter<AudioPlaylistAdapter.AudioPlaylistViewHolder>() {
 
     var audioPlaylistData : ArrayList<SubContent> = ArrayList()
@@ -52,7 +53,7 @@ class AudioPlaylistAdapter(private val context: Context, private val cardClickLi
 
 
         holder.itemView.setOnClickListener {
-            cardClickListener.onCardClickListener(position)
+            itemClickListener.onItemClickListener(position)
         }
     }
 
@@ -60,7 +61,4 @@ class AudioPlaylistAdapter(private val context: Context, private val cardClickLi
         return audioPlaylistData.size
     }
 
-    interface CardClickListener {
-        fun onCardClickListener(position: Int)
-    }
 }

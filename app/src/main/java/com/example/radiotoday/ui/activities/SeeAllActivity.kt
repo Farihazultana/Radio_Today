@@ -14,14 +14,15 @@ import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.ActivitySeeAllBinding
 import com.example.radiotoday.ui.adapters.ParentHomeAdapter
 import com.example.radiotoday.ui.adapters.SeeAllAdapter
-import com.example.radiotoday.ui.fragments.SongsFragment
+import com.example.radiotoday.ui.fragments.PlayerFragment
+import com.example.radiotoday.ui.interfaces.HomeItemClickListener
 import com.example.radiotoday.ui.viewmodels.SeeAllPodcastViewModel
 import com.example.radiotoday.ui.viewmodels.SeeAllViewModel
 import com.example.radiotoday.utils.ResultType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, ParentHomeAdapter.ItemClickListener {
+class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, HomeItemClickListener {
 
     private lateinit var playlistData: SeeAllResponse
     private lateinit var binding: ActivitySeeAllBinding
@@ -204,7 +205,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
     override fun onItemClickListener(position: Int, playlistItem: SubContent) {
 
         if (sectionCode == "songs"){
-            val songsFragment = SongsFragment()
+            val songsFragment = PlayerFragment()
             songsFragment.show(supportFragmentManager,songsFragment.tag)
         }else{
             val intent = Intent(this, ShowDetailsActivity::class.java)
@@ -218,7 +219,7 @@ class SeeAllActivity : AppCompatActivity(), SeeAllAdapter.ItemClickListener, Par
 
     }
 
-    override fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
+    override fun onHomeItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
         val intent = Intent(this, ShowDetailsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra("section_code", sectionCode)

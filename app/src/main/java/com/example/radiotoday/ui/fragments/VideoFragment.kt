@@ -1,6 +1,5 @@
 package com.example.radiotoday.ui.fragments
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -10,22 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.radiotoday.R
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.FragmentVideoBinding
-import com.example.radiotoday.ui.activities.LoginActivity
 import com.example.radiotoday.ui.adapters.VideoPlaylistAdapter
 import com.example.radiotoday.ui.viewmodels.VideoViewModel
-import com.example.radiotoday.utils.OnBackAction
+import com.example.radiotoday.ui.interfaces.ItemClickListener
+import com.example.radiotoday.ui.interfaces.OnBackAction
 import com.example.radiotoday.utils.ResultType
-import com.example.radiotoday.utils.SongClickListener
+import com.example.radiotoday.ui.interfaces.PlayerClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class VideoFragment : Fragment(), VideoPlaylistAdapter.CardClickListener {
+class VideoFragment : Fragment(), ItemClickListener {
     private lateinit var binding: FragmentVideoBinding
     private lateinit var videoAdapter: VideoPlaylistAdapter
     private val videoViewModel by viewModels<VideoViewModel>()
@@ -33,7 +30,7 @@ class VideoFragment : Fragment(), VideoPlaylistAdapter.CardClickListener {
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var playlistData: SeeAllResponse
 
-    var songClickListener: SongClickListener? = null
+    var playerClickListener: PlayerClickListener? = null
 
     private var isLoading = false
     private var isLastpage = false
@@ -149,11 +146,11 @@ class VideoFragment : Fragment(), VideoPlaylistAdapter.CardClickListener {
         return layoutManager
     }
 
-    override fun onCardClickListener(position: Int) {
+    override fun onItemClickListener(position: Int) {
         Log.d("VideoFragment", "Clicked on position: $position")
 
         if (position >= 0 && position < videoAdapter.itemCount) {
-            songClickListener?.onSongClickListener()
+            playerClickListener?.onPlayerClickListener()
         } else {
             Log.e("VideoFragment", "Invalid position: $position")
         }

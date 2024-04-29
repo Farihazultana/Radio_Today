@@ -26,15 +26,12 @@ import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.AppUtils.IntroScreenStatus
 import com.example.radiotoday.utils.AppUtils.LogInStatus
 import com.example.radiotoday.utils.AppUtils.SWITCH
-import com.example.radiotoday.utils.OnBackAction
+import com.example.radiotoday.ui.interfaces.OnBackAction
 import com.example.radiotoday.utils.ResultType
 import com.example.radiotoday.utils.SharedPreferencesUtil
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.android.play.core.review.ReviewException
-import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.android.play.core.review.model.ReviewErrorCode
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint

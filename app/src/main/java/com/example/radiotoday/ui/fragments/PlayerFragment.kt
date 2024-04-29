@@ -22,13 +22,10 @@ import androidx.core.content.ContextCompat.registerReceiver
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
-import com.example.radiotoday.data.models.MediaPlayerData
 import com.example.radiotoday.data.models.SongList
-import com.example.radiotoday.data.services.MusicPlayerService
 import com.example.radiotoday.databinding.FragmentSongsBinding
-import com.example.radiotoday.utils.NotificationController
 import com.example.radiotoday.utils.NotificationUtils
-import com.example.radiotoday.utils.PlayAction
+import com.example.radiotoday.ui.interfaces.PlayAction
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -36,7 +33,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 @OptIn(UnstableApi::class)
-class SongsFragment() : BottomSheetDialogFragment() {
+class PlayerFragment() : BottomSheetDialogFragment() {
     private lateinit var mediaSession: MediaSessionCompat
 
     lateinit var binding: FragmentSongsBinding
@@ -67,7 +64,7 @@ class SongsFragment() : BottomSheetDialogFragment() {
         }
     }
 
-    var dismissListener: SongDismissListener? = null
+    var dismissListener: PlayerDismissListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -159,7 +156,6 @@ class SongsFragment() : BottomSheetDialogFragment() {
         binding.ivPlayNext.setOnClickListener {
             onPlayAction.nextMusic()
 
-            //NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
         }
 
         binding.ivPlayPrev.setOnClickListener {
@@ -186,7 +182,7 @@ class SongsFragment() : BottomSheetDialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        //NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration)
+        //NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration, SongList.getSongsList())
         updatePlayPauseButton(onPlayAction.isPlaying())
     }
 
@@ -208,7 +204,7 @@ class SongsFragment() : BottomSheetDialogFragment() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
-        dismissListener?.onSongDismissListener()
+        dismissListener?.onPlayerDismissListener()
         super.onDismiss(dialog)
     }
 
@@ -216,16 +212,6 @@ class SongsFragment() : BottomSheetDialogFragment() {
         super.onDestroy()
         //requireActivity().unregisterReceiver(notificationReceiver)
         requireActivity().unregisterReceiver(playbackStateReceiver)
-    }
-
-    override fun onDestroyView() {
-        //onPlayAction.releasePlayer()
-        super.onDestroyView()
-    }
-
-    interface SongDismissListener {
-        fun onSongDismissListener()
-
     }
 
     private fun updateSeekbar(){
@@ -271,6 +257,11 @@ class SongsFragment() : BottomSheetDialogFragment() {
             binding.ivShuffle.visibility = View.VISIBLE
             binding.ivLoop.visibility = View.VISIBLE
         }
+    }
+
+    interface PlayerDismissListener {
+        fun onPlayerDismissListener()
+
     }
 
     companion object {

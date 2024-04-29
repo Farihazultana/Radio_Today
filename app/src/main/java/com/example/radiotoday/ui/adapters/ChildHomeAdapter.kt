@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.SubContent
+import com.example.radiotoday.ui.interfaces.HomeItemClickListener
 
 class ChildHomeAdapter(
     private var contentViewType: Int,
     private var contentData: ArrayList<SubContent>,
     private var currentSection: String?,
-    private val listener: ItemClickListener
+    private val listener: HomeItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -110,7 +111,7 @@ class ChildHomeAdapter(
             }
 
             holder.itemView.setOnClickListener {
-                listener.onItemClickListener(position, currentItem, currentSection!!)
+                listener.onHomeItemClickListener(position, currentItem, currentSection!!)
             }
         }
         else if (holder is ArtistViewHolder){
@@ -122,14 +123,10 @@ class ChildHomeAdapter(
             }
 
             holder.itemView.setOnClickListener {
-                listener.onItemClickListener(position, currentItem, currentSection!!)
+                listener.onHomeItemClickListener(position, currentItem, currentSection!!)
             }
         }
     }
 
-    interface ItemClickListener {
-        fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String)
-
-    }
 
 }

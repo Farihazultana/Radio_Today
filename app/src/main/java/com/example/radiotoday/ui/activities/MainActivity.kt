@@ -25,18 +25,17 @@ import com.example.radiotoday.ui.fragments.AudioFragment
 import com.example.radiotoday.ui.fragments.HomeFragment
 import com.example.radiotoday.ui.fragments.NewsFragment
 import com.example.radiotoday.ui.fragments.SettingsFragment
-import com.example.radiotoday.ui.fragments.SongsFragment
-import com.example.radiotoday.ui.fragments.SongsFragment.Companion.onPlayAction
+import com.example.radiotoday.ui.fragments.PlayerFragment
+import com.example.radiotoday.ui.fragments.PlayerFragment.Companion.onPlayAction
 import com.example.radiotoday.ui.fragments.VideoFragment
-import com.example.radiotoday.utils.NotificationController
-import com.example.radiotoday.utils.OnBackAction
-import com.example.radiotoday.utils.SongClickListener
+import com.example.radiotoday.ui.interfaces.OnBackAction
+import com.example.radiotoday.ui.interfaces.PlayerClickListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, SongsFragment.SongDismissListener{
+class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, PlayerFragment.PlayerDismissListener{
 
     private lateinit var binding: ActivityMainBinding
 
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
     private var videoFragment = VideoFragment()
     private var newsFragment = NewsFragment()
     private var settingsFragment = SettingsFragment()
-    private val songsFragment = SongsFragment()
+    private val songsFragment = PlayerFragment()
 
     private var doubleBackToExitPressedOnce = true
 
@@ -92,10 +91,10 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
         SettingsFragment.onBackAction(this)
         NewsFragment.onBackAction(this)
 
-        homeFragment.songClickListener = this
-        audioFragment.songClickListener = this
-        videoFragment.songClickListener = this
-        newsFragment.songClickListener = this
+        homeFragment.playerClickListener = this
+        audioFragment.playerClickListener = this
+        videoFragment.playerClickListener = this
+        newsFragment.playerClickListener = this
 
         //audioFragment.setSongSelectionListener(this)
 
@@ -244,7 +243,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
 
     }
 
-    override fun onSongClickListener() {
+    override fun onPlayerClickListener() {
         if (!playerClicked){
             gotoPlayer()
         }
@@ -282,7 +281,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
         }
     }
 
-    override fun onSongDismissListener() {
+    override fun onPlayerDismissListener() {
         playerClicked = false
     }
 

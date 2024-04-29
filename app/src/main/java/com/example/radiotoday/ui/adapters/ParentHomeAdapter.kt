@@ -14,9 +14,10 @@ import com.example.radiotoday.data.models.MainContent
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.ui.activities.PodcastDetailByCategoryActivity
 import com.example.radiotoday.ui.activities.SeeAllActivity
+import com.example.radiotoday.ui.interfaces.HomeItemClickListener
 
-class ParentHomeAdapter(private val listener: ItemClickListener) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(), ChildHomeAdapter.ItemClickListener {
+class ParentHomeAdapter(private val listener: HomeItemClickListener) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(), HomeItemClickListener {
 
     var homeData: ArrayList<MainContent> = ArrayList()
 
@@ -126,12 +127,8 @@ class ParentHomeAdapter(private val listener: ItemClickListener) :
 
 
 
-    override fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
-        listener.onItemClickListener(position, currentItem, currentSection)
+    override fun onHomeItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
+        listener.onHomeItemClickListener(position, currentItem, currentSection)
     }
 
-    interface ItemClickListener {
-        fun onItemClickListener(position: Int, currentItem: SubContent, currentSection: String)
-
-    }
 }

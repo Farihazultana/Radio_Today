@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.example.radiotoday.R
 import com.example.radiotoday.databinding.ActivityProfileBinding
 import com.example.radiotoday.ui.fragments.HomeFragment
-import com.example.radiotoday.utils.OnBackAction
 
 class ProfileActivity : AppCompatActivity(){
     private lateinit var binding: ActivityProfileBinding

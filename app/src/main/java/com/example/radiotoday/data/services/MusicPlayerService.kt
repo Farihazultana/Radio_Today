@@ -8,8 +8,6 @@ import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
-import android.os.IInterface
-import android.os.Parcel
 import android.support.v4.media.session.MediaSessionCompat
 import android.util.Log
 import android.widget.Toast
@@ -21,22 +19,17 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.radiotoday.data.models.SongList
 import com.example.radiotoday.data.models.SubContent
-import com.example.radiotoday.ui.fragments.SongsFragment
+import com.example.radiotoday.ui.fragments.PlayerFragment
 import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.NotificationController
 import com.example.radiotoday.utils.NotificationUtils
-import com.example.radiotoday.utils.PlayAction
+import com.example.radiotoday.ui.interfaces.PlayAction
 import com.example.radiotoday.utils.SharedPreferencesUtil
-import java.io.FileDescriptor
 
 
 @OptIn(UnstableApi::class)
-class MusicPlayerService : Service(), IBinder, PlayAction{
+class MusicPlayerService : Service(), PlayAction {
     private val notificationReceiver: NotificationController = NotificationController()
-
-    companion object{
-        var mediaPlayerDataList = listOf<SubContent>()
-    }
 
 
     private lateinit var mediaSession: MediaSessionCompat
@@ -59,7 +52,7 @@ class MusicPlayerService : Service(), IBinder, PlayAction{
     override fun onCreate() {
         super.onCreate()
 
-        NotificationUtils.createNotificationChannel(this)
+
 
         val filter = IntentFilter().apply {
             addAction("Pause")
@@ -71,12 +64,13 @@ class MusicPlayerService : Service(), IBinder, PlayAction{
 
         player = ExoPlayer.Builder(this).build()
         
-        SongsFragment.setOnPlayAction(this)
+        PlayerFragment.setOnPlayAction(this)
 
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
         startForeground(1, NotificationUtils.createNotification(this, mediaSession, isPlaying, currentPosition, duration, SongList.getSongsList()),FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
 
         intent?.getStringExtra("action")?.let { action ->
@@ -143,42 +137,6 @@ class MusicPlayerService : Service(), IBinder, PlayAction{
         super.onDestroy()
         unregisterReceiver(notificationReceiver)
         releasePlayer()
-    }
-
-    override fun getInterfaceDescriptor(): String? {
-        return null
-    }
-
-    override fun pingBinder(): Boolean {
-        return false
-    }
-
-    override fun isBinderAlive(): Boolean {
-        return false
-    }
-
-    override fun queryLocalInterface(descriptor: String): IInterface? {
-        return null
-    }
-
-    override fun dump(fd: FileDescriptor, args: Array<out String>?) {
-
-    }
-
-    override fun dumpAsync(fd: FileDescriptor, args: Array<out String>?) {
-
-    }
-
-    override fun transact(code: Int, data: Parcel, reply: Parcel?, flags: Int): Boolean {
-        return false
-    }
-
-    override fun linkToDeath(recipient: IBinder.DeathRecipient, flags: Int) {
-
-    }
-
-    override fun unlinkToDeath(recipient: IBinder.DeathRecipient, flags: Int): Boolean {
-        return false
     }
 
     override fun playMusic() {
@@ -268,12 +226,6 @@ class MusicPlayerService : Service(), IBinder, PlayAction{
         intent.putExtra("isPlaying", isPlaying)
         sendBroadcast(intent)
     }
-
-    /*override fun onSongSelected(song: SubContent) {
-        releasePlayer()
-        Log.i("DPlayer", "onSongSelected: ${song.url}")
-        song.url?.let { initializePlayer(it) }
-    }*/
 
 
 }

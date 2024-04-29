@@ -18,10 +18,9 @@ import androidx.core.app.NotificationCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
-import com.example.radiotoday.data.models.MediaPlayerData
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.ui.activities.MainActivity
-import com.example.radiotoday.ui.fragments.SongsFragment.Companion.onPlayAction
+import com.example.radiotoday.ui.fragments.PlayerFragment.Companion.onPlayAction
 
 object NotificationUtils {
     private val CHANNEL_ID = "Music Service Channel ID"

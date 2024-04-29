@@ -1,4 +1,4 @@
-package com.example.radiotoday.utils
+package com.example.radiotoday.ui.interfaces
 
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.radiotoday.data.models.SubContent
