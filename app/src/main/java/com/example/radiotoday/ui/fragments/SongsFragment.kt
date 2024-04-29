@@ -36,7 +36,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 @OptIn(UnstableApi::class)
-class SongsFragment : BottomSheetDialogFragment() {
+class SongsFragment() : BottomSheetDialogFragment() {
     private lateinit var mediaSession: MediaSessionCompat
 
     lateinit var binding: FragmentSongsBinding
@@ -61,7 +61,7 @@ class SongsFragment : BottomSheetDialogFragment() {
                     val isPlaying = intent?.getBooleanExtra("isPlaying", false) ?: false
                     updatePlayPauseButton(isPlaying)
 
-                    NotificationUtils.updateNotification(requireActivity(), onPlayAction.isPlaying(), mediaSession, currentPosition, duration, MusicPlayerService.mediaPlayerDataList)
+                    NotificationUtils.updateNotification(requireActivity(), onPlayAction.isPlaying(), mediaSession, currentPosition, duration, SongList.getSongsList())
                 }
             }
         }

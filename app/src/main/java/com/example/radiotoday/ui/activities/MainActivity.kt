@@ -40,8 +40,6 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
 
     private lateinit var binding: ActivityMainBinding
 
-    private val notificationReceiver: NotificationController = NotificationController()
-
 
     private lateinit var service: MusicPlayerService
     private var isServiceBound = false
@@ -148,7 +146,6 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
                 playerClicked = true
 
                 songsFragment.dismissListener = this
-                //supportFragmentManager.beginTransaction().replace(R.id.frameLayout, songsFragment).commitNow()
                 replaceFragment(songsFragment)
             }
         }
@@ -170,7 +167,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, SongClickListener, Songs
 
     override fun onDestroy() {
         stopService(intent)
-        unregisterReceiver(notificationReceiver)
+
         if (onPlayAction.isPlaying()){
             onPlayAction.releasePlayer()
         }

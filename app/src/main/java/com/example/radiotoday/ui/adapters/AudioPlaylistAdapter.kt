@@ -30,9 +30,7 @@ class AudioPlaylistAdapter(private val context: Context, private val cardClickLi
 
         val viewHolder = AudioPlaylistViewHolder(itemView)
 
-        itemView.setOnClickListener {
-            cardClickListener.onCardClickListener(viewHolder.adapterPosition)
-        }
+
 
         return viewHolder
     }
@@ -51,7 +49,11 @@ class AudioPlaylistAdapter(private val context: Context, private val cardClickLi
             .into(holder.posterImage)
         holder.title.text = playlistItem.title
         holder.description.text = playlistItem.artists
-        playlistItem.url
+
+
+        holder.itemView.setOnClickListener {
+            cardClickListener.onCardClickListener(position)
+        }
     }
 
     override fun getItemCount(): Int {
