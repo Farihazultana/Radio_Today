@@ -30,6 +30,7 @@ import com.example.radiotoday.ui.fragments.PlayerFragment.Companion.onPlayAction
 import com.example.radiotoday.ui.fragments.VideoFragment
 import com.example.radiotoday.ui.interfaces.OnBackAction
 import com.example.radiotoday.ui.interfaces.PlayerClickListener
+import com.example.radiotoday.utils.NotificationUtils
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
     private var videoFragment = VideoFragment()
     private var newsFragment = NewsFragment()
     private var settingsFragment = SettingsFragment()
-    private val songsFragment = PlayerFragment()
+    private val playerFragment = PlayerFragment()
 
     private var doubleBackToExitPressedOnce = true
 
@@ -144,8 +145,8 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
             if (fragmentType == "songs") {
                 playerClicked = true
 
-                songsFragment.dismissListener = this
-                replaceFragment(songsFragment)
+                playerFragment.dismissListener = this
+                replaceFragment(playerFragment)
             }
         }
     }
@@ -254,6 +255,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
         intent = Intent(this, MusicPlayerService::class.java)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationUtils.createNotificationChannel(this)
             ContextCompat.startForegroundService(this, intent)
         } else {
             stopService(intent)
@@ -262,8 +264,8 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
 
     private fun gotoPlayer() {
         playerClicked = true
-        songsFragment.dismissListener = this
-        songsFragment.show(supportFragmentManager, songsFragment.tag)
+        playerFragment.dismissListener = this
+        playerFragment.show(supportFragmentManager, playerFragment.tag)
     }
 
     private fun getFCMToken(intent: Intent?) {
