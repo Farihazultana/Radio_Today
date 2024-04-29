@@ -94,8 +94,6 @@ class PlayerFragment() : BottomSheetDialogFragment() {
 
         binding.ivPlayerDown.setOnClickListener { dismiss() }
 
-        //notification channel
-        NotificationUtils.createNotificationChannel(requireActivity())
 
         val filter = IntentFilter().apply {
             addAction("Play")
