@@ -24,6 +24,7 @@ import com.example.radiotoday.ui.fragments.PlayerFragment.Companion.onPlayAction
 
 object NotificationUtils {
     private val CHANNEL_ID = "Music Service Channel ID"
+    private lateinit var mediaSession: MediaSessionCompat
     fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
@@ -38,14 +39,15 @@ object NotificationUtils {
 
     fun createNotification(
         context: Context,
-        mediaSession: MediaSessionCompat,
         isPlaying: Boolean,
         currentPosition: Long,
         duration: Long,
         songList: List<SubContent>
     ): Notification {
-        if (songList.isEmpty()) {
 
+        this.mediaSession = MediaSessionCompat(context, "MusicPlayerService")
+
+        if (songList.isEmpty()) {
             return createDefaultNotification(context)
         }
 
@@ -207,11 +209,11 @@ object NotificationUtils {
     }
 
     fun updateNotification(
-        context: Context, isPlaying: Boolean, mediaSession: MediaSessionCompat,
+        context: Context, isPlaying: Boolean,
         currentPosition: Long, duration: Long, songList: List<SubContent>
     ) {
         val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(1, createNotification(context,mediaSession, isPlaying, currentPosition, duration, songList))
+        notificationManager.notify(1, createNotification(context,isPlaying, currentPosition, duration, songList))
     }
 
     private fun getBitmapFromUrl(context: Context, url: String): Bitmap? {

@@ -71,7 +71,7 @@ class MusicPlayerService : Service(), PlayAction {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-        startForeground(1, NotificationUtils.createNotification(this, mediaSession, isPlaying, currentPosition, duration, SongList.getSongsList()),FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
+        startForeground(1, NotificationUtils.createNotification(this, isPlaying, currentPosition, duration, SongList.getSongsList()),FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
 
         intent?.getStringExtra("action")?.let { action ->
 

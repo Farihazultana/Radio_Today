@@ -58,7 +58,7 @@ class PlayerFragment() : BottomSheetDialogFragment() {
                     val isPlaying = intent?.getBooleanExtra("isPlaying", false) ?: false
                     updatePlayPauseButton(isPlaying)
 
-                    NotificationUtils.updateNotification(requireActivity(), onPlayAction.isPlaying(), mediaSession, currentPosition, duration, SongList.getSongsList())
+                    NotificationUtils.updateNotification(requireActivity(), onPlayAction.isPlaying(), currentPosition, duration, SongList.getSongsList())
                 }
             }
         }

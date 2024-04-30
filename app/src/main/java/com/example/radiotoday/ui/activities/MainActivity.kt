@@ -1,24 +1,30 @@
 package com.example.radiotoday.ui.activities
 
+import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.ServiceConnection
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.provider.Settings
+import android.support.v4.media.session.MediaSessionCompat
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.radiotoday.R
+import com.example.radiotoday.data.models.SongList
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.services.MusicPlayerService
 import com.example.radiotoday.databinding.ActivityMainBinding
@@ -40,7 +46,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, PlayerFragment.PlayerDismissListener{
 
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var mediaSession: MediaSessionCompat
 
     private lateinit var service: MusicPlayerService
     private var isServiceBound = false
@@ -56,6 +62,18 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
         }
 
     }
+
+    private val playbackStateReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            context?.let {
+                val isPlaying = intent?.getBooleanExtra("isPlaying", false) ?: false
+                updateMiniPlayer(isPlaying)
+
+                NotificationUtils.updateNotification(this@MainActivity, onPlayAction.isPlaying(), onPlayAction.playerCurrentPosition(), onPlayAction.playerDuration(), SongList.getSongsList())
+            }
+        }
+    }
+
 
     private lateinit var activeFragment: Fragment
     private var homeFragment = HomeFragment()
@@ -74,6 +92,8 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        mediaSession = MediaSessionCompat(this, "MusicPlayerService")
 
         val type  = intent.getStringExtra("FCMType")
         Log.i("FCMType", "onNewIntent Main: $type")
@@ -114,9 +134,31 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
         }
 
         val playBtnMini = binding.layoutMiniPlayer.ivPlayMini
-        //val pauseBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_pauseMini)
-        //val nextBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_playNextMini)
-        //val prevBtnMini = miniPlayer.findViewById<ImageView>(R.id.iv_playPrevMini)
+        val pauseBtnMini = binding.layoutMiniPlayer.ivPauseMini
+        val nextBtnMini = binding.layoutMiniPlayer.ivPlayNextMini
+        val prevBtnMini = binding.layoutMiniPlayer.ivPlayPrevMini
+
+        playBtnMini.setOnClickListener {
+            onPlayAction.playMusic()
+
+            playBtnMini.visibility = View.GONE
+            pauseBtnMini.visibility = View.VISIBLE
+        }
+
+        pauseBtnMini.setOnClickListener {
+            onPlayAction.pauseMusic()
+
+            playBtnMini.visibility = View.VISIBLE
+            pauseBtnMini.visibility = View.GONE
+        }
+
+        nextBtnMini.setOnClickListener {
+            onPlayAction.nextMusic()
+        }
+
+        prevBtnMini.setOnClickListener {
+            onPlayAction.previousMusic()
+        }
 
 
         getFCMToken(intent)
@@ -152,10 +194,12 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStart() {
         super.onStart()
         bindService(Intent(this, MusicPlayerService::class.java), serviceConnection, Context.BIND_AUTO_CREATE)
         startMusicPlayerService()
+        registerReceiver(playbackStateReceiver, IntentFilter("PlaybackState"), RECEIVER_NOT_EXPORTED)
     }
 
     override fun onStop() {
@@ -172,6 +216,8 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
         if (onPlayAction.isPlaying()){
             onPlayAction.releasePlayer()
         }
+
+        unregisterReceiver(playbackStateReceiver)
         super.onDestroy()
     }
 
@@ -268,6 +314,17 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
         playerFragment.dismissListener = this
         playerFragment.show(supportFragmentManager, playerFragment.tag)
     }
+
+    private fun updateMiniPlayer(isPlaying: Boolean) {
+        if (isPlaying) {
+            binding.layoutMiniPlayer.ivPlayMini.visibility = View.GONE
+            binding.layoutMiniPlayer.ivPauseMini.visibility = View.VISIBLE
+        } else {
+            binding.layoutMiniPlayer.ivPlayMini.visibility = View.VISIBLE
+            binding.layoutMiniPlayer.ivPauseMini.visibility = View.GONE
+        }
+    }
+
 
     private fun getFCMToken(intent: Intent?) {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
