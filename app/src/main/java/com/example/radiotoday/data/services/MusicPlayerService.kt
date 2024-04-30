@@ -194,26 +194,28 @@ class MusicPlayerService : Service(), PlayAction {
 
     override fun initializePlayer(songList: ArrayList<SubContent>, position : Int) {
 
-        if (songList.isNotEmpty()){
-            player.clearMediaItems()
+        if (songList.isNotEmpty()) {
 
-            val mediaItem = songList[position].url?.let { MediaItem.fromUri(it) }
-            if (mediaItem != null) {
-                player.addMediaItem(mediaItem)
-            }
-            player.prepare()
-        }else{
-            Log.i("DPlayer", "initializePlayer: SongList is empty!")
-        }
-        
-            /*for (item in songList){
-                val mediaItem = item.url?.let { MediaItem.fromUri(it) }
-                if (mediaItem != null) {
-                    player.addMediaItem(mediaItem)
+            val mediaItems = mutableListOf<MediaItem>()
+
+            for (item in songList) {
+                item.url?.let { url ->
+                    val mediaItem = MediaItem.fromUri(url)
+                    mediaItems.add(mediaItem)
                 }
-            }*/
+            }
 
-        
+            if (mediaItems.isNotEmpty()) {
+                player.clearMediaItems()
+                player.addMediaItems(mediaItems)
+                player.prepare()
+                player.seekTo(position, 0)
+            } else {
+                Log.i("MusicPlayerService", "initializePlayer: No media items found in the song list")
+            }
+        } else {
+            Log.i("MusicPlayerService", "initializePlayer: SongList is empty!")
+        }
 
     }
 

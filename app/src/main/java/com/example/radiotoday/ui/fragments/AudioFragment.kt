@@ -157,10 +157,15 @@ class AudioFragment : Fragment(), ItemClickListener {
 
         SongList.setSongList(audioAdapter.audioPlaylistData, position)
 
+        val songList = SongList.getSongsList()
+        val songPosition = SongList.getCurrentPosition()
+
+        PlayerFragment.onPlayAction.initializePlayer(songList, songPosition)
+
 
         if (position >= 0 && position < audioAdapter.itemCount) {
-            playerClickListener?.onPlayerClickListener()
 
+            playerClickListener?.onPlayerClickListener()
 
         } else {
             Log.e("AudioFragment", "Invalid position: $position")
@@ -177,7 +182,6 @@ class AudioFragment : Fragment(), ItemClickListener {
         }
 
     }
-
 
 
 }

@@ -105,9 +105,7 @@ class PlayerFragment() : BottomSheetDialogFragment() {
         registerReceiver(requireActivity(),playbackStateReceiver, IntentFilter("PlaybackState"), RECEIVER_EXPORTED)
         mediaSession = MediaSessionCompat(requireActivity(), "MusicPlayerService")
 
-        val songList = SongList.getSongsList()
-        val songPosition = SongList.getCurrentPosition()
-        onPlayAction.initializePlayer(songList, songPosition)
+
 
         binding.playerView.player = onPlayAction.getPlayer()
 
@@ -126,27 +124,27 @@ class PlayerFragment() : BottomSheetDialogFragment() {
         updateSeekbar()
 
         binding.ivPlay.setOnClickListener {
-            binding.seekbarLive.visibility = View.VISIBLE
+            /*binding.seekbarLive.visibility = View.VISIBLE
             binding.seekbarEnd.visibility = View.GONE
             binding.ivPause.visibility = View.VISIBLE
             binding.ivPlay.visibility = View.GONE
             binding.ivPlayNext.visibility = View.GONE
             binding.ivPlayPrev.visibility = View.GONE
             binding.ivShuffle.visibility = View.GONE
-            binding.ivLoop.visibility = View.GONE
+            binding.ivLoop.visibility = View.GONE*/
 
             onPlayAction.playMusic()
         }
 
         binding.ivPause.setOnClickListener {
-            binding.seekbarLive.visibility = View.GONE
+            /*binding.seekbarLive.visibility = View.GONE
             binding.seekbarEnd.visibility = View.VISIBLE
             binding.ivPause.visibility = View.GONE
             binding.ivPlay.visibility = View.VISIBLE
             binding.ivPlayNext.visibility = View.VISIBLE
             binding.ivPlayPrev.visibility = View.VISIBLE
             binding.ivShuffle.visibility = View.VISIBLE
-            binding.ivLoop.visibility = View.VISIBLE
+            binding.ivLoop.visibility = View.VISIBLE*/
 
             onPlayAction.pauseMusic()
         }
@@ -237,23 +235,23 @@ class PlayerFragment() : BottomSheetDialogFragment() {
 
     private fun updatePlayPauseButton(isPlaying: Boolean) {
         if (isPlaying) {
-            binding.seekbarLive.visibility = View.VISIBLE
-            binding.seekbarEnd.visibility = View.GONE
+            //binding.seekbarLive.visibility = View.VISIBLE
+            //binding.seekbarEnd.visibility = View.GONE
             binding.ivPause.visibility = View.VISIBLE
             binding.ivPlay.visibility = View.GONE
-            binding.ivPlayNext.visibility = View.GONE
-            binding.ivPlayPrev.visibility = View.GONE
-            binding.ivShuffle.visibility = View.GONE
-            binding.ivLoop.visibility = View.GONE
+            //binding.ivPlayNext.visibility = View.GONE
+            //binding.ivPlayPrev.visibility = View.GONE
+            //binding.ivShuffle.visibility = View.GONE
+            //binding.ivLoop.visibility = View.GONE
         } else {
-            binding.seekbarLive.visibility = View.GONE
-            binding.seekbarEnd.visibility = View.VISIBLE
+            //binding.seekbarLive.visibility = View.GONE
+            //binding.seekbarEnd.visibility = View.VISIBLE
             binding.ivPause.visibility = View.GONE
             binding.ivPlay.visibility = View.VISIBLE
-            binding.ivPlayNext.visibility = View.VISIBLE
-            binding.ivPlayPrev.visibility = View.VISIBLE
-            binding.ivShuffle.visibility = View.VISIBLE
-            binding.ivLoop.visibility = View.VISIBLE
+            //binding.ivPlayNext.visibility = View.VISIBLE
+            //binding.ivPlayPrev.visibility = View.VISIBLE
+            //binding.ivShuffle.visibility = View.VISIBLE
+            //binding.ivLoop.visibility = View.VISIBLE
         }
     }
 

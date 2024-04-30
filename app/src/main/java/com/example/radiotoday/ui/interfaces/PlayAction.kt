@@ -6,7 +6,7 @@ import com.example.radiotoday.data.models.SubContent
 interface PlayAction {
 
     fun getPlayer() : ExoPlayer
-    fun initializePlayer(songUrl: ArrayList<SubContent>, position: Int)
+    fun initializePlayer(songList: ArrayList<SubContent>, position: Int)
     fun playMusic()
 
     fun pauseMusic()
