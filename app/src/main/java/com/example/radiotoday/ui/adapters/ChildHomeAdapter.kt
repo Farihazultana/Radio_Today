@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.radiotoday.R
+import com.example.radiotoday.data.models.SongList
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.ui.interfaces.HomeItemClickListener
 
@@ -111,6 +112,9 @@ class ChildHomeAdapter(
             }
 
             holder.itemView.setOnClickListener {
+                if (currentSection == "songs"){
+                    SongList.setSongList(contentData, position)
+                }
                 listener.onHomeItemClickListener(position, currentItem, currentSection!!)
             }
         }

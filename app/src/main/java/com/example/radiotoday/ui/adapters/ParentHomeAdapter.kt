@@ -129,9 +129,9 @@ class ParentHomeAdapter(private val listener: HomeItemClickListener) :
 
 
     override fun onHomeItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
-        if (currentSection == "songs"){
+        /*if (currentSection == "songs"){
             SongList.setSongList(homeData[position].content, position)
-        }
+        }*/
         listener.onHomeItemClickListener(position, currentItem, currentSection)
     }
 
