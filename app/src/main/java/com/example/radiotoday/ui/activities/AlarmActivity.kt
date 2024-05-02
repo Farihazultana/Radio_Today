@@ -196,10 +196,10 @@ class AlarmActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
+        /*val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(intent)
-        finish()
+        finish()*/
         super.onBackPressed()
     }
 }
