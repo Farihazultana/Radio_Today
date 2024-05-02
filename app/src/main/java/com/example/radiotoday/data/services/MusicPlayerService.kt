@@ -221,6 +221,18 @@ class MusicPlayerService : Service(), PlayAction {
 
     }
 
+    override fun getTitle(): String {
+        val currentMediaItemIndex = getPlayer().currentMediaItemIndex
+        val currentMediaItem = SongList.getSongsList()[currentMediaItemIndex]
+        return currentMediaItem.title ?: ""
+    }
+
+    override fun getArtist(): String {
+        val currentMediaItemIndex = getPlayer().currentMediaItemIndex
+        val currentMediaItem = SongList.getSongsList()[currentMediaItemIndex]
+        return currentMediaItem.artists ?: ""
+    }
+
     override fun getPlayer(): ExoPlayer {
         return player
     }

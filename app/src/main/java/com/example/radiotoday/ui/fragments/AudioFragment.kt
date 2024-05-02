@@ -157,9 +157,6 @@ class AudioFragment : Fragment(), ItemClickListener {
 
         SongList.setSongList(audioAdapter.audioPlaylistData, position)
 
-        PlayerFragment.onPlayAction.initializePlayer()
-
-
         if (position >= 0 && position < audioAdapter.itemCount) {
 
             playerClickListener?.onPlayerClickListener()

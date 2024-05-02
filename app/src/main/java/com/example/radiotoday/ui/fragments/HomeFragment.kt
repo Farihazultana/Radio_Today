@@ -70,10 +70,6 @@ class HomeFragment : Fragment(), HomeItemClickListener {
 
     override fun onHomeItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
 
-        SongList.setSongList(parentHomeAdapter.homeData[position].content, position)
-
-        PlayerFragment.onPlayAction.initializePlayer()
-
         if (currentSection == "songs"){
             playerClickListener?.onPlayerClickListener()
 

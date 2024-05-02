@@ -11,6 +11,7 @@ import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.radiotoday.R
 import com.example.radiotoday.data.models.MainContent
+import com.example.radiotoday.data.models.SongList
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.ui.activities.PodcastDetailByCategoryActivity
 import com.example.radiotoday.ui.activities.SeeAllActivity
@@ -128,6 +129,9 @@ class ParentHomeAdapter(private val listener: HomeItemClickListener) :
 
 
     override fun onHomeItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
+        if (currentSection == "songs"){
+            SongList.setSongList(homeData[position].content, position)
+        }
         listener.onHomeItemClickListener(position, currentItem, currentSection)
     }
 

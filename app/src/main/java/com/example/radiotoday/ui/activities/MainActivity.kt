@@ -293,6 +293,7 @@ class MainActivity : AppCompatActivity(), OnBackAction, PlayerClickListener, Pla
 
     override fun onPlayerClickListener() {
         if (!playerClicked){
+            onPlayAction.initializePlayer()
             gotoPlayer()
         }
 

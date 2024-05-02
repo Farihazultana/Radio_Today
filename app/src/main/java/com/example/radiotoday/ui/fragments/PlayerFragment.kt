@@ -110,13 +110,17 @@ class PlayerFragment() : BottomSheetDialogFragment() {
         binding.playerView.player = onPlayAction.getPlayer()
 
 
+
         onPlayAction.getPlayer().addListener(object : Player.Listener {
             override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
                 super.onMediaMetadataChanged(mediaMetadata)
                 Log.d("metadata", mediaMetadata.title.toString())
 
-                binding.tvSong.text = mediaMetadata.title.toString()
-                binding.tvSinger.text = mediaMetadata.albumArtist.toString()
+                /*binding.tvSong.text = mediaMetadata.title.toString()
+                binding.tvSinger.text = mediaMetadata.albumArtist.toString()*/
+
+                binding.tvSong.text = onPlayAction.getTitle()
+                binding.tvSinger.text = onPlayAction.getArtist()
 
             }
         })
