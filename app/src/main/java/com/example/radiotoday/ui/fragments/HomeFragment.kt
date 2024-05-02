@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.radiotoday.data.models.SongList
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.databinding.FragmentHomeBinding
 import com.example.radiotoday.ui.activities.ShowDetailsActivity
@@ -68,6 +69,10 @@ class HomeFragment : Fragment(), HomeItemClickListener {
     }
 
     override fun onHomeItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
+
+        SongList.setSongList(parentHomeAdapter.homeData[position].content, position)
+
+        PlayerFragment.onPlayAction.initializePlayer()
 
         if (currentSection == "songs"){
             playerClickListener?.onPlayerClickListener()

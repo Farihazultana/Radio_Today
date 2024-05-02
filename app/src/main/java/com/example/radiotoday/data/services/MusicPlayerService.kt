@@ -18,7 +18,6 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.radiotoday.data.models.SongList
-import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.ui.fragments.PlayerFragment
 import com.example.radiotoday.utils.AppUtils
 import com.example.radiotoday.utils.NotificationController
@@ -192,7 +191,10 @@ class MusicPlayerService : Service(), PlayAction {
         }
     }
 
-    override fun initializePlayer(songList: ArrayList<SubContent>, position : Int) {
+    override fun initializePlayer() {
+
+        val songList = SongList.getSongsList()
+        val position = SongList.getCurrentPosition()
 
         if (songList.isNotEmpty()) {
 
