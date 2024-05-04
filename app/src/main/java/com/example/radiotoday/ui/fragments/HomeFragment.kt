@@ -46,7 +46,6 @@ class HomeFragment : Fragment(), HomeItemClickListener {
         binding.rvHomeMain.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvHomeMain.adapter = parentHomeAdapter
 
-        homeViewModel.fetchHomeData("home", "android")
         homeViewModel.homeData.observe(requireActivity()){
             when(it){
                 is ResultType.Loading -> {
@@ -66,6 +65,12 @@ class HomeFragment : Fragment(), HomeItemClickListener {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+
+        homeViewModel.fetchHomeData("home", "android")
+        super.onResume()
     }
 
     override fun onHomeItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {

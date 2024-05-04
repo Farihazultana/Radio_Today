@@ -1,6 +1,7 @@
 package com.example.radiotoday.ui.adapters
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -129,7 +130,6 @@ class ParentHomeAdapter(private val listener: HomeItemClickListener) :
 
 
     override fun onHomeItemClickListener(position: Int, currentItem: SubContent, currentSection: String) {
-
         listener.onHomeItemClickListener(position, currentItem, currentSection)
     }
 

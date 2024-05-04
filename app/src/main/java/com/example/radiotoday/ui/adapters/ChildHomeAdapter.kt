@@ -87,22 +87,6 @@ class ChildHomeAdapter(
 
         if (holder is ContentViewHolder) {
             holder.title?.text = currentItem.title
-            /*if (currentItem.catcode == "popmodern"){
-                Log.i("Folk", "onBindViewHolder: ${currentItem.catcode}")
-
-                val drawableStart = R.drawable.ic_music
-                holder.title?.setCompoundDrawablesWithIntrinsicBounds(
-                    drawableStart, 0, 0, 0
-                )
-            }else{
-                //Log.i("Folk", "onBindViewHolder: ${currentItem.catcode}")
-                holder.title?.setCompoundDrawablesWithIntrinsicBounds(
-                    0, 0, 0, 0
-                )
-
-            }*/
-
-
             holder.descriptionText?.text = currentItem.description
             Log.i("home", "onBindViewHolder: ${currentItem.description}")
 
@@ -113,7 +97,13 @@ class ChildHomeAdapter(
 
             holder.itemView.setOnClickListener {
                 if (currentSection == "songs"){
-                    SongList.setSongList(contentData, position)
+                    if (contentData.isNotEmpty()) {
+                        SongList.setSongList(contentData, position)
+                        notifyDataSetChanged()
+                        Log.i("HomeSongs", "onBindViewHolder: $contentData")
+                    } else {
+                        Log.e("HomeSongs", "Content data is empty when setting song list")
+                    }
                 }
                 listener.onHomeItemClickListener(position, currentItem, currentSection!!)
             }
