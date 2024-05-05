@@ -99,7 +99,6 @@ class ChildHomeAdapter(
                 if (currentSection == "songs"){
                     if (contentData.isNotEmpty()) {
                         SongList.setSongList(contentData, position)
-                        notifyDataSetChanged()
                         Log.i("HomeSongs", "onBindViewHolder: $contentData")
                     } else {
                         Log.e("HomeSongs", "Content data is empty when setting song list")

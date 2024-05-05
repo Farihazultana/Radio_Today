@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.radiotoday.data.models.SongList
 import com.example.radiotoday.data.models.SubContent
 import com.example.radiotoday.data.models.seeAll.SeeAllResponse
 import com.example.radiotoday.databinding.FragmentVideoBinding
@@ -149,8 +150,11 @@ class VideoFragment : Fragment(), ItemClickListener {
     override fun onItemClickListener(position: Int) {
         Log.d("VideoFragment", "Clicked on position: $position")
 
+        SongList.setSongList(videoAdapter.videoPlaylistData, position)
+
         if (position >= 0 && position < videoAdapter.itemCount) {
             playerClickListener?.onPlayerClickListener()
+
         } else {
             Log.e("VideoFragment", "Invalid position: $position")
         }

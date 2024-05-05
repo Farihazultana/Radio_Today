@@ -81,8 +81,8 @@
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".ui.activities.MainActivity"
-            android:launchMode="singleTop"
             android:exported="false"
+            android:launchMode="singleTop"
             android:screenOrientation="sensorPortrait" />
 
         <receiver android:name=".utils.AlarmReceiver" />
@@ -92,16 +92,13 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
         <service
             android:name=".data.services.MusicPlayerService"
             android:exported="false"
-            android:foregroundServiceType="mediaPlayback" >
-
-        </service>
+            android:foregroundServiceType="mediaPlayback"></service>
 
         <receiver
             android:name=".utils.NotificationController"
@@ -112,13 +109,13 @@
                 <action android:name="Pause" />
                 <action android:name="Play" />
                 <action android:name="Next" />
+
                 <category android:name="com.example.exoplayer" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

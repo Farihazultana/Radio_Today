@@ -23,20 +23,21 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import com.example.radiotoday.data.models.SongList
-import com.example.radiotoday.databinding.FragmentSongsBinding
+import com.example.radiotoday.databinding.FragmentPlayerBinding
 import com.example.radiotoday.utils.NotificationUtils
 import com.example.radiotoday.ui.interfaces.PlayAction
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
 
 @OptIn(UnstableApi::class)
 class PlayerFragment() : BottomSheetDialogFragment() {
     private lateinit var mediaSession: MediaSessionCompat
 
-    lateinit var binding: FragmentSongsBinding
+    lateinit var binding: FragmentPlayerBinding
 
     private var currentPosition : Long = 0L
     private var duration : Long = 0L
@@ -65,12 +66,13 @@ class PlayerFragment() : BottomSheetDialogFragment() {
     }
 
     var dismissListener: PlayerDismissListener? = null
+    private val args = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSongsBinding.inflate(inflater, container, false)
+        binding = FragmentPlayerBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -176,6 +178,29 @@ class PlayerFragment() : BottomSheetDialogFragment() {
         binding.ivNonFavorite.setOnClickListener {
             binding.ivFavorite.visibility = View.VISIBLE
             binding.ivNonFavorite.visibility = View.GONE
+        }
+
+        val position = SongList.getCurrentPosition()
+        val videoId = SongList.getSongsList()[position].url
+        val embedCode = SongList.getSongsList()[position].embed_code
+        Log.i("VideoPlayer", "onViewCreated: $embedCode")
+        if (embedCode == "Active"){
+            binding.layoutPlayer.visibility = View.GONE
+            binding.layoutYouTubePlayer.visibility = View.VISIBLE
+            val youTubePlayerView = binding.youtubePlayerView
+            lifecycle.addObserver(youTubePlayerView)
+
+            youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+
+                    Log.i("VideoPlayer", "onReady: $videoId")
+                    if (videoId != null) {
+                        youTubePlayer.loadVideo(videoId, 0f)
+                    }
+                }
+            })
+        }else{
+            binding.layoutPlayer.visibility = View.VISIBLE
         }
 
     }

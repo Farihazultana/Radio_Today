@@ -116,6 +116,10 @@ dependencies {
     implementation ("com.google.android.play:review:2.0.1")
     implementation ("com.google.android.play:review-ktx:2.0.1")
 
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:custom-ui:12.1.0")
+
 }
 
 kapt {
