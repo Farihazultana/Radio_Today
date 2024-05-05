@@ -31,6 +31,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import java.util.regex.Pattern
 
 
 @OptIn(UnstableApi::class)
@@ -66,7 +67,6 @@ class PlayerFragment() : BottomSheetDialogFragment() {
     }
 
     var dismissListener: PlayerDismissListener? = null
-    private val args = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -181,14 +181,21 @@ class PlayerFragment() : BottomSheetDialogFragment() {
         }
 
         val position = SongList.getCurrentPosition()
-        val videoId = SongList.getSongsList()[position].url
+        var videoId = SongList.getSongsList()[position].url
         val embedCode = SongList.getSongsList()[position].embed_code
         Log.i("VideoPlayer", "onViewCreated: $embedCode")
-        if (embedCode == "Active"){
+        if (embedCode != null){
             binding.layoutPlayer.visibility = View.GONE
             binding.layoutYouTubePlayer.visibility = View.VISIBLE
             val youTubePlayerView = binding.youtubePlayerView
             lifecycle.addObserver(youTubePlayerView)
+
+            if (embedCode != "Active"){
+                Log.i("VideoPlayer", "onViewCreated: $videoId")
+                if (videoId != null) {
+                    videoId = extractVideoIdFromUrl(videoId)
+                }
+            }
 
             youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -201,13 +208,14 @@ class PlayerFragment() : BottomSheetDialogFragment() {
             })
         }else{
             binding.layoutPlayer.visibility = View.VISIBLE
+            binding.layoutYouTubePlayer.visibility = View.GONE
+
         }
 
     }
 
     override fun onResume() {
         super.onResume()
-        //NotificationUtils.updateNotification(requireActivity(),onPlayAction.isPlaying(), mediaSession, currentPosition, duration, SongList.getSongsList())
         updatePlayPauseButton(onPlayAction.isPlaying())
     }
 
@@ -235,7 +243,6 @@ class PlayerFragment() : BottomSheetDialogFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        //requireActivity().unregisterReceiver(notificationReceiver)
         requireActivity().unregisterReceiver(playbackStateReceiver)
     }
 
@@ -281,6 +288,18 @@ class PlayerFragment() : BottomSheetDialogFragment() {
             //binding.ivPlayPrev.visibility = View.VISIBLE
             //binding.ivShuffle.visibility = View.VISIBLE
             //binding.ivLoop.visibility = View.VISIBLE
+        }
+    }
+
+    private fun extractVideoIdFromUrl(videoUrl: String): String? {
+        val pattern = "(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%2Fvideos%2F|youtu.be%2F|\\/v%2F)[^#\\&\\?\\n]*"
+        val compiledPattern = Pattern.compile(pattern)
+        val matcher = compiledPattern.matcher(videoUrl)
+
+        return if (matcher.find()) {
+            matcher.group()
+        } else {
+            null
         }
     }
 
