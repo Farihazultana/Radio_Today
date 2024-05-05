@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.view.View
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -28,33 +29,47 @@ class SettingsInfoActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        val type = intent.getStringExtra("type")
+        val news = intent.getStringExtra("newsType")
+        if (news == "News Detail"){
+            binding.tvToolBarTitle.text = news
 
-        settingsViewModel.fetchSettingsData(type!!)
-        settingsViewModel.settingsData.observe(this){
-            when(it){
-                is ResultType.Loading -> {
-                    binding.progressbar.visibility = View.VISIBLE
-                }
+            val contentUrl = intent.getStringExtra("news_url") ?: ""
 
-                is ResultType.Success -> {
-                    val content = it.data.content.value
-                    binding.tvToolBarTitle.text = it.data.content.type
+            binding.infoDataWv.loadUrl(contentUrl)
+            binding.infoDataWv.setOnLongClickListener { true }
+            binding.infoDataWv.isLongClickable = false
+            binding.progressbar.visibility = View.GONE
+        }else{
+            val type = intent.getStringExtra("type")
 
-                    if (content.isNotEmpty()){
-                        /*binding.tvInfoData.text = Html.fromHtml("<h2>Title</h2><br><p>$content</p>", Html.FROM_HTML_MODE_COMPACT)*/
-                        binding.infoDataWv.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
-                        binding.infoDataWv.setOnLongClickListener { true }
-                        binding.infoDataWv.isLongClickable = false
-                        binding.progressbar.visibility = View.GONE
-
+            settingsViewModel.fetchSettingsData(type!!)
+            settingsViewModel.settingsData.observe(this){
+                when(it){
+                    is ResultType.Loading -> {
+                        binding.progressbar.visibility = View.VISIBLE
                     }
-                }
 
-                is ResultType.Error -> {
+                    is ResultType.Success -> {
+                        val content = it.data.content.value
+                        binding.tvToolBarTitle.text = it.data.content.type
+
+                        if (content.isNotEmpty()){
+                            /*binding.tvInfoData.text = Html.fromHtml("<h2>Title</h2><br><p>$content</p>", Html.FROM_HTML_MODE_COMPACT)*/
+                            binding.infoDataWv.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
+                            binding.infoDataWv.setOnLongClickListener { true }
+                            binding.infoDataWv.isLongClickable = false
+                            binding.progressbar.visibility = View.GONE
+
+                        }
+                    }
+
+                    is ResultType.Error -> {
                         Toast.makeText(this, "Something Went Wrong!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
+
+
     }
 }

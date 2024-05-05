@@ -25,12 +25,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.NewsDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.PodcastDetailByCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.SettingsInfoActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.activities.IntroScreenActivity"
             android:exported="false"
@@ -55,7 +57,6 @@
             android:name=".ui.activities.ContactActivity"
             android:exported="false"
             android:screenOrientation="sensorPortrait" />
-
         <activity
             android:name=".ui.activities.SeeAllActivity"
             android:exported="false"
@@ -98,7 +99,7 @@
         <service
             android:name=".data.services.MusicPlayerService"
             android:exported="false"
-            android:foregroundServiceType="mediaPlayback"></service>
+            android:foregroundServiceType="mediaPlayback" />
 
         <receiver
             android:name=".utils.NotificationController"
