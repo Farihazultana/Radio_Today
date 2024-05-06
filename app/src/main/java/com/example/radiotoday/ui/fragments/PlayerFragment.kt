@@ -180,37 +180,44 @@ class PlayerFragment() : BottomSheetDialogFragment() {
             binding.ivNonFavorite.visibility = View.GONE
         }
 
-        val position = SongList.getCurrentPosition()
-        var videoId = SongList.getSongsList()[position].url
-        val embedCode = SongList.getSongsList()[position].embed_code
-        Log.i("VideoPlayer", "onViewCreated: $embedCode")
-        if (embedCode != null){
-            binding.layoutPlayer.visibility = View.GONE
-            binding.layoutYouTubePlayer.visibility = View.VISIBLE
-            val youTubePlayerView = binding.youtubePlayerView
-            lifecycle.addObserver(youTubePlayerView)
+        val songList = SongList.getSongsList()
+        if (songList.isNotEmpty()) {
+            val position = SongList.getCurrentPosition()
+            var videoId = songList[position].url
+            val embedCode = songList[position].embed_code
+            Log.i("VideoPlayer", "onViewCreated: $embedCode")
+            if (embedCode != null){
+                binding.layoutPlayer.visibility = View.GONE
+                binding.layoutYouTubePlayer.visibility = View.VISIBLE
+                val youTubePlayerView = binding.youtubePlayerView
+                lifecycle.addObserver(youTubePlayerView)
 
-            if (embedCode != "Active"){
-                Log.i("VideoPlayer", "onViewCreated: $videoId")
-                if (videoId != null) {
-                    videoId = extractVideoIdFromUrl(videoId)
-                }
-            }
-
-            youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-
-                    Log.i("VideoPlayer", "onReady: $videoId")
+                if (embedCode != "Active"){
+                    Log.i("VideoPlayer", "onViewCreated: $videoId")
                     if (videoId != null) {
-                        youTubePlayer.loadVideo(videoId, 0f)
+                        videoId = extractVideoIdFromUrl(videoId)
                     }
                 }
-            })
-        }else{
-            binding.layoutPlayer.visibility = View.VISIBLE
-            binding.layoutYouTubePlayer.visibility = View.GONE
 
+                youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+
+                        Log.i("VideoPlayer", "onReady: $videoId")
+                        if (videoId != null) {
+                            youTubePlayer.loadVideo(videoId, 0f)
+                        }
+                    }
+                })
+            }else{
+                binding.layoutPlayer.visibility = View.VISIBLE
+                binding.layoutYouTubePlayer.visibility = View.GONE
+
+            }
+        }else{
+            Log.i("TAG", "onViewCreated: Empty playlist")
         }
+
+
 
     }
 

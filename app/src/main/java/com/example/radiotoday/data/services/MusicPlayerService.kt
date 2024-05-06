@@ -30,7 +30,6 @@ import com.example.radiotoday.utils.SharedPreferencesUtil
 class MusicPlayerService : Service(), PlayAction {
     private val notificationReceiver: NotificationController = NotificationController()
 
-
     private lateinit var mediaSession: MediaSessionCompat
 
     private val binder = MusicPlayerBinder()
@@ -96,32 +95,6 @@ class MusicPlayerService : Service(), PlayAction {
                 else -> {}
             }
         }
-
-        val startPlayerStatus = SharedPreferencesUtil.getData(applicationContext, AppUtils.SWITCH, false)
-
-        /*if (startPlayerStatus == true) {
-            // Start playing music if the switch is on
-            startForeground(
-                1,
-                NotificationUtils.createNotification(
-                    this,
-                    mediaSession,
-                    isPlaying,
-                    currentPosition,
-                    duration,
-                    mediaPlayerDataList
-                ),
-                FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
-            )
-
-            val liveUrls = listOf("http://stream.zeno.fm/8wv4d8g4344tv", "http://stream.zeno.fm/8wv4d8g4344tv")
-            //initializePlayer()
-            isPlaying = true
-            playMusic()
-        } else {
-            // Stop playing music if the switch is off
-            pauseMusic()
-        }*/
 
         return START_NOT_STICKY
     }
