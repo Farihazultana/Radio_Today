@@ -136,7 +136,7 @@ class LoginActivity : AppCompatActivity() {
                     is ResultType.Success -> {
                         val result = it.data
                         Toast.makeText(this@LoginActivity, result.message, Toast.LENGTH_SHORT).show()
-                        dialog.dismiss()
+
                     }
                     is ResultType.Error -> {
 
