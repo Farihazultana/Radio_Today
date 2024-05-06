@@ -1,5 +1,6 @@
 package com.example.radiotoday.data.services
 
+import com.example.radiotoday.data.models.ForgetResposnse
 import com.example.radiotoday.data.models.MainResponse
 import com.example.radiotoday.data.models.home.HomeResponse
 import com.example.radiotoday.data.models.login.LogoutResponse
@@ -178,7 +179,7 @@ interface ApiServices {
     @POST("api/forgot-password")
     suspend fun postForgetPasswordData(
         @Field("email") email: String
-    ): Response<MainResponse>
+    ): Response<ForgetResposnse>
 
 
 }

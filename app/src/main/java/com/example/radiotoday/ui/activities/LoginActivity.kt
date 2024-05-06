@@ -113,10 +113,10 @@ class LoginActivity : AppCompatActivity() {
 
         forgetPasswordObserve()
         binding.tvForget.setOnClickListener {
-            AppUtils.setDialog(this, R.layout.dialog_forget_password)
+            dialog = AppUtils.setDialog(this, R.layout.dialog_forget_password)
             val btnSenRequest = dialog.findViewById<Button>(R.id.btnSendRequest)
             btnSenRequest.setOnClickListener {
-                val enteredEmail = dialog.findViewById<TextInputEditText>(androidx.core.R.id.edit_text_id).text.toString()
+                val enteredEmail = dialog.findViewById<TextInputEditText>(R.id.input_Reg_username).text.toString()
                 if (enteredEmail.isNotEmpty()){
                     forgetPasswordApiCall(enteredEmail)
                 }
@@ -136,6 +136,7 @@ class LoginActivity : AppCompatActivity() {
                     is ResultType.Success -> {
                         val result = it.data
                         Toast.makeText(this@LoginActivity, result.message, Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
                     }
                     is ResultType.Error -> {
 
